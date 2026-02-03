@@ -64,6 +64,9 @@ export class ContextMenuXmlPartReader extends AbstractFormXmlPartReader {
             id: 0,
             name: ''
         };
+        
+        // Устанавливаем тип для идентификации
+        (contextMenu as any).type = 'ContextMenu';
 
         // id
         const id = this.readId(contextMenuNode);

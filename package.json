@@ -225,7 +225,9 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"lint": "eslint . --ext .ts,.tsx",
-		"precompile": "node node_modules/xslt3/xslt3.js -nogo -xsl:xslt/form.xsl -export:xslt/form.sef.json -t"
+		"precompile": "node node_modules/xslt3/xslt3.js -nogo -xsl:xslt/form.xsl -export:xslt/form.sef.json -t",
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
 	"devDependencies": {
 		"@types/adm-zip": "^0.5.7",
@@ -235,6 +237,7 @@
 		"@typescript-eslint/parser": "^8.33.1",
 		"eslint": "^9.28.0",
 		"typescript": "^5.8.3",
+		"vitest": "^4.0.18",
 		"xslt3": "^2.7.0"
 	},
 	"dependencies": {

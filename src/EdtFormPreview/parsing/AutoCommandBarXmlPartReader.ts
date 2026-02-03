@@ -39,6 +39,9 @@ export class AutoCommandBarXmlPartReader extends AbstractFormXmlPartReader {
             name: 'AutoCommandBar',
             id: 0
         };
+        
+        // Устанавливаем тип для идентификации
+        (commandBar as any).type = 'AutoCommandBar';
 
         // id
         const id = this.readId(node);

@@ -69,6 +69,10 @@ export class TableXmlPartReader extends AbstractFormXmlPartReader {
             id: this.readId(node) ?? 0,
             name: node.attribute('name') ?? ''
         };
+        
+        // Устанавливаем тип для идентификации
+        (table as any).type = 'Table';
+        
         table.displayImportance = this.readDisplayImportance(node);
         
         // === Представление ===
