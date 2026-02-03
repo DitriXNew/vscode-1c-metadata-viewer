@@ -36,4 +36,7 @@ export interface FormGroup extends Group {
   
   /** Расширенная подсказка */
   extendedTooltip?: ExtendedTooltip;
+
+  /** Обработчики событий */
+  handlers?: { name: string; handler: string }[];
 }

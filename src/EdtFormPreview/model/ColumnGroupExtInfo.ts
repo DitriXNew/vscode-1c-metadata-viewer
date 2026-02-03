@@ -13,8 +13,8 @@ export interface ColumnGroupExtInfo extends GroupExtInfo {
   /** Группировка колонок */
   group?: ColumnGrouping;
   
-  /** Показывать заголовок */
-  showTitle?: boolean;
+  /** Показывать заголовок (boolean для < 8.5.1, enum ShowTitle851 для >= 8.5.1) */
+  showTitle?: boolean | string;
   
   /** Цвет фона заголовка */
   titleBackColor?: Color;
@@ -43,6 +43,6 @@ export interface ColumnGroupExtInfo extends GroupExtInfo {
   /** Показывать в карточке */
   showInCard?: boolean;
   
-  /** Фиксировать в карточке */
-  fixInCard?: boolean;
+  /** Фиксировать в карточке (enum для >= 8.5.1) */
+  fixInCard?: boolean | string;
 }

@@ -37,8 +37,8 @@ export interface PageGroupExtInfo extends GroupExtInfo {
   /** Формат */
   format?: LocalizedString | LocalizedString[];
   
-  /** Показывать заголовок */
-  showTitle?: boolean;
+  /** Показывать заголовок (boolean для < 8.5.1, enum ShowTitle851 для >= 8.5.1) */
+  showTitle?: boolean | string;
   
   /** Путь к данным заголовка */
   titleDataPath?: AbstractDataPath;
@@ -49,6 +49,6 @@ export interface PageGroupExtInfo extends GroupExtInfo {
   /** Расположение заголовков дочерних элементов */
   childItemsTitleLocation?: ChildrenTitleLocation;
   
-  /** Прокрутка при сжатии */
-  scrollOnCompress?: boolean;
+  /** Прокрутка при сжатии (boolean для < 8.5.1, enum ScrollOnCompress851 для >= 8.5.1) */
+  scrollOnCompress?: boolean | string;
 }
