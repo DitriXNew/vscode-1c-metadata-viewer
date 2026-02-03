@@ -6,15 +6,7 @@
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { UseOutput } from './UseOutput';
-
-/**
- * Расположение строки состояния просмотра
- */
-export type ViewStatusLocation = 
-    | 'Auto'
-    | 'Top'
-    | 'Bottom'
-    | 'None';
+import { ViewStatusLocation } from './ViewStatusLocation';
 
 /**
  * Расширенная информация для поля PDF документа

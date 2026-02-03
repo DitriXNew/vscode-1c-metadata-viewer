@@ -3,25 +3,13 @@
  * Based on EDT com._1c.g5.v8.dt.form.model.FormCommand
  */
 
-import { AdjustableBoolean } from './FormAttribute';
+import { AdjustableBoolean } from './AdjustableBoolean';
 import { LocalizedString } from './LocalizedString';
 import { CurrentRowUse } from './CurrentRowUse';
 import { Picture } from './Picture';
 import { DefaultRepresentation } from './DefaultRepresentation';
-
-/**
- * Назначение действия команды
- */
-export type CommandActionPurpose = 
-    | 'Auto'
-    | 'GeneratePrintForm';
-
-/**
- * Использование выделенных строк
- */
-export type SelectedRowsUse = 
-    | 'Auto'
-    | 'DontUse';
+import { CommandActionPurpose } from './CommandActionPurpose';
+import { SelectedRowsUse } from './SelectedRowsUse';
 
 /**
  * Обработчик команды

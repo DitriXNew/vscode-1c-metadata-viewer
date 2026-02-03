@@ -132,12 +132,12 @@ export abstract class AbstractFormFieldXmlPartReader extends AbstractFormXmlPart
 
             field.markRequiredComplete = this.readBoolean(node.get('MarkRequiredComplete'));
             field.appearanceInCard = this.readEnum(node.get('AppearanceInCard'));
-            field.autoWidthInTable = this.readBoolean(node.get('AutoWidthInTable'));
+            field.autoWidthInTable = this.readEnum(node.get('AutoWidthInTable'));
             field.cellMark = this.readEnum(node.get('CellMark'));
             field.fixInCard = this.readBoolean(node.get('FixInCard'));
             field.showInCard = this.readBoolean(node.get('ShowInCard'));
             field.showTitleInCard = this.readBoolean(node.get('ShowTitleInCard'));
-            field.widthInCard = this.readNumber(node.get('WidthInCard'));
+            field.widthInCard = this.readEnum(node.get('WidthInCard'));
             field.cellHyperlinkRepresentation = this.readEnum(node.get('CellHyperlinkRepresentation'));
             field.cellHyperlinkDisplayVariant = this.readEnum(node.get('CellHyperlinkDisplayVariant'));
         }

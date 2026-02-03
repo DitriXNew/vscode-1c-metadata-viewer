@@ -13,28 +13,10 @@ import { FormItemSpacing } from './FormItemSpacing';
 import { ChildrenTitleLocation } from './ChildrenTitleLocation';
 import { FormChildrenWidth } from './FormChildrenWidth';
 import { CurrentRowUse } from './CurrentRowUse';
-
-export type UsualGroupBehavior = 
-  | 'Auto'
-  | 'Usual'
-  | 'Collapsible';
-
-export type UsualGroupControlRepresentation = 
-  | 'Auto'
-  | 'Picture'
-  | 'Text'
-  | 'PictureAndText';
-
-export type UsualGroupRepresentation = 
-  | 'None'
-  | 'WeakSeparation'
-  | 'NormalSeparation'
-  | 'StrongSeparation';
-
-export type UsualGroupThroughAlign = 
-  | 'Auto'
-  | 'Use'
-  | 'DontUse';
+import { UsualGroupBehavior } from './UsualGroupBehavior';
+import { UsualGroupControlRepresentation } from './UsualGroupControlRepresentation';
+import { UsualGroupRepresentation } from './UsualGroupRepresentation';
+import { UsualGroupThroughAlign } from './UsualGroupThroughAlign';
 
 export interface UsualGroupExtInfo extends GroupExtInfo {
   /** Группировка дочерних элементов */

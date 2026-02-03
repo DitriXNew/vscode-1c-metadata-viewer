@@ -8,16 +8,8 @@ import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
 import { Picture } from './Picture';
 import { LocalizedString } from './LocalizedString';
-
-export type ColumnGrouping = 
-  | 'Vertical'
-  | 'InCell'
-  | 'Horizontal';
-
-export type FormFixedInTable = 
-  | 'None'
-  | 'Left'
-  | 'Right';
+import { ColumnGrouping } from './ColumnGrouping';
+import { FormFixedInTable } from './FormFixedInTable';
 
 export interface ColumnGroupExtInfo extends GroupExtInfo {
   /** Группировка колонок */

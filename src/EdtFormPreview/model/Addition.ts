@@ -6,7 +6,7 @@
 import { FormItem } from './FormItem';
 import { AdditionExtInfo } from './AdditionExtInfo';
 import { ItemVerticalAlignment } from './ItemAlignment';
-import { MenuElementPlacementArea } from './ButtonGroupExtInfo';
+import { MenuElementPlacementArea } from './MenuElementPlacementArea';
 import { ManagedFormAdditionType } from './ManagedFormAdditionType';
 
 /**

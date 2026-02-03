@@ -4,7 +4,7 @@
  */
 
 import { DefaultRepresentation } from './DefaultRepresentation';
-import { SelectedRowsUse } from './FormCommand';
+import { SelectedRowsUse } from './SelectedRowsUse';
 import { CurrentRowUse } from './CurrentRowUse';
 import { Picture } from './Picture';
 

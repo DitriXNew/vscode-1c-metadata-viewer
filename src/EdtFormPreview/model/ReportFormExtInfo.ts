@@ -5,22 +5,9 @@
 
 import { FormExtInfo } from './FormExtInfo';
 import { ReportFormType } from './ReportFormType';
-
-export type AutoShowStateMode = 
-    | 'Auto'
-    | 'DontShow'
-    | 'ShowOnTop'
-    | 'ShowAtBottom';
-
-export type ReportResultViewMode = 
-    | 'Auto'
-    | 'Form'
-    | 'Window';
-
-export type ViewModeApplicationOnSetReportResult = 
-    | 'Auto'
-    | 'Apply'
-    | 'DontApply';
+import { AutoShowStateMode } from './AutoShowStateMode';
+import { ReportResultViewMode } from './ReportResultViewMode';
+import { ViewModeApplicationOnSetReportResult } from './ViewModeApplicationOnSetReportResult';
 
 export interface ReportFormExtInfo extends FormExtInfo {
     /** Показ состояния */

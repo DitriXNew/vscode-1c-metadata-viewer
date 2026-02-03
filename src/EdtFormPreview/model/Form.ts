@@ -1,6 +1,17 @@
 /**
  * Form - главный интерфейс формы
  * Based on EDT com._1c.g5.v8.dt.form.model.Form
+ * 
+ * Наследует:
+ * - Titled
+ * - FormVisualEntity
+ * - FormItemContainer
+ * - CommandBarHolder
+ * - EventHandlerContainer
+ * - AbstractForm
+ * - FieldSource
+ * - FormStandardCommandSource
+ * - ExtensionAdoptedProperty
  */
 
 import { FormItem } from './FormItem';
@@ -22,97 +33,23 @@ import { SaveFormDataInSettings } from './SaveFormDataInSettings';
 import { FormBaseFontVariant } from './FormBaseFontVariant';
 import { FormExtInfo } from './FormExtInfo';
 import { AutoCommandBar } from './AutoCommandBar';
-
-/**
- * Расположение командной панели элемента формы
- */
-export type FormElementCommandBarLocation = 
-    | 'Auto'
-    | 'None'
-    | 'Top'
-    | 'Bottom';
-
-/**
- * Режим блокировки при открытии окна формы
- */
-export type OnFormWindowOpenLockMode = 
-    | 'Window'
-    | 'WholeInterface';
-
-/**
- * Режим просмотра окна формы
- */
-export type FormWindowViewMode = 
-    | 'Normal'
-    | 'Minimized'
-    | 'Maximized';
-
-/**
- * Автосохранение данных формы в настройках
- */
-export type AutoSaveFormDataInSettings = 
-    | 'Auto'
-    | 'Use'
-    | 'DontUse';
-
-/**
- * Режим прокрутки формы
- */
-export type LogFormScrollMode = 
-    | 'UseIfNecessary'
-    | 'Use'
-    | 'DontUse';
-
-/**
- * Показывать заголовок (8.5.1)
- */
-export type ShowTitle851 = 
-    | 'Auto'
-    | 'Show'
-    | 'Hide';
-
-/**
- * Представление обсуждений формы
- */
-export type FormConversationsRepresentation = 
-    | 'Auto'
-    | 'None'
-    | 'Compact'
-    | 'Full';
-
-/**
- * Сворачивание элементов формы по важности
- */
-export type CollapseFormItemsByImportance = 
-    | 'Auto'
-    | 'DontCollapse'
-    | 'Collapse';
-
-/**
- * Вариант масштаба формы клиентского приложения
- */
-export type ClientApplicationFormScaleVariant = 
-    | 'Auto'
-    | 'Normal'
-    | 'Compact'
-    | 'Large';
-
-/**
- * Интерфейс командной панели формы
- */
-export interface FormCommandInterface {
-    /** Навигационная панель */
-    navigationPanel?: any;
-    /** Командная панель */
-    commandPanel?: any;
-}
-
-/**
- * Источник глобальных команд командной панели
- */
-export type FormCommandPanelGlobalCommandSource = 
-    | 'Auto'
-    | 'Enabled';
+import { FormPurpose } from './FormPurpose';
+import { ValueListItem } from './ValueListItem';
+import { ElementDataSourceInfo } from './ElementDataSourceInfo';
+import { PropertyInfo } from './PropertyInfo';
+import { OnFormWindowOpenLockMode } from './OnFormWindowOpenLockMode';
+import { FormWindowViewMode } from './FormWindowViewMode';
+import { AutoSaveFormDataInSettings } from './AutoSaveFormDataInSettings';
+import { LogFormScrollMode } from './LogFormScrollMode';
+import { ShowTitle851 } from './ShowTitle851';
+import { FormConversationsRepresentation } from './FormConversationsRepresentation';
+import { CollapseFormItemsByImportance } from './CollapseFormItemsByImportance';
+import { ClientApplicationFormScaleVariant } from './ClientApplicationFormScaleVariant';
+import { InterfaceType } from './InterfaceType';
+import { FormElementCommandBarLocation } from './FormElementCommandBarLocation';
+import { FormCommandPanelGlobalCommandSource } from './FormCommandPanelGlobalCommandSource';
+import { DataCompositionConditionalAppearance } from './DataCompositionConditionalAppearance';
+import { FormCommandInterface } from './FormCommandInterface';
 
 /**
  * Главный интерфейс формы
@@ -267,4 +204,28 @@ export interface Form {
     
     /** FAB командная панель (мобильная) */
     fabCommandBar?: AutoCommandBar;
+    
+    /** Условное оформление */
+    conditionalAppearance?: DataCompositionConditionalAppearance;
+    
+    /** Назначение формы */
+    purpose?: FormPurpose;
+    
+    /** Тип интерфейса (использовать с назначением) */
+    interfaceType?: InterfaceType;
+    
+    /** Базовая форма (для расширений) */
+    baseForm?: Form;
+    
+    /** Форма расширения */
+    extensionForm?: Form;
+    
+    /** Содержимое командной панели мобильного устройства */
+    mobileDeviceCommandBarContent?: ValueListItem[];
+    
+    /** Информация о свойствах */
+    propertyInfos?: PropertyInfo[];
+    
+    /** Информация об источниках данных элементов */
+    elementDataSourceInfos?: ElementDataSourceInfo[];
 }

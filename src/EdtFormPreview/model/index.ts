@@ -418,3 +418,16 @@ export * from './ValueListExtInfo';
 // Интерфейсы провайдеров
 export * from './IElementDataSourceInfoProvider';
 export * from './IPropertyInfoProvider';
+
+// Дополнительные типы формы
+export * from './InterfaceType';
+export * from './FormElementCommandBarLocation';
+export * from './FormCommandPanelGlobalCommandSource';
+export * from './OnMainServerUnavalableBehavior';
+export * from './DataCompositionConditionalAppearance';
+export * from './FormCommandInterface';
+export * from './PictureBackgroundShowMode';
+export * from './FormFixedInTable';
+export * from './AutoShowStateMode';
+export * from './ReportResultViewMode';
+export * from './AdjustableBoolean';

@@ -5,22 +5,8 @@
 
 import { LocalizedString } from './LocalizedString';
 import { FormAttributeExtInfo } from './FormAttributeExtInfo';
-
-/**
- * Проверка заполнения
- */
-export type FillChecking = 
-    | 'DontCheck'
-    | 'ShowError'
-    | 'ShowWarning';
-
-/**
- * Настраиваемое булево
- */
-export type AdjustableBoolean = 
-    | 'Auto'
-    | 'Use'
-    | 'DontUse';
+import { FillChecking } from './FillChecking';
+import { AdjustableBoolean } from './AdjustableBoolean';
 
 /**
  * Описание типа

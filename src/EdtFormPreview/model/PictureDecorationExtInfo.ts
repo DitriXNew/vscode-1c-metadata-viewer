@@ -7,7 +7,8 @@ import { Color } from './Color';
 import { Picture } from './Picture';
 import { Border } from './Border';
 import { PictureSize } from './PictureSize';
-import { PictureBackgroundShowMode, FileDragMode } from './ImageFieldExtInfo';
+import { PictureBackgroundShowMode } from './PictureBackgroundShowMode';
+import { FileDragMode } from './FileDragMode';
 import { LocalizedString } from './LocalizedString';
 
 export interface PictureDecorationExtInfo extends DecorationExtInfo {

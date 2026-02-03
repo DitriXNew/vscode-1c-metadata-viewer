@@ -8,55 +8,12 @@ import { ItemFont } from './FormVisualEntity';
 import { Color } from './Color';
 import { SelectionShowMode } from './SelectionShowMode';
 import { UseOutput } from './UseOutput';
-
-/**
- * Тип указателя табличного документа
- */
-export type SpreadsheetDocumentPointerType = 
-    | 'Default'
-    | 'Special';
-
-/**
- * Режим отображения кнопки действий ячейки
- */
-export type CellActionsButtonViewMode = 
-    | 'Auto'
-    | 'Always'
-    | 'Never';
-
-/**
- * Режим отображения панели множественного выбора
- */
-export type SpreadsheetDocumentMultipleSelectionPanelViewMode = 
-    | 'Auto'
-    | 'Show'
-    | 'Hide';
-
-/**
- * Использование полосы прокрутки табличного документа
- */
-export type SpreadSheetDocumentScrollBarUse = 
-    | 'Use'
-    | 'DontUse'
-    | 'Auto';
-
-/**
- * Режим отображения выделения рисунка
- */
-export type DrawingSelectionShowMode = 
-    | 'Always'
-    | 'WhenActive'
-    | 'Never';
-
-/**
- * Режим масштабирования отображения
- */
-export type ViewScalingMode = 
-    | 'Auto'
-    | 'Normal'
-    | 'MultiplePages'
-    | 'PageWidth'
-    | 'WholePage';
+import { SpreadsheetDocumentPointerType } from './SpreadsheetDocumentPointerType';
+import { CellActionsButtonViewMode } from './CellActionsButtonViewMode';
+import { SpreadsheetDocumentMultipleSelectionPanelViewMode } from './SpreadsheetDocumentMultipleSelectionPanelViewMode';
+import { SpreadSheetDocumentScrollBarUse } from './SpreadSheetDocumentScrollBarUse';
+import { DrawingSelectionShowMode } from './DrawingSelectionShowMode';
+import { ViewScalingMode } from './ViewScalingMode';
 
 /**
  * Расширенная информация для поля табличного документа

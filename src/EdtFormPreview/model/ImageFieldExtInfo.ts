@@ -9,16 +9,8 @@ import { Picture } from './Picture';
 import { Border } from './Border';
 import { LocalizedString } from './LocalizedString';
 import { PictureSize } from './PictureSize';
-
-export type PictureBackgroundShowMode = 
-  | 'Auto'
-  | 'Transparent'
-  | 'LeftTopPixel';
-
-export type FileDragMode = 
-  | 'Auto'
-  | 'AsFile'
-  | 'AsFileRef';
+import { PictureBackgroundShowMode } from './PictureBackgroundShowMode';
+import { FileDragMode } from './FileDragMode';
 
 export interface ImageFieldExtInfo extends FieldExtInfo {
   /** Ширина */

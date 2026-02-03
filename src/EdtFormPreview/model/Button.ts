@@ -15,23 +15,13 @@ import { ExtendedTooltip } from './ExtendedTooltip';
 import { ButtonShape } from './ButtonShape';
 import { ButtonShapeRepresentation } from './ButtonShapeRepresentation';
 import { ButtonImportance } from './ButtonImportance';
-import { MenuElementPlacementArea } from './ButtonGroupExtInfo';
+import { MenuElementPlacementArea } from './MenuElementPlacementArea';
 import { EventHandler } from './EventHandler';
 import { ManagedFormButtonType } from './ManagedFormButtonType';
 import { FormButtonPictureLocation } from './FormButtonPictureLocation';
 import { ButtonRepresentation } from './ButtonRepresentation';
-
-export type ButtonLocationInCommandBar = 
-  | 'Auto'
-  | 'InCommandBar'
-  | 'InAdditionalSubmenu'
-  | 'InCommandBarAndInAdditionalSubmenu';
-
-export type RepresentationInContextMenu = 
-  | 'Auto'
-  | 'Text'
-  | 'Picture'
-  | 'PictureAndText';
+import { ButtonLocationInCommandBar } from './ButtonLocationInCommandBar';
+import { RepresentationInContextMenu } from './RepresentationInContextMenu';
 
 export interface Button extends DataItem {
   /** Тип кнопки */
@@ -124,8 +114,14 @@ export interface Button extends DataItem {
   /** Картинка фона */
   backPicture?: Picture;
   
+  /** Эффект картинки фона */
+  backPictureEffect?: string;
+  
   /** Высота картинки */
   pictureHeight?: number;
+  
+  /** Выравнивание картинки и заголовка в карточке */
+  cardPictureAndTitleAlign?: string;
   
   /** Расположение в командной панели */
   locationInCommandBar?: ButtonLocationInCommandBar;
@@ -133,11 +129,20 @@ export interface Button extends DataItem {
   /** Представление в контекстном меню */
   representationInContextMenu?: RepresentationInContextMenu;
   
+  /** Представление подсказки */
+  toolTipRepresentation?: string;
+  
   /** Уникальность команды */
   commandUniqueness?: boolean;
   
+  /** Поведение при недоступности главного сервера */
+  onMainServerUnavalableBehavior?: string;
+  
   /** Показывать как карточку */
   showAsCard?: boolean;
+  
+  /** Внешнее имя */
+  extName?: string;
   
   /** Расширенная подсказка */
   extendedTooltip?: ExtendedTooltip;

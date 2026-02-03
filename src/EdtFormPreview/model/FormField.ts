@@ -4,9 +4,15 @@
  * 
  * Наследует:
  * - DataItem
+ * - FormStandardCommandSource
  * - TitleStyle
  * - TooltipContainer
  * - EventHandlerContainer
+ * - ExtendedTooltipHolder
+ * - ContextMenuHolder
+ * - SelectedItemsActionsPanelHolder
+ * - AdditionSource
+ * - ExtensionAdoptedProperty
  */
 import { DataItem } from './DataItem';
 import { TooltipContainer } from './TooltipContainer';
@@ -22,10 +28,18 @@ import { LabelFieldExtInfo } from './LabelFieldExtInfo';
 import { CheckBoxFieldExtInfo } from './CheckBoxFieldExtInfo';
 import { ImageFieldExtInfo } from './ImageFieldExtInfo';
 import { ExtendedTooltip } from './ExtendedTooltip';
-import { FormFixedInTable } from './ColumnGroupExtInfo';
+import { FormFixedInTable } from './FormFixedInTable';
 import { TableFieldEditMode } from './TableFieldEditMode';
 import { WarningOnEditRepresentation } from './WarningOnEditRepresentation';
 import { LocalizedString } from './LocalizedString';
+import { AbstractDataPath } from './AbstractDataPath';
+import { WidthVariantInCard } from './WidthVariantInCard';
+import { AppearanceVariantInCard } from './AppearanceVariantInCard';
+import { TableCellMarkType } from './TableCellMarkType';
+import { CellHyperlinkRepresentation } from './CellHyperlinkRepresentation';
+import { CellHyperlinkDisplayVariant } from './CellHyperlinkDisplayVariant';
+import { AutoWidthInTable } from './AutoWidthInTable';
+import { OnMainServerUnavalableBehavior } from './OnMainServerUnavalableBehavior';
 
 export interface FormField extends DataItem, TooltipContainer {
   /** Тип поля */
@@ -107,28 +121,35 @@ export interface FormField extends DataItem, TooltipContainer {
   showInCard?: boolean;
   
   /** Фиксировать в карточке */
+  /** Фиксировать в карточке */
   fixInCard?: boolean;
   
   /** Показывать заголовок в карточке */
   showTitleInCard?: boolean;
   
   /** Ширина в карточке */
-  widthInCard?: number;
+  widthInCard?: WidthVariantInCard;
   
   /** Отметка ячейки */
-  cellMark?: string;
+  cellMark?: TableCellMarkType;
   
   /** Внешний вид в карточке */
-  appearanceInCard?: string;
+  appearanceInCard?: AppearanceVariantInCard;
   
   /** Авто ширина в таблице */
-  autoWidthInTable?: boolean;
+  autoWidthInTable?: AutoWidthInTable;
   
   /** Представление гиперссылки ячейки */
-  cellHyperlinkRepresentation?: string;
+  cellHyperlinkRepresentation?: CellHyperlinkRepresentation;
   
   /** Вариант отображения гиперссылки ячейки */
-  cellHyperlinkDisplayVariant?: string;
+  cellHyperlinkDisplayVariant?: CellHyperlinkDisplayVariant;
+  
+  /** Путь к данным подвала */
+  footerDataPath?: AbstractDataPath;
+  
+  /** Поведение при недоступности главного сервера */
+  onMainServerUnavalableBehavior?: OnMainServerUnavalableBehavior;
   
   /** Ширина */
   width?: number;

@@ -4,30 +4,9 @@
  */
 
 import { FieldExtInfo } from './FieldExtInfo';
-
-/**
- * Расположение таблицы диаграммы Ганта
- */
-export type GanttChartTableLocation = 
-    | 'None'
-    | 'Left'
-    | 'Top';
-
-/**
- * Режим выбора значений диаграммы Ганта
- */
-export type GanttChartValuesSelectionMode = 
-    | 'Single'
-    | 'Multiple'
-    | 'None';
-
-/**
- * Режим выбора интервалов диаграммы Ганта
- */
-export type GanttChartIntervalsSelectionMode = 
-    | 'Single'
-    | 'Multiple'
-    | 'None';
+import { GanttChartTableLocation } from './GanttChartTableLocation';
+import { GanttChartValuesSelectionMode } from './GanttChartValuesSelectionMode';
+import { GanttChartIntervalsSelectionMode } from './GanttChartIntervalsSelectionMode';
 
 /**
  * Расширенная информация для поля диаграммы Ганта

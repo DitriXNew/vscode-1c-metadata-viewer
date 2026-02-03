@@ -5,7 +5,7 @@
 import { GroupExtInfo } from './GroupExtInfo';
 import { Color } from './Color';
 import { Picture } from './Picture';
-import { MenuElementPlacementArea } from './ButtonGroupExtInfo';
+import { MenuElementPlacementArea } from './MenuElementPlacementArea';
 import { ButtonShape } from './ButtonShape';
 import { ButtonShapeRepresentation } from './ButtonShapeRepresentation';
 import { ButtonImportance } from './ButtonImportance';
