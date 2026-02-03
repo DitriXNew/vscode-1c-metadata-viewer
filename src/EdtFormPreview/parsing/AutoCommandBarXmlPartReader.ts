@@ -6,11 +6,30 @@
 import { XmlNode } from './XmlNode';
 import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } from './AbstractFormXmlPartReader';
 import { AutoCommandBar } from '../model/AutoCommandBar';
+import { FormItem } from '../model/FormItem';
+
+/**
+ * Callback для чтения дочерних элементов
+ */
+type ChildItemsReader = (
+    childItemsNode: XmlNode,
+    context: XmlReaderContext,
+    errorCollector: XmlReadErrorCollector
+) => FormItem[];
 
 /**
  * Парсер автокомандной панели
  */
 export class AutoCommandBarXmlPartReader extends AbstractFormXmlPartReader {
+
+    private childItemsReader: ChildItemsReader | undefined;
+
+    /**
+     * Устанавливает callback для рекурсивного чтения дочерних элементов
+     */
+    setChildItemsReader(reader: ChildItemsReader): void {
+        this.childItemsReader = reader;
+    }
 
     /**
      * Читает автокомандную панель из XML узла
@@ -98,8 +117,11 @@ export class AutoCommandBarXmlPartReader extends AbstractFormXmlPartReader {
         // Autofill
         commandBar.autoFill = this.readBoolean(node.get('Autofill'));
 
-        // ChildItems - дочерние элементы будут парситься отдельно
-        // TODO: интеграция с FormChildItemsXmlPartReader
+        // ChildItems - дочерние элементы
+        const childItemsNode = node.get('ChildItems');
+        if (childItemsNode.exists() && this.childItemsReader) {
+            commandBar.items = this.childItemsReader(childItemsNode, context, _errorCollector);
+        }
 
         return commandBar;
     }

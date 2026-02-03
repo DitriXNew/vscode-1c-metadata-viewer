@@ -35,6 +35,45 @@ import { ButtonXmlPartReader } from './button/ButtonXmlPartReader';
 import { LabelDecorationXmlPartReader } from './decoration/LabelDecorationXmlPartReader';
 import { PictureDecorationXmlPartReader } from './decoration/PictureDecorationXmlPartReader';
 
+// Импорты ридеров для полей документов
+import { 
+    SpreadSheetDocumentFieldXmlPartReader,
+    TextDocumentFieldXmlPartReader,
+    HTMLDocumentFieldXmlPartReader,
+    FormattedDocumentFieldXmlPartReader,
+    PDFDocumentFieldXmlPartReader
+} from './fields/documents';
+
+// Импорты ридеров для специальных полей
+import {
+    CalendarFieldXmlPartReader,
+    PeriodFieldXmlPartReader,
+    ProgressBarFieldXmlPartReader,
+    TrackBarFieldXmlPartReader,
+    ChartFieldXmlPartReader,
+    GanttChartFieldXmlPartReader,
+    DendrogramFieldXmlPartReader,
+    GraphicalSchemaFieldXmlPartReader,
+    GeographicalSchemaFieldXmlPartReader,
+    PlannerFieldXmlPartReader
+} from './fields/special';
+
+// Импорты ридеров для дополнений
+import {
+    SearchStringAdditionXmlPartReader,
+    ViewStatusAdditionXmlPartReader,
+    SearchControlAdditionXmlPartReader
+} from './additions';
+
+// Импорт ридера для контекстного меню
+import { ContextMenuXmlPartReader } from './contextmenu';
+
+// Импорт ридера для расширенной подсказки
+import { ExtendedTooltipXmlPartReader } from './extendedtooltip';
+
+// Импорт ридера для автокомандной панели
+import { AutoCommandBarXmlPartReader } from './AutoCommandBarXmlPartReader';
+
 /**
  * Парсер дочерних элементов формы
  * 
@@ -68,6 +107,39 @@ export class FormChildItemsXmlPartReader extends AbstractFormXmlPartReader {
     private readonly labelDecorationReader: LabelDecorationXmlPartReader;
     private readonly pictureDecorationReader: PictureDecorationXmlPartReader;
 
+    // Ридеры полей документов
+    private readonly spreadSheetDocumentFieldReader: SpreadSheetDocumentFieldXmlPartReader;
+    private readonly textDocumentFieldReader: TextDocumentFieldXmlPartReader;
+    private readonly htmlDocumentFieldReader: HTMLDocumentFieldXmlPartReader;
+    private readonly formattedDocumentFieldReader: FormattedDocumentFieldXmlPartReader;
+    private readonly pdfDocumentFieldReader: PDFDocumentFieldXmlPartReader;
+
+    // Ридеры специальных полей
+    private readonly calendarFieldReader: CalendarFieldXmlPartReader;
+    private readonly periodFieldReader: PeriodFieldXmlPartReader;
+    private readonly progressBarFieldReader: ProgressBarFieldXmlPartReader;
+    private readonly trackBarFieldReader: TrackBarFieldXmlPartReader;
+    private readonly chartFieldReader: ChartFieldXmlPartReader;
+    private readonly ganttChartFieldReader: GanttChartFieldXmlPartReader;
+    private readonly dendrogramFieldReader: DendrogramFieldXmlPartReader;
+    private readonly graphicalSchemaFieldReader: GraphicalSchemaFieldXmlPartReader;
+    private readonly geographicalSchemaFieldReader: GeographicalSchemaFieldXmlPartReader;
+    private readonly plannerFieldReader: PlannerFieldXmlPartReader;
+
+    // Ридеры дополнений
+    private readonly searchStringAdditionReader: SearchStringAdditionXmlPartReader;
+    private readonly viewStatusAdditionReader: ViewStatusAdditionXmlPartReader;
+    private readonly searchControlAdditionReader: SearchControlAdditionXmlPartReader;
+
+    // Ридер контекстного меню
+    private readonly contextMenuReader: ContextMenuXmlPartReader;
+
+    // Ридер расширенной подсказки
+    private readonly extendedTooltipReader: ExtendedTooltipXmlPartReader;
+
+    // Ридер автокомандной панели
+    private readonly autoCommandBarReader: AutoCommandBarXmlPartReader;
+
     constructor() {
         super();
         
@@ -97,6 +169,39 @@ export class FormChildItemsXmlPartReader extends AbstractFormXmlPartReader {
         this.labelDecorationReader = new LabelDecorationXmlPartReader();
         this.pictureDecorationReader = new PictureDecorationXmlPartReader();
 
+        // Инициализация ридеров полей документов
+        this.spreadSheetDocumentFieldReader = new SpreadSheetDocumentFieldXmlPartReader();
+        this.textDocumentFieldReader = new TextDocumentFieldXmlPartReader();
+        this.htmlDocumentFieldReader = new HTMLDocumentFieldXmlPartReader();
+        this.formattedDocumentFieldReader = new FormattedDocumentFieldXmlPartReader();
+        this.pdfDocumentFieldReader = new PDFDocumentFieldXmlPartReader();
+
+        // Инициализация ридеров специальных полей
+        this.calendarFieldReader = new CalendarFieldXmlPartReader();
+        this.periodFieldReader = new PeriodFieldXmlPartReader();
+        this.progressBarFieldReader = new ProgressBarFieldXmlPartReader();
+        this.trackBarFieldReader = new TrackBarFieldXmlPartReader();
+        this.chartFieldReader = new ChartFieldXmlPartReader();
+        this.ganttChartFieldReader = new GanttChartFieldXmlPartReader();
+        this.dendrogramFieldReader = new DendrogramFieldXmlPartReader();
+        this.graphicalSchemaFieldReader = new GraphicalSchemaFieldXmlPartReader();
+        this.geographicalSchemaFieldReader = new GeographicalSchemaFieldXmlPartReader();
+        this.plannerFieldReader = new PlannerFieldXmlPartReader();
+
+        // Инициализация ридеров дополнений
+        this.searchStringAdditionReader = new SearchStringAdditionXmlPartReader();
+        this.viewStatusAdditionReader = new ViewStatusAdditionXmlPartReader();
+        this.searchControlAdditionReader = new SearchControlAdditionXmlPartReader();
+
+        // Инициализация ридера контекстного меню
+        this.contextMenuReader = new ContextMenuXmlPartReader();
+
+        // Инициализация ридера расширенной подсказки
+        this.extendedTooltipReader = new ExtendedTooltipXmlPartReader();
+
+        // Инициализация ридера автокомандной панели
+        this.autoCommandBarReader = new AutoCommandBarXmlPartReader();
+
         // Устанавливаем callback для рекурсивного чтения дочерних элементов
         const childItemsReader = (node: XmlNode, ctx: XmlReaderContext, err: XmlReadErrorCollector) => 
             this.read(node, ctx, err);
@@ -109,6 +214,8 @@ export class FormChildItemsXmlPartReader extends AbstractFormXmlPartReader {
         this.popupReader.setChildItemsReader(childItemsReader);
         this.commandBarReader.setChildItemsReader(childItemsReader);
         this.tableReader.setChildItemsReader(childItemsReader);
+        this.contextMenuReader.setChildItemsReader(childItemsReader);
+        this.autoCommandBarReader.setChildItemsReader(childItemsReader);
     }
 
     /**
@@ -160,28 +267,52 @@ export class FormChildItemsXmlPartReader extends AbstractFormXmlPartReader {
             case 'RadioButtonField':
                 return this.radioButtonFieldReader.read(node, context, errorCollector);
 
-            // === Поля документов - TODO ===
+            // === Поля документов ===
             case 'SpreadSheetDocumentField':
-            case 'TextDocumentField':
-            case 'HTMLDocumentField':
-            case 'FormattedDocumentField':
-            case 'PDFDocumentField':
-                errorCollector.addWarning(`Document field type "${nodeName}" not yet implemented`);
-                return undefined;
+                return this.spreadSheetDocumentFieldReader.read(node, context, errorCollector);
 
-            // === Поля специальных типов - TODO ===
+            case 'TextDocumentField':
+                return this.textDocumentFieldReader.read(node, context, errorCollector);
+
+            case 'HTMLDocumentField':
+                return this.htmlDocumentFieldReader.read(node, context, errorCollector);
+
+            case 'FormattedDocumentField':
+                return this.formattedDocumentFieldReader.read(node, context, errorCollector);
+
+            case 'PDFDocumentField':
+                return this.pdfDocumentFieldReader.read(node, context, errorCollector);
+
+            // === Поля специальных типов ===
             case 'CalendarField':
+                return this.calendarFieldReader.read(node, context, errorCollector);
+
             case 'PeriodField':
+                return this.periodFieldReader.read(node, context, errorCollector);
+
             case 'ProgressBarField':
+                return this.progressBarFieldReader.read(node, context, errorCollector);
+
             case 'TrackBarField':
+                return this.trackBarFieldReader.read(node, context, errorCollector);
+
             case 'ChartField':
+                return this.chartFieldReader.read(node, context, errorCollector);
+
             case 'GanttChartField':
+                return this.ganttChartFieldReader.read(node, context, errorCollector);
+
             case 'DendrogramField':
+                return this.dendrogramFieldReader.read(node, context, errorCollector);
+
             case 'GraphicalSchemaField':
+                return this.graphicalSchemaFieldReader.read(node, context, errorCollector);
+
             case 'GeographicalSchemaField':
+                return this.geographicalSchemaFieldReader.read(node, context, errorCollector);
+
             case 'PlannerField':
-                errorCollector.addWarning(`Special field type "${nodeName}" not yet implemented`);
-                return undefined;
+                return this.plannerFieldReader.read(node, context, errorCollector);
 
             // === Группы ===
             case 'UsualGroup':
@@ -206,13 +337,10 @@ export class FormChildItemsXmlPartReader extends AbstractFormXmlPartReader {
                 return this.commandBarReader.read(node, context, errorCollector);
 
             case 'AutoCommandBar':
-                // AutoCommandBar имеет отдельный ридер
-                errorCollector.addWarning(`AutoCommandBar not yet fully implemented`);
-                return undefined;
+                return this.autoCommandBarReader.read(node, context, errorCollector);
 
             case 'ContextMenu':
-                errorCollector.addWarning(`ContextMenu not yet implemented`);
-                return undefined;
+                return this.contextMenuReader.read(node, context, errorCollector);
 
             // === Таблица ===
             case 'Table':
@@ -230,17 +358,19 @@ export class FormChildItemsXmlPartReader extends AbstractFormXmlPartReader {
             case 'LableDecoration': // опечатка в старых версиях
                 return this.labelDecorationReader.read(node, context, errorCollector);
 
-            // === Дополнения - TODO ===
+            // === Дополнения ===
             case 'SearchStringAddition':
+                return this.searchStringAdditionReader.read(node, context, errorCollector);
+
             case 'ViewStatusAddition':
+                return this.viewStatusAdditionReader.read(node, context, errorCollector);
+
             case 'SearchControlAddition':
-                errorCollector.addWarning(`Addition type "${nodeName}" not yet implemented`);
-                return undefined;
+                return this.searchControlAdditionReader.read(node, context, errorCollector);
 
             // === Расширенная подсказка ===
             case 'ExtendedTooltip':
-                // Обычно является вложенным элементом, игнорируем на верхнем уровне
-                return undefined;
+                return this.extendedTooltipReader.read(node, context, errorCollector);
 
             default:
                 errorCollector.addWarning(`Unknown child item type: "${nodeName}"`);

@@ -5,7 +5,7 @@
 
 import { FormItem } from './FormItem';
 import { AdditionExtInfo } from './AdditionExtInfo';
-import { ItemVerticalAlignment, ManagedFormAdditionType, MenuElementPlacementArea } from './types';
+import { ItemVerticalAlignment, ManagedFormAdditionType, MenuElementPlacementArea, TooltipRepresentation } from './types';
 
 /**
  * Элемент дополнения формы
@@ -37,4 +37,10 @@ export interface Addition extends FormItem {
     
     /** Видимость */
     visible?: boolean;
+
+    /** Доступность */
+    enabled?: boolean;
+
+    /** Представление подсказки */
+    toolTipRepresentation?: TooltipRepresentation;
 }

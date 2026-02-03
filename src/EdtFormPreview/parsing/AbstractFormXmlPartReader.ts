@@ -184,6 +184,13 @@ export abstract class AbstractFormXmlPartReader {
     }
 
     /**
+     * Сравнение версий - проверяет что текущая версия > указанной
+     */
+    protected versionIsGreaterThan(context: XmlReaderContext, requiredVersion: string): boolean {
+        return this.compareVersions(context.version, requiredVersion) > 0;
+    }
+
+    /**
      * Сравнивает две версии. Возвращает:
      * -1 если v1 < v2
      *  0 если v1 == v2
