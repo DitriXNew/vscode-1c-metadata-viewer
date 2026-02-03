@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { MetadataView } from './metadataView';
 import * as fs from 'fs';
 import { FormPreviewer } from './formPreviewer';
+import { previewEdtForm } from './EdtFormPreview';
 import { TreeItem } from './ConfigurationFormats/utils';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -70,8 +71,17 @@ export function activate(context: vscode.ExtensionContext) {
 			const confPath = objectPathArray?.slice(0, -4)?.join('/');
 			PreviewForm(confPath ?? '', rootFilePath, filePath, context.extensionUri, node.label);
 		} else {
-			vscode.window
-				.showInformationMessage('Данный функционал пока реализован только для конфигураций в формате XML.');
+			// EDT формат - используем EdtFormPreviewer
+			const formPath = node.path + '/Form.form';
+			if (fs.existsSync(formPath)) {
+				// Получаем путь к корню конфигурации EDT
+				const pathParts = node.path?.split('/') || [];
+				const srcIndex = pathParts.findIndex(p => p === 'src');
+				const confPath = srcIndex > 0 ? pathParts.slice(0, srcIndex + 1).join('/') : node.path || '';
+				previewEdtForm(confPath, formPath, context.extensionUri, node.label);
+			} else {
+				vscode.window.showErrorMessage(`Файл формы не найден: ${formPath}`);
+			}
 		}
 	});
 	vscode.commands.registerCommand('metadataViewer.openModule', (node: TreeItem) => {
