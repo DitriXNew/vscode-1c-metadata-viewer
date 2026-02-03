@@ -1,6 +1,6 @@
 // Соответствует com._1c.g5.v8.dt.form.model.CommandBarHolder
 import { AutoCommandBar } from './AutoCommandBar';
-import { FormElementCommandBarLocation } from './FormElementCommandBarLocation';
+import { FormElementCommandBarLocation } from './Form';
 
 export interface CommandBarHolder {
     commandBarLocation?: FormElementCommandBarLocation;

@@ -3,6 +3,9 @@
  * Based on EDT com._1c.g5.v8.dt.form.model.FormAttribute
  */
 
+import { LocalizedString } from './LocalizedString';
+import { FormAttributeExtInfo } from './FormAttributeExtInfo';
+
 /**
  * Проверка заполнения
  */
@@ -43,14 +46,6 @@ export interface TypeDescription {
 }
 
 /**
- * Расширенная информация реквизита формы
- */
-export interface FormAttributeExtInfo {
-    /** Динамический список */
-    dynamicListMain?: boolean;
-}
-
-/**
  * Колонка реквизита формы
  */
 export interface FormAttributeColumn {
@@ -59,7 +54,7 @@ export interface FormAttributeColumn {
     /** ID */
     id?: number;
     /** Заголовок */
-    title?: string;
+    title?: LocalizedString;
     /** Тип значения */
     valueType?: TypeDescription;
 }
@@ -83,7 +78,7 @@ export interface AbstractFormAttribute {
     /** ID */
     id?: number;
     /** Заголовок */
-    title?: string;
+    title?: LocalizedString;
     /** Тип значения */
     valueType?: TypeDescription;
     /** Просмотр */

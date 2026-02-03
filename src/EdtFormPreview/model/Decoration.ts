@@ -9,7 +9,8 @@
  * - TooltipContainer
  */
 import { FormItem } from './FormItem';
-import { Titled, LocalizedString } from './Titled';
+import { Titled } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { Visible } from './Visible';
 import { TooltipContainer } from './TooltipContainer';
 import { ManagedFormDecorationType } from './ManagedFormDecorationType';

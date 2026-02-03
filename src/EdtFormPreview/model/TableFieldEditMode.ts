@@ -4,5 +4,7 @@
  */
 
 export type TableFieldEditMode = 
+    | 'Directly'
     | 'Enter'
-    | 'EnterOnInput';
+    | 'EnterOnInput'
+    | 'Auto';

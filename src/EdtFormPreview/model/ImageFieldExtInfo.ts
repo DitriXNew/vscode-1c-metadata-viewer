@@ -7,7 +7,7 @@ import { Color } from './Color';
 import { Font } from './Font';
 import { Picture } from './Picture';
 import { Border } from './Border';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { PictureSize } from './PictureSize';
 
 export type PictureBackgroundShowMode = 

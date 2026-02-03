@@ -8,7 +8,7 @@ import { FormAttribute } from './FormAttribute';
 import { FormCommand } from './FormCommand';
 import { FormParameter } from './FormParameter';
 import { EventHandler } from './EventHandler';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { FormChildrenGroup } from './FormChildrenGroup';
 import { FormChildrenAlign } from './FormChildrenAlign';
@@ -21,6 +21,16 @@ import { FormEnterKeyBehavior } from './FormEnterKeyBehavior';
 import { SaveFormDataInSettings } from './SaveFormDataInSettings';
 import { FormBaseFontVariant } from './FormBaseFontVariant';
 import { FormExtInfo } from './FormExtInfo';
+import { AutoCommandBar } from './AutoCommandBar';
+
+/**
+ * Расположение командной панели элемента формы
+ */
+export type FormElementCommandBarLocation = 
+    | 'Auto'
+    | 'None'
+    | 'Top'
+    | 'Bottom';
 
 /**
  * Режим блокировки при открытии окна формы
@@ -239,4 +249,22 @@ export interface Form {
     
     /** Командная панель */
     commandBar?: FormItem;
+    
+    /** Расположение командной панели */
+    commandBarLocation?: FormElementCommandBarLocation;
+    
+    /** Показывать командную панель */
+    showCommandBar?: boolean;
+    
+    /** Автоматическая командная панель */
+    autoCommandBar?: AutoCommandBar;
+    
+    /** Верхняя командная панель */
+    topCommandBar?: AutoCommandBar;
+    
+    /** Нижняя командная панель */
+    bottomCommandBar?: AutoCommandBar;
+    
+    /** FAB командная панель (мобильная) */
+    fabCommandBar?: AutoCommandBar;
 }

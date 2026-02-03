@@ -5,7 +5,7 @@
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { CheckBoxKind } from './CheckBoxKind';
 
 export type TumblerRepresentation = 

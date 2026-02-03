@@ -78,7 +78,8 @@ export function activate(context: vscode.ExtensionContext) {
 				const pathParts = node.path?.split('/') || [];
 				const srcIndex = pathParts.findIndex(p => p === 'src');
 				const confPath = srcIndex > 0 ? pathParts.slice(0, srcIndex + 1).join('/') : node.path || '';
-				previewEdtForm(confPath, formPath, context.extensionUri, node.label);
+				const labelStr = typeof node.label === 'string' ? node.label : node.label?.label;
+				previewEdtForm(confPath, formPath, context.extensionUri, labelStr);
 			} else {
 				vscode.window.showErrorMessage(`Файл формы не найден: ${formPath}`);
 			}

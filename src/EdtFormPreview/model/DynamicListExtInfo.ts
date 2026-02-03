@@ -3,12 +3,14 @@
  * Based on EDT com._1c.g5.v8.dt.form.model.DynamicListExtInfo
  */
 
+import { FormAttributeExtInfo } from './FormAttributeExtInfo';
+
 export type DynamicListKeyType = 
     | 'Auto'
     | 'Key'
     | 'CustomKey';
 
-export interface DynamicListExtInfo {
+export interface DynamicListExtInfo extends FormAttributeExtInfo {
     /** Текст запроса */
     queryText?: string;
     
@@ -34,5 +36,5 @@ export interface DynamicListExtInfo {
     keyType?: DynamicListKeyType;
     
     /** Поля ключа */
-    keyField?: string[];
+    keyField?: string;
 }

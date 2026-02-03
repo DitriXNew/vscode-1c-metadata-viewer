@@ -2,28 +2,29 @@
  * ManagedFormFieldType - типы полей управляемой формы
  * @see com._1c.g5.v8.dt.form.model.ManagedFormFieldType
  */
-export type ManagedFormFieldType = 
-  | 'None'                      // 0 - Нет
-  | 'HTMLDocumentField'         // 1 - Поле HTML документа
-  | 'InputField'                // 2 - Поле ввода
-  | 'GeographicalSchemaField'   // 3 - Поле географической схемы
-  | 'GraphicalSchemaField'      // 4 - Поле графической схемы
-  | 'DendrogramField'           // 5 - Поле дендрограммы
-  | 'ChartField'                // 6 - Поле диаграммы
-  | 'GanttChartField'           // 7 - Поле диаграммы Ганта
-  | 'ProgressBarField'          // 8 - Поле индикатора прогресса
-  | 'CalendarField'             // 9 - Поле календаря
-  | 'PictureField'              // 10 - Поле картинки
-  | 'LabelField'                // 11 - Поле надписи
-  | 'RadioButtonField'          // 12 - Поле переключателя
-  | 'TrackBarField'             // 13 - Поле полосы регулировки
-  | 'SpreadsheetDocumentField'  // 14 - Поле табличного документа
-  | 'TextDocumentField'         // 15 - Поле текстового документа
-  | 'CheckBoxField'             // 16 - Поле флажка
-  | 'FormattedDocumentField'    // 17 - Поле форматированного документа
-  | 'PlannerField'              // 18 - Поле планировщика
-  | 'PeriodField'               // 19 - Поле периода
-  | 'PDFDocumentField';         // 20 - Поле PDF документа
+export enum ManagedFormFieldType {
+  None = 'None',                              // 0
+  HTMLDocumentField = 'HTMLDocumentField',    // 1
+  InputField = 'InputField',                  // 2
+  GeographicalSchemaField = 'GeographicalSchemaField',  // 3
+  GraphicalSchemaField = 'GraphicalSchemaField',        // 4
+  DendrogramField = 'DendrogramField',        // 5
+  ChartField = 'ChartField',                  // 6
+  GanttChartField = 'GanttChartField',        // 7
+  ProgressBarField = 'ProgressBarField',      // 8
+  CalendarField = 'CalendarField',            // 9
+  PictureField = 'PictureField',              // 10
+  LabelField = 'LabelField',                  // 11
+  RadioButtonField = 'RadioButtonField',      // 12
+  TrackBarField = 'TrackBarField',            // 13
+  SpreadsheetDocumentField = 'SpreadsheetDocumentField',  // 14
+  TextDocumentField = 'TextDocumentField',    // 15
+  CheckBoxField = 'CheckBoxField',            // 16
+  FormattedDocumentField = 'FormattedDocumentField',      // 17
+  PlannerField = 'PlannerField',              // 18
+  PeriodField = 'PeriodField',                // 19
+  PDFDocumentField = 'PDFDocumentField'       // 20
+}
 
 export const ManagedFormFieldTypeValues = {
   None: 0,

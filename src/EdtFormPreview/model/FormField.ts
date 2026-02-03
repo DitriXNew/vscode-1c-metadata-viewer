@@ -25,6 +25,7 @@ import { ExtendedTooltip } from './ExtendedTooltip';
 import { FormFixedInTable } from './ColumnGroupExtInfo';
 import { TableFieldEditMode } from './TableFieldEditMode';
 import { WarningOnEditRepresentation } from './WarningOnEditRepresentation';
+import { LocalizedString } from './LocalizedString';
 
 export interface FormField extends DataItem, TooltipContainer {
   /** Тип поля */
@@ -38,6 +39,12 @@ export interface FormField extends DataItem, TooltipContainer {
   
   /** Предупреждение при редактировании */
   warningOnEditRepresentation?: WarningOnEditRepresentation;
+  
+  /** Текст предупреждения при редактировании */
+  warningOnEdit?: LocalizedString | LocalizedString[];
+  
+  /** Исключенные команды */
+  excludedCommands?: string[];
   
   /** Отметка обязательного заполнения */
   markRequiredComplete?: boolean;
@@ -78,6 +85,9 @@ export interface FormField extends DataItem, TooltipContainer {
   /** Показывать в подвале */
   showInFooter?: boolean;
   
+  /** Текст подвала */
+  footerText?: LocalizedString | LocalizedString[];
+  
   /** Цвет текста подвала */
   footerTextColor?: Color;
   
@@ -98,6 +108,27 @@ export interface FormField extends DataItem, TooltipContainer {
   
   /** Фиксировать в карточке */
   fixInCard?: boolean;
+  
+  /** Показывать заголовок в карточке */
+  showTitleInCard?: boolean;
+  
+  /** Ширина в карточке */
+  widthInCard?: number;
+  
+  /** Отметка ячейки */
+  cellMark?: string;
+  
+  /** Внешний вид в карточке */
+  appearanceInCard?: string;
+  
+  /** Авто ширина в таблице */
+  autoWidthInTable?: boolean;
+  
+  /** Представление гиперссылки ячейки */
+  cellHyperlinkRepresentation?: string;
+  
+  /** Вариант отображения гиперссылки ячейки */
+  cellHyperlinkDisplayVariant?: string;
   
   /** Ширина */
   width?: number;

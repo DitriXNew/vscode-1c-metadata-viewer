@@ -7,7 +7,7 @@ import { ItemHorizontalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
 import { Picture } from './Picture';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 
 export type ColumnGrouping = 
   | 'Vertical'

@@ -9,7 +9,8 @@
  * - Visible (visible, enabled, userVisible)
  */
 import { FormItem } from './FormItem';
-import { Titled, LocalizedString } from './Titled';
+import { Titled } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { TitleStyle } from './TitleStyle';
 import { Color } from './Color';
 import { Visible } from './Visible';

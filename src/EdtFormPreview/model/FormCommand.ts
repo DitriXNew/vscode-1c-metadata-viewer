@@ -4,7 +4,7 @@
  */
 
 import { AdjustableBoolean } from './FormAttribute';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { CurrentRowUse } from './CurrentRowUse';
 import { Picture } from './Picture';
 import { DefaultRepresentation } from './DefaultRepresentation';
@@ -56,8 +56,8 @@ export interface FormCommand {
     /** Картинка */
     picture?: Picture;
     
-    /** Действие */
-    action?: CommandHandlerContainer;
+    /** Действие (имя обработчика или команда) */
+    action?: string;
     
     /** Назначение действия */
     actionPurpose?: CommandActionPurpose;
@@ -76,6 +76,9 @@ export interface FormCommand {
     
     /** ID связанного элемента таблицы */
     associatedTableElementId?: number;
+    
+    /** ID связанного элемента таблицы (8.3.15+) */
+    associatedTableElementId8315?: string;
     
     /** Использование выделенных строк */
     selectedRowsUse?: SelectedRowsUse;

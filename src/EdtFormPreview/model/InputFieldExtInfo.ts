@@ -8,6 +8,7 @@ import { Font } from './Font';
 import { Picture } from './Picture';
 import { ChoiceHistoryOnInput } from './ChoiceHistoryOnInput';
 import { ChoiceButtonRepresentation } from './ChoiceButtonRepresentation';
+import { LocalizedString } from './LocalizedString';
 import { AutoShowClearButtonMode } from './AutoShowClearButtonMode';
 import { AutoShowOpenButtonMode } from './AutoShowOpenButtonMode';
 import { EditTextUpdate } from './EditTextUpdate';
@@ -101,7 +102,7 @@ export interface InputFieldExtInfo extends FieldExtInfo {
   /** Кнопка очистки */
   clearButton?: boolean;
   
-  /** Кнопка выбора */
+  /** Кнопка выпадающего списка */
   dropListButton?: boolean;
   
   /** Кнопка счётчика */
@@ -118,4 +119,151 @@ export interface InputFieldExtInfo extends FieldExtInfo {
   
   /** Область домена типа включена */
   typeDomainEnabled?: boolean;
+  
+  /** Отметка отрицательных */
+  markNegatives?: boolean;
+  
+  // === Multiple Values (8.3.23+) ===
+  
+  /** Шрифт множественных значений */
+  multipleValuesFont?: Font;
+  
+  /** Гиперссылка множественных значений */
+  multipleValuesHyperlink?: boolean;
+  
+  /** Цвет текста множественных значений */
+  multipleValuesTextColor?: Color;
+  
+  /** Цвет фона множественных значений */
+  multipleValuesBackColor?: Color;
+  
+  /** Разрешить ввод пустых множественных значений */
+  allowInputEmptyMultipleValues?: boolean;
+  
+  /** Разрешить дубликаты множественных значений */
+  allowMultipleValuesDuplicates?: boolean;
+  
+  /** Расширенное редактирование множественных значений */
+  extendedEditMultipleValues?: boolean;
+  
+  /** Размер картинки множественного значения */
+  multipleValuePictureSize?: string;
+  
+  /** Форма картинки множественного значения */
+  multipleValuePictureShape?: string;
+  
+  /** Показывать флажки в выпадающем списке */
+  showCheckBoxesInDropList?: boolean;
+  
+  /** Картинка множественных значений */
+  multipleValuesPicture?: Picture;
+  
+  /** Путь к данным множественного значения */
+  multipleValueDataPath?: any;
+  
+  /** Путь к картинке множественного значения */
+  multipleValuePictureDataPath?: any;
+  
+  /** Путь к представлению множественного значения */
+  multipleValuePresentDataPath?: any;
+  
+  // === Кнопки ===
+  
+  /** Кнопка выбора */
+  choiceButton?: boolean;
+  
+  /** Картинка кнопки выбора */
+  choiceButtonPicture?: Picture;
+  
+  // === Выбор и незавершённый ввод ===
+  
+  /** Авто выбор незавершённого */
+  autoChoiceIncomplete?: string;
+  
+  /** Быстрый выбор */
+  quickChoice?: string;
+  
+  /** Выбор папок и элементов */
+  choiceFoldersAndItems?: string;
+  
+  /** Авто отметка незавершённого */
+  autoMarkIncomplete?: string;
+  
+  /** Режим выбора незавершённого элемента */
+  incompleteChoiceMode?: string;
+  
+  // === Ограничения значений ===
+  
+  /** Минимальное значение */
+  minValue?: any;
+  
+  /** Максимальное значение */
+  maxValue?: any;
+  
+  /** Форма выбора */
+  choiceForm?: string;
+  
+  /** Связи параметров выбора */
+  choiceParameterLinks?: any[];
+  
+  /** Параметры выбора */
+  choiceParameters?: any[];
+  
+  /** Доступные типы */
+  availableTypes?: any;
+  
+  // === Список выбора ===
+  
+  /** Список выбора */
+  choiceList?: any[];
+  
+  /** Кнопка списка выбора */
+  choiceListButton?: boolean;
+  
+  /** Высота списка выбора */
+  choiceListHeight?: number;
+  
+  /** Ширина выпадающего списка */
+  dropListWidth?: number;
+  
+  /** Связь типа */
+  typeLink?: any;
+  
+  // === 8.5.1+ ===
+  
+  /** Вариант контроля высоты */
+  heightControlVariant?: string;
+  
+  /** Авто коррекция при вводе текста */
+  autoCorrectionOnTextInput?: string;
+  
+  /** Проверка орфографии при вводе текста */
+  spellCheckingOnTextInput?: string;
+  
+  /** Авто капитализация при вводе текста */
+  autoCapitalizationOnTextInput?: string;
+  
+  /** Текст кнопки возврата экранной клавиатуры */
+  onScreenKeyboardReturnKeyText?: string;
+  
+  /** Подсказка ввода */
+  inputHint?: LocalizedString;
+  
+  /** Подсказка автозаполнения */
+  autofillHint?: string;
+  
+  /** Заголовок кнопки выбора */
+  choiceButtonTitle?: any;
+  
+  /** Режим выбора времени */
+  timeChoiceMode?: string;
+  
+  /** Картинка */
+  picture?: Picture;
+  
+  /** Подсказка выпадающего списка */
+  dropListHint?: any;
+  
+  /** Размер текста */
+  textSize?: string;
 }

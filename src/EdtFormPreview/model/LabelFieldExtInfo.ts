@@ -6,7 +6,7 @@ import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Border } from './Border';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 
 export interface LabelFieldExtInfo extends FieldExtInfo {
   /** Ширина */

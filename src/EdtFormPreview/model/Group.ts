@@ -11,7 +11,8 @@
  * - TooltipContainer (toolTip)
  */
 import { FormItem } from './FormItem';
-import { Titled, LocalizedString } from './Titled';
+import { Titled } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { TitleStyle } from './TitleStyle';
 import { Visible } from './Visible';
 import { TooltipContainer } from './TooltipContainer';

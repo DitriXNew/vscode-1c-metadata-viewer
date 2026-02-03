@@ -6,7 +6,7 @@ import { GroupExtInfo } from './GroupExtInfo';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
-import { LocalizedString } from './Titled';
+import { LocalizedString } from './LocalizedString';
 import { FormChildrenGroup } from './FormChildrenGroup';
 import { FormChildrenAlign } from './FormChildrenAlign';
 import { FormItemSpacing } from './FormItemSpacing';

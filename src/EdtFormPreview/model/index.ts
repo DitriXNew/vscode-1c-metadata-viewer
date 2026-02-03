@@ -362,7 +362,6 @@ export * from './FormChoiceParameterLink';
 export * from './FormCommandHandlerContainer';
 export * from './FormCommandInterfaceItem';
 export * from './FormCommandInterfaceItems';
-export * from './FormElementCommandBarLocation';
 export * from './FormExtensionCommandHandlerContainer';
 export * from './FormPagesState';
 export * from './FormPicture';
