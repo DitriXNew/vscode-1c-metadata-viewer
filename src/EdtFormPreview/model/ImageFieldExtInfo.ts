@@ -3,18 +3,12 @@
  * @see com._1c.g5.v8.dt.form.model.ImageFieldExtInfo
  */
 import { FieldExtInfo } from './FieldExtInfo';
-import { Color, Font } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
-import { Border } from './LabelFieldExtInfo';
+import { Color } from './Color';
+import { Font } from './Font';
+import { Picture } from './Picture';
+import { Border } from './Border';
 import { LocalizedString } from './Titled';
-
-export type PictureSize = 
-  | 'Auto'
-  | 'AutoSize'
-  | 'Proportionally'
-  | 'Stretch'
-  | 'Tile'
-  | 'RealSize';
+import { PictureSize } from './PictureSize';
 
 export type PictureBackgroundShowMode = 
   | 'Auto'

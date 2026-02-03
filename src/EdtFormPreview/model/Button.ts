@@ -8,31 +8,24 @@
  */
 import { DataItem } from './DataItem';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
-import { Color, Font } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
-import { ExtendedTooltip } from './FormGroup';
-import { ButtonRepresentation, ButtonShape, ButtonShapeRepresentation, ButtonImportance } from './PopupGroupExtInfo';
+import { Color } from './Color';
+import { Font } from './Font';
+import { Picture } from './Picture';
+import { ExtendedTooltip } from './ExtendedTooltip';
+import { ButtonShape } from './ButtonShape';
+import { ButtonShapeRepresentation } from './ButtonShapeRepresentation';
+import { ButtonImportance } from './ButtonImportance';
 import { MenuElementPlacementArea } from './ButtonGroupExtInfo';
 import { EventHandler } from './EventHandler';
-
-export type ManagedFormButtonType = 
-  | 'Usual'
-  | 'CommandBarButton'
-  | 'Hyperlink'
-  | 'CommandBarHyperlink';
+import { ManagedFormButtonType } from './ManagedFormButtonType';
+import { FormButtonPictureLocation } from './FormButtonPictureLocation';
+import { ButtonRepresentation } from './ButtonRepresentation';
 
 export type ButtonLocationInCommandBar = 
   | 'Auto'
   | 'InCommandBar'
   | 'InAdditionalSubmenu'
   | 'InCommandBarAndInAdditionalSubmenu';
-
-export type FormButtonPictureLocation = 
-  | 'Auto'
-  | 'Left'
-  | 'Right'
-  | 'Top'
-  | 'Bottom';
 
 export type RepresentationInContextMenu = 
   | 'Auto'

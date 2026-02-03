@@ -3,13 +3,10 @@
  * @see com._1c.g5.v8.dt.form.model.LabelFieldExtInfo
  */
 import { FieldExtInfo } from './FieldExtInfo';
-import { Color, Font } from './TitleStyle';
+import { Color } from './Color';
+import { Font } from './Font';
+import { Border } from './Border';
 import { LocalizedString } from './Titled';
-
-export interface Border {
-  type?: string;
-  width?: number;
-}
 
 export interface LabelFieldExtInfo extends FieldExtInfo {
   /** Ширина */

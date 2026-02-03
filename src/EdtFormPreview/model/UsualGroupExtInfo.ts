@@ -4,37 +4,20 @@
  */
 import { GroupExtInfo } from './GroupExtInfo';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
-import { Color } from './TitleStyle';
+import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
 import { LocalizedString } from './Titled';
-
-export type FormChildrenGroup = 
-  | 'Vertical'
-  | 'AlwaysHorizontal'
-  | 'HorizontalIfPossible';
-
-export type FormChildrenAlign = 
-  | 'Auto'
-  | 'Left'
-  | 'Right';
-
-export type FormItemSpacing = 
-  | 'Auto'
-  | 'None'
-  | 'Half'
-  | 'Single'
-  | 'OneAndAHalf'
-  | 'Double';
+import { FormChildrenGroup } from './FormChildrenGroup';
+import { FormChildrenAlign } from './FormChildrenAlign';
+import { FormItemSpacing } from './FormItemSpacing';
+import { ChildrenTitleLocation } from './ChildrenTitleLocation';
+import { FormChildrenWidth } from './FormChildrenWidth';
+import { CurrentRowUse } from './CurrentRowUse';
 
 export type UsualGroupBehavior = 
   | 'Auto'
   | 'Usual'
   | 'Collapsible';
-
-export type ChildrenTitleLocation = 
-  | 'Auto'
-  | 'Top'
-  | 'Left';
 
 export type UsualGroupControlRepresentation = 
   | 'Auto'
@@ -52,16 +35,6 @@ export type UsualGroupThroughAlign =
   | 'Auto'
   | 'Use'
   | 'DontUse';
-
-export type FormChildrenWidth = 
-  | 'Auto'
-  | 'ByMaster'
-  | 'Equal';
-
-export type CurrentRowUse = 
-  | 'Auto'
-  | 'AsCurrentRow'
-  | 'AsChosenRow';
 
 export interface UsualGroupExtInfo extends GroupExtInfo {
   /** Группировка дочерних элементов */

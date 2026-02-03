@@ -10,17 +10,12 @@
  */
 import { FormItem } from './FormItem';
 import { Titled, LocalizedString } from './Titled';
-import { TitleStyle, Color } from './TitleStyle';
-import { Visible, UserVisible } from './Visible';
+import { TitleStyle } from './TitleStyle';
+import { Color } from './Color';
+import { Visible } from './Visible';
+import { UserVisible } from './UserVisible';
 import { AbstractDataPath } from './DataPath';
-
-export type FormElementTitleLocation = 
-  | 'Auto'
-  | 'None'
-  | 'Left'
-  | 'Top'
-  | 'Right'
-  | 'Bottom';
+import { FormElementTitleLocation } from './FormElementTitleLocation';
 
 export interface DataItem extends FormItem, Titled, TitleStyle, Visible {
   /** Путь к данным */

@@ -12,26 +12,19 @@ import { DataItem } from './DataItem';
 import { TooltipContainer } from './TooltipContainer';
 import { ManagedFormFieldType } from './ManagedFormFieldType';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
-import { Color, Font } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
+import { Color } from './Color';
+import { Font } from './Font';
+import { Picture } from './Picture';
 import { EventHandler } from './EventHandler';
 import { FieldExtInfo } from './FieldExtInfo';
 import { InputFieldExtInfo } from './InputFieldExtInfo';
 import { LabelFieldExtInfo } from './LabelFieldExtInfo';
 import { CheckBoxFieldExtInfo } from './CheckBoxFieldExtInfo';
 import { ImageFieldExtInfo } from './ImageFieldExtInfo';
-import { ExtendedTooltip } from './FormGroup';
+import { ExtendedTooltip } from './ExtendedTooltip';
 import { FormFixedInTable } from './ColumnGroupExtInfo';
-
-export type TableFieldEditMode = 
-  | 'Enter'
-  | 'EnterOnInput'
-  | 'Directly';
-
-export type WarningOnEditRepresentation = 
-  | 'Auto'
-  | 'Show'
-  | 'DontShow';
+import { TableFieldEditMode } from './TableFieldEditMode';
+import { WarningOnEditRepresentation } from './WarningOnEditRepresentation';
 
 export interface FormField extends DataItem, TooltipContainer {
   /** Тип поля */

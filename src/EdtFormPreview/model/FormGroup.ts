@@ -17,14 +17,7 @@ import { CommandBarExtInfo } from './CommandBarExtInfo';
 import { ButtonGroupExtInfo } from './ButtonGroupExtInfo';
 import { ColumnGroupExtInfo } from './ColumnGroupExtInfo';
 import { PopupGroupExtInfo } from './PopupGroupExtInfo';
-
-export interface ExtendedTooltip {
-  name: string;
-  id: number;
-  type?: string;
-  autoMaxWidth?: boolean;
-  autoMaxHeight?: boolean;
-}
+import { ExtendedTooltip } from './ExtendedTooltip';
 
 export interface FormGroup extends Group {
   /** Тип группы */

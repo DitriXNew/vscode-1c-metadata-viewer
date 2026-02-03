@@ -3,15 +3,10 @@
  * @see com._1c.g5.v8.dt.form.model.CheckBoxFieldExtInfo
  */
 import { FieldExtInfo } from './FieldExtInfo';
-import { Color, Font } from './TitleStyle';
+import { Color } from './Color';
+import { Font } from './Font';
 import { LocalizedString } from './Titled';
-
-export type CheckBoxKind = 
-  | 'Auto'
-  | 'CheckBox'
-  | 'Tumbler'
-  | 'PushButton'
-  | 'Switch';
+import { CheckBoxKind } from './CheckBoxKind';
 
 export type TumblerRepresentation = 
   | 'Auto'

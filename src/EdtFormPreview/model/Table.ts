@@ -12,45 +12,18 @@ import { DataItem } from './DataItem';
 import { FormItem } from './FormItem';
 import { TooltipContainer } from './TooltipContainer';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
-import { Color, Font } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
+import { Color } from './Color';
+import { Font } from './Font';
+import { Picture } from './Picture';
 import { EventHandler } from './EventHandler';
-import { ExtendedTooltip } from './FormGroup';
-
-export type TableRepresentation = 
-  | 'None'
-  | 'List'
-  | 'HierarchicalList'
-  | 'Tree';
-
-export type TableSelectionMode = 
-  | 'MultiRow'
-  | 'SingleRow';
-
-export type TableRowInputMode = 
-  | 'WholeRow'
-  | 'EndOfRow';
-
-export type SearchOnInput = 
-  | 'Auto'
-  | 'Use'
-  | 'DontUse';
-
-export type TableScrollBarUse = 
-  | 'Auto'
-  | 'DontUse';
-
-export type TableInitialTreeView = 
-  | 'NoExpand'
-  | 'ExpandTopLevel'
-  | 'ExpandAllLevels';
-
-export interface AutoCommandBar {
-  name: string;
-  id: number;
-  items?: FormItem[];
-  autoFill?: boolean;
-}
+import { ExtendedTooltip } from './ExtendedTooltip';
+import { TableRepresentation } from './TableRepresentation';
+import { TableSelectionMode } from './TableSelectionMode';
+import { TableRowInputMode } from './TableRowInputMode';
+import { SearchOnInput } from './SearchOnInput';
+import { TableScrollBarUse } from './TableScrollBarUse';
+import { TableInitialTreeView } from './TableInitialTreeView';
+import { AutoCommandBar } from './AutoCommandBar';
 
 export interface SearchStringAddition {
   name: string;

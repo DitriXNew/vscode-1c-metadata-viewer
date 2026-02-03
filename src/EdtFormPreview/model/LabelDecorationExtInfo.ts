@@ -4,8 +4,8 @@
  */
 import { DecorationExtInfo } from './DecorationExtInfo';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
-import { Color } from './TitleStyle';
-import { Border } from './LabelFieldExtInfo';
+import { Color } from './Color';
+import { Border } from './Border';
 
 export interface LabelDecorationExtInfo extends DecorationExtInfo {
   /** Гиперссылка */

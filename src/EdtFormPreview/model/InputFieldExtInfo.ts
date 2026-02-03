@@ -3,38 +3,15 @@
  * @see com._1c.g5.v8.dt.form.model.InputFieldExtInfo
  */
 import { FieldExtInfo } from './FieldExtInfo';
-import { Color, Font } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
-
-export type ChoiceHistoryOnInput = 
-  | 'Auto'
-  | 'DontUse';
-
-export type ChoiceButtonRepresentation = 
-  | 'Auto'
-  | 'None'
-  | 'DropDownListButton'
-  | 'ChoiceButton'
-  | 'DropDownListAndChoiceButton';
-
-export type AutoShowClearButtonMode = 
-  | 'Auto'
-  | 'DontShow';
-
-export type AutoShowOpenButtonMode = 
-  | 'Auto'
-  | 'DontShow';
-
-export type EditTextUpdate = 
-  | 'Auto'
-  | 'OnValueChange'
-  | 'DontUpdate';
-
-export type SpecialTextInputMode = 
-  | 'Auto'
-  | 'None'
-  | 'SearchInList'
-  | 'SelectOnInput';
+import { Color } from './Color';
+import { Font } from './Font';
+import { Picture } from './Picture';
+import { ChoiceHistoryOnInput } from './ChoiceHistoryOnInput';
+import { ChoiceButtonRepresentation } from './ChoiceButtonRepresentation';
+import { AutoShowClearButtonMode } from './AutoShowClearButtonMode';
+import { AutoShowOpenButtonMode } from './AutoShowOpenButtonMode';
+import { EditTextUpdate } from './EditTextUpdate';
+import { SpecialTextInputMode } from './SpecialTextInputMode';
 
 export interface InputFieldExtInfo extends FieldExtInfo {
   /** Ширина */

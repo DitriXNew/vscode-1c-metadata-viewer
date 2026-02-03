@@ -4,11 +4,7 @@
  */
 import { GroupExtInfo } from './GroupExtInfo';
 import { ItemHorizontalAlignment } from './ItemAlignment';
-
-export type FormCommandBarAppearanceMode = 
-  | 'Auto'
-  | 'Compact'
-  | 'Normal';
+import { FormCommandBarAppearanceMode } from './AutoCommandBar';
 
 export interface CommandBarExtInfo extends GroupExtInfo {
   /** Горизонтальное выравнивание */

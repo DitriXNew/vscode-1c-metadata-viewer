@@ -4,9 +4,9 @@
  */
 import { GroupExtInfo } from './GroupExtInfo';
 import { ItemHorizontalAlignment } from './ItemAlignment';
-import { Color } from './TitleStyle';
+import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
-import { Picture } from './PageGroupExtInfo';
+import { Picture } from './Picture';
 import { LocalizedString } from './Titled';
 
 export type ColumnGrouping = 

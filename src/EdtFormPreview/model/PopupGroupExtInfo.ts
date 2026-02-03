@@ -3,32 +3,13 @@
  * @see com._1c.g5.v8.dt.form.model.PopupGroupExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { Color } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
+import { Color } from './Color';
+import { Picture } from './Picture';
 import { MenuElementPlacementArea } from './ButtonGroupExtInfo';
-
-export type ButtonRepresentation = 
-  | 'Auto'
-  | 'Text'
-  | 'Picture'
-  | 'PictureAndText';
-
-export type ButtonShape = 
-  | 'Auto'
-  | 'Regular'
-  | 'Tile';
-
-export type ButtonShapeRepresentation = 
-  | 'Auto'
-  | 'WhenActive'
-  | 'Always'
-  | 'None';
-
-export type ButtonImportance = 
-  | 'Auto'
-  | 'Low'
-  | 'Ordinary'
-  | 'High';
+import { ButtonShape } from './ButtonShape';
+import { ButtonShapeRepresentation } from './ButtonShapeRepresentation';
+import { ButtonImportance } from './ButtonImportance';
+import { ButtonRepresentation } from './ButtonRepresentation';
 
 export interface PopupGroupExtInfo extends GroupExtInfo {
   /** Картинка */

@@ -3,10 +3,11 @@
  * @see com._1c.g5.v8.dt.form.model.PictureDecorationExtInfo
  */
 import { DecorationExtInfo } from './DecorationExtInfo';
-import { Color } from './TitleStyle';
-import { Picture } from './PageGroupExtInfo';
-import { Border } from './LabelFieldExtInfo';
-import { PictureSize, PictureBackgroundShowMode, FileDragMode } from './ImageFieldExtInfo';
+import { Color } from './Color';
+import { Picture } from './Picture';
+import { Border } from './Border';
+import { PictureSize } from './PictureSize';
+import { PictureBackgroundShowMode, FileDragMode } from './ImageFieldExtInfo';
 import { LocalizedString } from './Titled';
 
 export interface PictureDecorationExtInfo extends DecorationExtInfo {
