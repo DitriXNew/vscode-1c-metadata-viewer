@@ -4,8 +4,7 @@
  */
 
 import { TableExtInfo } from './TableExtInfo';
-import { UpdateOnDataChange } from './UpdateOnDataChange';
-import { FoldersAndItemsUse } from './FoldersAndItemsUse';
+import { FoldersAndItemsUse, UpdateOnDataChange } from './types';
 
 /**
  * Стандартный период

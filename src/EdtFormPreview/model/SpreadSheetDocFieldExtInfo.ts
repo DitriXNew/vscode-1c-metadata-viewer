@@ -6,14 +6,7 @@
 import { FieldExtInfo } from './FieldExtInfo';
 import { ItemFont } from './FormVisualEntity';
 import { Color } from './Color';
-import { SelectionShowMode } from './SelectionShowMode';
-import { UseOutput } from './UseOutput';
-import { SpreadsheetDocumentPointerType } from './SpreadsheetDocumentPointerType';
-import { CellActionsButtonViewMode } from './CellActionsButtonViewMode';
-import { SpreadsheetDocumentMultipleSelectionPanelViewMode } from './SpreadsheetDocumentMultipleSelectionPanelViewMode';
-import { SpreadSheetDocumentScrollBarUse } from './SpreadSheetDocumentScrollBarUse';
-import { DrawingSelectionShowMode } from './DrawingSelectionShowMode';
-import { ViewScalingMode } from './ViewScalingMode';
+import { CellActionsButtonViewMode, DrawingSelectionShowMode, SelectionShowMode, SpreadSheetDocumentScrollBarUse, SpreadsheetDocumentMultipleSelectionPanelViewMode, SpreadsheetDocumentPointerType, UseOutput, ViewScalingMode } from './types';
 
 /**
  * Расширенная информация для поля табличного документа

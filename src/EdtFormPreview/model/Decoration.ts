@@ -13,14 +13,14 @@ import { Titled } from './Titled';
 import { LocalizedString } from './LocalizedString';
 import { Visible } from './Visible';
 import { TooltipContainer } from './TooltipContainer';
-import { ManagedFormDecorationType } from './ManagedFormDecorationType';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { Font } from './Font';
 import { DecorationExtInfo } from './DecorationExtInfo';
 import { LabelDecorationExtInfo } from './LabelDecorationExtInfo';
 import { PictureDecorationExtInfo } from './PictureDecorationExtInfo';
 import { ExtendedTooltip } from './ExtendedTooltip';
+import { ItemHorizontalAlignment, ItemVerticalAlignment } from './types';
+import { ManagedFormDecorationType } from './ManagedFormDecorationType';
 
 export interface Decoration extends FormItem, Titled, Visible, TooltipContainer {
   /** Тип декорации */

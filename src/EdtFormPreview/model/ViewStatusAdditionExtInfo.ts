@@ -7,7 +7,7 @@ import { AdditionExtInfo } from './AdditionExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Border } from './Border';
-import { ItemHorizontalAlignment } from './ItemAlignment';
+import { ItemHorizontalAlignment } from './types';
 
 /**
  * Расширенная информация для дополнения статуса просмотра

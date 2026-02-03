@@ -8,7 +8,6 @@ import { XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartR
 import { AbstractFormFieldXmlPartReader } from './AbstractFormFieldXmlPartReader';
 import { FormField } from '../../model/FormField';
 import { CheckBoxFieldExtInfo } from '../../model/CheckBoxFieldExtInfo';
-import { ManagedFormFieldType } from '../../model/ManagedFormFieldType';
 
 /**
  * Ридер для поля флажка
@@ -23,7 +22,7 @@ export class CheckBoxFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
         const field = this.readFormField(node, context, errorCollector);
         
         // Устанавливаем тип поля
-        field.type = ManagedFormFieldType.CheckBoxField;
+        field.type = 'CheckBoxField';
 
         // Создаём и заполняем ExtInfo
         const extInfo: CheckBoxFieldExtInfo = {};

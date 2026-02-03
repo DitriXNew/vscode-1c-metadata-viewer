@@ -20,42 +20,18 @@
 import { DataItem } from './DataItem';
 import { FormItem } from './FormItem';
 import { TooltipContainer } from './TooltipContainer';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Picture } from './Picture';
 import { EventHandler } from './EventHandler';
 import { ExtendedTooltip } from './ExtendedTooltip';
-import { TableRepresentation } from './TableRepresentation';
-import { TableSelectionMode } from './TableSelectionMode';
-import { TableRowInputMode } from './TableRowInputMode';
-import { SearchOnInput } from './SearchOnInput';
-import { TableScrollBarUse } from './TableScrollBarUse';
-import { TableInitialTreeView } from './TableInitialTreeView';
 import { AutoCommandBar } from './AutoCommandBar';
 import { AbstractDataPath } from './AbstractDataPath';
-import { TableRowSelectionMode } from './TableRowSelectionMode';
-import { TableRowActionsShowType } from './TableRowActionsShowType';
-import { LogFormTableHeightControlVariant } from './LogFormTableHeightControlVariant';
-import { UseOutput } from './UseOutput';
-import { FileDragMode } from './FileDragMode';
-import { SaveTableAppearance } from './SaveTableAppearance';
-import { CellHyperlinksRepresentation } from './CellHyperlinksRepresentation';
-import { SearchStringLocation } from './SearchStringLocation';
-import { ViewStatusLocation } from './ViewStatusLocation';
-import { SearchControlLocation } from './SearchControlLocation';
-import { HierarchyPanelLocation } from './HierarchyPanelLocation';
-import { RefreshRequestMethod } from './RefreshRequestMethod';
-import { TableCurrentRowUse } from './TableCurrentRowUse';
-import { TableBehaviorOnHorizontalCompression } from './TableBehaviorOnHorizontalCompression';
-import { CardBehaviorOnVerticalCompression } from './CardBehaviorOnVerticalCompression';
-import { TableInitialListView } from './TableInitialListView';
-import { TableInitialRowActivation } from './TableInitialRowActivation';
-import { FormTableType } from './FormTableType';
 import { TableExtInfo } from './TableExtInfo';
 import { SearchStringAdditionExtInfo } from './SearchStringAdditionExtInfo';
 import { ViewStatusAdditionExtInfo } from './ViewStatusAdditionExtInfo';
 import { SearchControlAdditionExtInfo } from './SearchControlAdditionExtInfo';
+import { CardBehaviorOnVerticalCompression, CellHyperlinksRepresentation, FileDragMode, FormTableType, HierarchyPanelLocation, ItemHorizontalAlignment, ItemVerticalAlignment, LogFormTableHeightControlVariant, RefreshRequestMethod, SaveTableAppearance, SearchControlLocation, SearchOnInput, SearchStringLocation, TableBehaviorOnHorizontalCompression, TableCurrentRowUse, TableInitialListView, TableInitialRowActivation, TableInitialTreeView, TableRepresentation, TableRowActionsShowType, TableRowInputMode, TableRowSelectionMode, TableScrollBarUse, TableSelectionMode, UseOutput, ViewStatusLocation } from './types';
 
 export interface Table extends DataItem, TooltipContainer {
   /** Дочерние элементы (колонки) */

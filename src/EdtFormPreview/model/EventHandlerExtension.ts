@@ -1,7 +1,7 @@
 // EventHandlerExtension - расширение обработчика события
 
 import { EventHandler } from './EventHandler';
-import { ExtendedMethodCallType } from './ExtendedMethodCallType';
+import { ExtendedMethodCallType } from './types';
 
 /**
  * EventHandlerExtension - расширение обработчика события

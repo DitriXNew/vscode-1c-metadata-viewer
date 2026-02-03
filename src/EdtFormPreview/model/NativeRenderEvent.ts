@@ -1,14 +1,6 @@
 // NativeRenderEvent - событие нативного рендеринга
 
-/**
- * NativeRenderEventType - тип события нативного рендеринга
- */
-export type NativeRenderEventType = 
-    | 'None'
-    | 'LeftMouseButton'
-    | 'RightMouseButton'
-    | 'Scroll'
-    | 'SelectById';
+import { NativeRenderEventType } from './types';
 
 /**
  * NativeRenderEvent - событие нативного рендеринга

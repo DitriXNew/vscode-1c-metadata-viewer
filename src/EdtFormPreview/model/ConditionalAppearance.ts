@@ -40,25 +40,4 @@ import { Font } from './Font';
 import { Color } from './Color';
 import { Border } from './Border';
 import { Picture } from './Picture';
-
-export type ComparisonType = 
-    | 'Equal'
-    | 'NotEqual'
-    | 'Less'
-    | 'LessOrEqual'
-    | 'Greater'
-    | 'GreaterOrEqual'
-    | 'Contains'
-    | 'NotContains'
-    | 'InList'
-    | 'NotInList'
-    | 'InHierarchy'
-    | 'NotInHierarchy'
-    | 'InListByHierarchy'
-    | 'NotInListByHierarchy'
-    | 'Filled'
-    | 'NotFilled'
-    | 'BeginsWith'
-    | 'NotBeginsWith'
-    | 'Like'
-    | 'NotLike';
+import { ComparisonType } from './types';

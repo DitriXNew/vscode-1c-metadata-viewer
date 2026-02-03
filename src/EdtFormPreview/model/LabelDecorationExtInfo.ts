@@ -3,9 +3,9 @@
  * @see com._1c.g5.v8.dt.form.model.LabelDecorationExtInfo
  */
 import { DecorationExtInfo } from './DecorationExtInfo';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { Border } from './Border';
+import { ItemHorizontalAlignment, ItemVerticalAlignment } from './types';
 
 export interface LabelDecorationExtInfo extends DecorationExtInfo {
   /** Гиперссылка */

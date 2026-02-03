@@ -6,7 +6,7 @@
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Border } from './Border';
-import { UseOutput } from './UseOutput';
+import { UseOutput } from './types';
 
 /**
  * Расширенная информация для поля HTML документа

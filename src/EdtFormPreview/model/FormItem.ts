@@ -7,11 +7,7 @@
  * - FormVisualEntity (userChangedProperties)
  */
 import { FormVisualEntity } from './FormVisualEntity';
-import { DisplayImportance } from './DisplayImportance';
-
-export type Origin = 
-  | 'Auto'
-  | 'AppliedInterfaceExtension';
+import { DisplayImportance, Origin } from './types';
 
 export interface FormItem extends FormVisualEntity {
   /** Имя элемента */

@@ -4,11 +4,7 @@
  */
 
 import { FormAttributeExtInfo } from './FormAttributeExtInfo';
-
-export type DynamicListKeyType = 
-    | 'Auto'
-    | 'Key'
-    | 'CustomKey';
+import { DynamicListKeyType } from './types';
 
 export interface DynamicListExtInfo extends FormAttributeExtInfo {
     /** Текст запроса */

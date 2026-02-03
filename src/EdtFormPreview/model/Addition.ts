@@ -5,9 +5,7 @@
 
 import { FormItem } from './FormItem';
 import { AdditionExtInfo } from './AdditionExtInfo';
-import { ItemVerticalAlignment } from './ItemAlignment';
-import { MenuElementPlacementArea } from './MenuElementPlacementArea';
-import { ManagedFormAdditionType } from './ManagedFormAdditionType';
+import { ItemVerticalAlignment, ManagedFormAdditionType, MenuElementPlacementArea } from './types';
 
 /**
  * Элемент дополнения формы

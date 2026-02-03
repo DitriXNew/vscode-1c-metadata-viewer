@@ -20,36 +20,16 @@ import { FormCommand } from './FormCommand';
 import { FormParameter } from './FormParameter';
 import { EventHandler } from './EventHandler';
 import { LocalizedString } from './LocalizedString';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
-import { FormChildrenGroup } from './FormChildrenGroup';
-import { FormChildrenAlign } from './FormChildrenAlign';
-import { FormItemSpacing } from './FormItemSpacing';
-import { FormChildrenWidth } from './FormChildrenWidth';
-import { ChildrenTitleLocation } from './ChildrenTitleLocation';
 import { Picture } from './Picture';
-import { FormWindowOpeningMode } from './FormWindowOpeningMode';
-import { FormEnterKeyBehavior } from './FormEnterKeyBehavior';
-import { SaveFormDataInSettings } from './SaveFormDataInSettings';
-import { FormBaseFontVariant } from './FormBaseFontVariant';
 import { FormExtInfo } from './FormExtInfo';
 import { AutoCommandBar } from './AutoCommandBar';
-import { FormPurpose } from './FormPurpose';
 import { ValueListItem } from './ValueListItem';
 import { ElementDataSourceInfo } from './ElementDataSourceInfo';
 import { PropertyInfo } from './PropertyInfo';
-import { OnFormWindowOpenLockMode } from './OnFormWindowOpenLockMode';
-import { FormWindowViewMode } from './FormWindowViewMode';
-import { AutoSaveFormDataInSettings } from './AutoSaveFormDataInSettings';
-import { LogFormScrollMode } from './LogFormScrollMode';
-import { ShowTitle851 } from './ShowTitle851';
-import { FormConversationsRepresentation } from './FormConversationsRepresentation';
-import { CollapseFormItemsByImportance } from './CollapseFormItemsByImportance';
-import { ClientApplicationFormScaleVariant } from './ClientApplicationFormScaleVariant';
-import { InterfaceType } from './InterfaceType';
-import { FormElementCommandBarLocation } from './FormElementCommandBarLocation';
 import { FormCommandPanelGlobalCommandSource } from './FormCommandPanelGlobalCommandSource';
 import { DataCompositionConditionalAppearance } from './DataCompositionConditionalAppearance';
 import { FormCommandInterface } from './FormCommandInterface';
+import { AutoSaveFormDataInSettings, ChildrenTitleLocation, ClientApplicationFormScaleVariant, CollapseFormItemsByImportance, FormBaseFontVariant, FormChildrenAlign, FormChildrenGroup, FormChildrenWidth, FormConversationsRepresentation, FormElementCommandBarLocation, FormEnterKeyBehavior, FormItemSpacing, FormPurpose, FormWindowOpeningMode, FormWindowViewMode, InterfaceType, ItemHorizontalAlignment, ItemVerticalAlignment, LogFormScrollMode, OnFormWindowOpenLockMode, SaveFormDataInSettings, ShowTitle851 } from './types';
 
 /**
  * Главный интерфейс формы

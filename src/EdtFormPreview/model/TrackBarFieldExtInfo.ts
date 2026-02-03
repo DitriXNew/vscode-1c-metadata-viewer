@@ -4,8 +4,7 @@
  */
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
-import { FormElementOrientation } from './RadioButtonsFieldExtInfo';
-import { MarkingStyle } from './MarkingStyle';
+import { FormElementOrientation, MarkingStyle } from './types';
 
 export interface TrackBarFieldExtInfo extends FieldExtInfo {
   /** Ширина */

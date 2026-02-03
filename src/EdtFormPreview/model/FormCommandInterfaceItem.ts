@@ -1,6 +1,6 @@
 // Соответствует com._1c.g5.v8.dt.form.model.FormCommandInterfaceItem
 import { AbstractDataPath } from './AbstractDataPath';
-import { CommandKind } from './CommandKind';
+import { CommandKind } from './types';
 
 export interface FormCommandInterfaceItem {
     command?: any; // Command

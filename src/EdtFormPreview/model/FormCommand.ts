@@ -3,13 +3,9 @@
  * Based on EDT com._1c.g5.v8.dt.form.model.FormCommand
  */
 
-import { AdjustableBoolean } from './AdjustableBoolean';
 import { LocalizedString } from './LocalizedString';
-import { CurrentRowUse } from './CurrentRowUse';
 import { Picture } from './Picture';
-import { DefaultRepresentation } from './DefaultRepresentation';
-import { CommandActionPurpose } from './CommandActionPurpose';
-import { SelectedRowsUse } from './SelectedRowsUse';
+import { AdjustableBoolean, CommandActionPurpose, CurrentRowUse, DefaultRepresentation, SelectedRowsUse } from './types';
 
 /**
  * Обработчик команды

@@ -5,8 +5,7 @@
 
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
-import { UseOutput } from './UseOutput';
-import { ViewStatusLocation } from './ViewStatusLocation';
+import { UseOutput, ViewStatusLocation } from './types';
 
 /**
  * Расширенная информация для поля PDF документа

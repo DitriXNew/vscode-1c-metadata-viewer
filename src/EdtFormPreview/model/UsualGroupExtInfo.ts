@@ -3,20 +3,10 @@
  * @see com._1c.g5.v8.dt.form.model.UsualGroupExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
 import { LocalizedString } from './LocalizedString';
-import { FormChildrenGroup } from './FormChildrenGroup';
-import { FormChildrenAlign } from './FormChildrenAlign';
-import { FormItemSpacing } from './FormItemSpacing';
-import { ChildrenTitleLocation } from './ChildrenTitleLocation';
-import { FormChildrenWidth } from './FormChildrenWidth';
-import { CurrentRowUse } from './CurrentRowUse';
-import { UsualGroupBehavior } from './UsualGroupBehavior';
-import { UsualGroupControlRepresentation } from './UsualGroupControlRepresentation';
-import { UsualGroupRepresentation } from './UsualGroupRepresentation';
-import { UsualGroupThroughAlign } from './UsualGroupThroughAlign';
+import { ChildrenTitleLocation, CurrentRowUse, FormChildrenAlign, FormChildrenGroup, FormChildrenWidth, FormItemSpacing, ItemHorizontalAlignment, ItemVerticalAlignment, UsualGroupBehavior, UsualGroupControlRepresentation, UsualGroupRepresentation, UsualGroupThroughAlign } from './types';
 
 export interface UsualGroupExtInfo extends GroupExtInfo {
   /** Группировка дочерних элементов */

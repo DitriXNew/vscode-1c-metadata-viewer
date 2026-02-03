@@ -8,7 +8,6 @@ import { XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartR
 import { AbstractFormFieldXmlPartReader } from './AbstractFormFieldXmlPartReader';
 import { FormField } from '../../model/FormField';
 import { LabelFieldExtInfo } from '../../model/LabelFieldExtInfo';
-import { ManagedFormFieldType } from '../../model/ManagedFormFieldType';
 
 /**
  * Ридер для поля надписи
@@ -23,7 +22,7 @@ export class LabelFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
         const field = this.readFormField(node, context, errorCollector);
         
         // Устанавливаем тип поля
-        field.type = ManagedFormFieldType.LabelField;
+        field.type = 'LabelField';
 
         // Создаём и заполняем ExtInfo
         const extInfo: LabelFieldExtInfo = {};

@@ -4,12 +4,7 @@
  */
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './TitleStyle';
-import { FormElementOrientation } from './RadioButtonsFieldExtInfo';
-
-export type FormProgressBarRepresentation = 
-  | 'Auto'
-  | 'Smooth'
-  | 'Block';
+import { FormElementOrientation, FormProgressBarRepresentation } from './types';
 
 export interface ProgressBarFieldExtInfo extends FieldExtInfo {
   /** Ширина */

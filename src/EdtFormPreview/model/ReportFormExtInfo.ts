@@ -4,10 +4,7 @@
  */
 
 import { FormExtInfo } from './FormExtInfo';
-import { ReportFormType } from './ReportFormType';
-import { AutoShowStateMode } from './AutoShowStateMode';
-import { ReportResultViewMode } from './ReportResultViewMode';
-import { ViewModeApplicationOnSetReportResult } from './ViewModeApplicationOnSetReportResult';
+import { AutoShowStateMode, ReportFormType, ReportResultViewMode, ViewModeApplicationOnSetReportResult } from './types';
 
 export interface ReportFormExtInfo extends FormExtInfo {
     /** Показ состояния */

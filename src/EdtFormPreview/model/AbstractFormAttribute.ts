@@ -1,6 +1,6 @@
 // Соответствует com._1c.g5.v8.dt.form.model.AbstractFormAttribute
 import { Titled } from './Titled';
-import { FillChecking } from './FillChecking';
+import { FillChecking } from './types';
 
 export interface AbstractFormAttribute extends Titled {
     name: string;

@@ -16,7 +16,7 @@ import { Color } from './Color';
 import { Visible } from './Visible';
 import { UserVisible } from './UserVisible';
 import { AbstractDataPath } from './DataPath';
-import { FormElementTitleLocation } from './FormElementTitleLocation';
+import { FormElementTitleLocation } from './types';
 
 export interface DataItem extends FormItem, Titled, TitleStyle, Visible {
   /** Путь к данным */

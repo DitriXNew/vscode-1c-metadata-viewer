@@ -8,7 +8,6 @@ import { XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartR
 import { AbstractFormFieldXmlPartReader } from './AbstractFormFieldXmlPartReader';
 import { FormField } from '../../model/FormField';
 import { InputFieldExtInfo } from '../../model/InputFieldExtInfo';
-import { ManagedFormFieldType } from '../../model/ManagedFormFieldType';
 
 /**
  * Ридер для поля ввода
@@ -23,7 +22,7 @@ export class InputFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
         const field = this.readFormField(node, context, errorCollector);
         
         // Устанавливаем тип поля
-        field.type = ManagedFormFieldType.InputField;
+        field.type = 'InputField';
 
         // Создаём и заполняем ExtInfo
         const extInfo: InputFieldExtInfo = {};

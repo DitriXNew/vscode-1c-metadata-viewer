@@ -8,7 +8,6 @@
  * - ExtensionAdoptedProperty
  */
 import { Group } from './Group';
-import { ManagedFormGroupType } from './ManagedFormGroupType';
 import { GroupExtInfo } from './GroupExtInfo';
 import { UsualGroupExtInfo } from './UsualGroupExtInfo';
 import { PagesGroupExtInfo } from './PagesGroupExtInfo';
@@ -18,6 +17,7 @@ import { ButtonGroupExtInfo } from './ButtonGroupExtInfo';
 import { ColumnGroupExtInfo } from './ColumnGroupExtInfo';
 import { PopupGroupExtInfo } from './PopupGroupExtInfo';
 import { ExtendedTooltip } from './ExtendedTooltip';
+import { ManagedFormGroupType } from './ManagedFormGroupType';
 
 export interface FormGroup extends Group {
   /** Тип группы */

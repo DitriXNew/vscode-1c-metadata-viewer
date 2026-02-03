@@ -10,7 +10,6 @@ import { XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartR
 import { AbstractFormFieldXmlPartReader } from './AbstractFormFieldXmlPartReader';
 import { FormField } from '../../model/FormField';
 import { ImageFieldExtInfo } from '../../model/ImageFieldExtInfo';
-import { ManagedFormFieldType } from '../../model/ManagedFormFieldType';
 
 /**
  * Ридер для поля картинки
@@ -25,7 +24,7 @@ export class PictureFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
         const field = this.readFormField(node, context, errorCollector);
         
         // Устанавливаем тип поля
-        field.type = ManagedFormFieldType.PictureField;
+        field.type = 'PictureField';
 
         // Создаём и заполняем ExtInfo (ImageFieldExtInfo)
         const extInfo: ImageFieldExtInfo = {};

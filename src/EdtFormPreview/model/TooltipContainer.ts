@@ -3,16 +3,9 @@
  * @see com._1c.g5.v8.dt.form.model.TooltipContainer
  */
 import { LocalizedString } from './LocalizedString';
+import { TooltipRepresentation } from './types';
 
 export interface TooltipContainer {
   toolTip?: LocalizedString | LocalizedString[] | string;
-  toolTipRepresentation?: ToolTipRepresentation;
+  toolTipRepresentation?: TooltipRepresentation;
 }
-
-export type ToolTipRepresentation = 
-  | 'Auto'
-  | 'None'
-  | 'Balloon'
-  | 'Button'
-  | 'ShowTop'
-  | 'ShowBottom';

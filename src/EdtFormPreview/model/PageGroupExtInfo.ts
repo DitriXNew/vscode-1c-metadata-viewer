@@ -3,16 +3,11 @@
  * @see com._1c.g5.v8.dt.form.model.PageGroupExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
-import { FormChildrenGroup } from './FormChildrenGroup';
-import { FormChildrenAlign } from './FormChildrenAlign';
-import { FormItemSpacing } from './FormItemSpacing';
-import { FormChildrenWidth } from './FormChildrenWidth';
-import { ChildrenTitleLocation } from './ChildrenTitleLocation';
 import { LocalizedString } from './LocalizedString';
 import { Picture } from './Picture';
+import { ChildrenTitleLocation, FormChildrenAlign, FormChildrenGroup, FormChildrenWidth, FormItemSpacing, ItemHorizontalAlignment, ItemVerticalAlignment } from './types';
 
 export interface PageGroupExtInfo extends GroupExtInfo {
   /** Картинка вкладки */

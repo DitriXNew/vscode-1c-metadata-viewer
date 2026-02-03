@@ -3,10 +3,7 @@
  * @see com._1c.g5.v8.dt.form.model.PagesGroupExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { CurrentRowUse } from './CurrentRowUse';
-import { PagesRepresentation } from './PagesRepresentation';
-
-export type FormPagesRepresentation = PagesRepresentation;
+import { CurrentRowUse, PagesRepresentation, FormPagesRepresentation } from './types';
 
 export interface PagesGroupExtInfo extends GroupExtInfo {
   /** Представление страниц */

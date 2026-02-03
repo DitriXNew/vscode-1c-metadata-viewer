@@ -3,10 +3,8 @@
  * Based on EDT com._1c.g5.v8.dt.form.model.FormStandardCommand
  */
 
-import { DefaultRepresentation } from './DefaultRepresentation';
-import { SelectedRowsUse } from './SelectedRowsUse';
-import { CurrentRowUse } from './CurrentRowUse';
 import { Picture } from './Picture';
+import { CurrentRowUse, DefaultRepresentation, SelectedRowsUse } from './types';
 
 /**
  * Стандартная команда формы

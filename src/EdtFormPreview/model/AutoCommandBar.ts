@@ -4,14 +4,7 @@
  */
 
 import { Group } from './Group';
-import { ItemHorizontalAlignment } from './ItemAlignment';
-
-/**
- * Режим отображения командной панели формы
- */
-export type FormCommandBarAppearanceMode = 
-    | 'Auto'
-    | 'Compact';
+import { ItemHorizontalAlignment, FormCommandBarAppearanceMode } from './types';
 
 /**
  * Автоматическая командная панель

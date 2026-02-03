@@ -3,13 +3,11 @@
  * @see com._1c.g5.v8.dt.form.model.ColumnGroupExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { ItemHorizontalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { AbstractDataPath } from './DataPath';
 import { Picture } from './Picture';
 import { LocalizedString } from './LocalizedString';
-import { ColumnGrouping } from './ColumnGrouping';
-import { FormFixedInTable } from './FormFixedInTable';
+import { ColumnGrouping, FormFixedInTable, ItemHorizontalAlignment } from './types';
 
 export interface ColumnGroupExtInfo extends GroupExtInfo {
   /** Группировка колонок */

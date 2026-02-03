@@ -4,9 +4,7 @@
  */
 
 import { FieldExtInfo } from './FieldExtInfo';
-import { GanttChartTableLocation } from './GanttChartTableLocation';
-import { GanttChartValuesSelectionMode } from './GanttChartValuesSelectionMode';
-import { GanttChartIntervalsSelectionMode } from './GanttChartIntervalsSelectionMode';
+import { GanttChartIntervalsSelectionMode, GanttChartTableLocation, GanttChartValuesSelectionMode } from './types';
 
 /**
  * Расширенная информация для поля диаграммы Ганта

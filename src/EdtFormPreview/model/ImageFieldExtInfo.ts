@@ -8,9 +8,7 @@ import { Font } from './Font';
 import { Picture } from './Picture';
 import { Border } from './Border';
 import { LocalizedString } from './LocalizedString';
-import { PictureSize } from './PictureSize';
-import { PictureBackgroundShowMode } from './PictureBackgroundShowMode';
-import { FileDragMode } from './FileDragMode';
+import { FileDragMode, PictureBackgroundShowMode, PictureSize } from './types';
 
 export interface ImageFieldExtInfo extends FieldExtInfo {
   /** Ширина */

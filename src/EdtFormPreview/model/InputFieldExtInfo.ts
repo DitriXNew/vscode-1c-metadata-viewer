@@ -6,13 +6,8 @@ import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Picture } from './Picture';
-import { ChoiceHistoryOnInput } from './ChoiceHistoryOnInput';
-import { ChoiceButtonRepresentation } from './ChoiceButtonRepresentation';
 import { LocalizedString } from './LocalizedString';
-import { AutoShowClearButtonMode } from './AutoShowClearButtonMode';
-import { AutoShowOpenButtonMode } from './AutoShowOpenButtonMode';
-import { EditTextUpdate } from './EditTextUpdate';
-import { SpecialTextInputMode } from './SpecialTextInputMode';
+import { AutoShowClearButtonMode, AutoShowOpenButtonMode, ChoiceButtonRepresentation, ChoiceHistoryOnInput, EditTextUpdate, SpecialTextInputMode } from './types';
 
 export interface InputFieldExtInfo extends FieldExtInfo {
   /** Ширина */

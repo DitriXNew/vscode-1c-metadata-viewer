@@ -3,8 +3,7 @@
  * @see com._1c.g5.v8.dt.form.model.CommandBarExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { ItemHorizontalAlignment } from './ItemAlignment';
-import { FormCommandBarAppearanceMode } from './AutoCommandBar';
+import { FormCommandBarAppearanceMode, ItemHorizontalAlignment } from './types';
 
 export interface CommandBarExtInfo extends GroupExtInfo {
   /** Горизонтальное выравнивание */

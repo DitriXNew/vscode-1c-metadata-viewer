@@ -6,7 +6,7 @@ import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Border } from './Border';
-import { FormDateSelectionMode } from './FormDateSelectionMode';
+import { FormDateSelectionMode } from './types';
 
 export interface CalendarFieldExtInfo extends FieldExtInfo {
   /** Ширина */

@@ -8,7 +8,6 @@
 import { XmlNode } from '../XmlNode';
 import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartReader';
 import { FormField } from '../../model/FormField';
-import { ManagedFormFieldType } from '../../model/ManagedFormFieldType';
 
 /**
  * Базовый ридер для всех типов полей формы
@@ -27,7 +26,7 @@ export abstract class AbstractFormFieldXmlPartReader extends AbstractFormXmlPart
         const field: FormField = {
             id: 0,
             name: '',
-            type: ManagedFormFieldType.InputField
+            type: 'InputField'
         };
 
         // id

@@ -5,14 +5,8 @@
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
-import { TumblerRepresentation } from './CheckBoxFieldExtInfo';
-import { RadioButtonType } from './RadioButtonType';
 import { FormChoiceListDesTimeValue } from './FormChoiceListDesTimeValue';
-
-export type FormElementOrientation = 
-  | 'Auto'
-  | 'Vertical'
-  | 'Horizontal';
+import { RadioButtonType, TumblerRepresentation, FormElementOrientation } from './types';
 
 export interface RadioButtonsFieldExtInfo extends FieldExtInfo {
   /** Тип переключателя */

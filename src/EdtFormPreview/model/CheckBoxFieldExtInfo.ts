@@ -6,12 +6,7 @@ import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
 import { Font } from './Font';
 import { LocalizedString } from './LocalizedString';
-import { CheckBoxKind } from './CheckBoxKind';
-
-export type TumblerRepresentation = 
-  | 'Auto'
-  | 'LeftAndRight'
-  | 'UpAndDown';
+import { CheckBoxKind, TumblerRepresentation } from './types';
 
 export interface CheckBoxFieldExtInfo extends FieldExtInfo {
   /** Тип флажка */

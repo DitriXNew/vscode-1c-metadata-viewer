@@ -5,8 +5,7 @@
 
 import { LocalizedString } from './LocalizedString';
 import { FormAttributeExtInfo } from './FormAttributeExtInfo';
-import { FillChecking } from './FillChecking';
-import { AdjustableBoolean } from './AdjustableBoolean';
+import { AdjustableBoolean, FillChecking } from './types';
 
 /**
  * Описание типа

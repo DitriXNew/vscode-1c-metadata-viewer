@@ -5,7 +5,7 @@
 
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
-import { UseOutput } from './UseOutput';
+import { UseOutput } from './types';
 
 /**
  * Расширенная информация для поля географической карты

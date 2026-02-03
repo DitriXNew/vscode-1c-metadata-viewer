@@ -5,11 +5,7 @@
 import { GroupExtInfo } from './GroupExtInfo';
 import { Color } from './Color';
 import { Picture } from './Picture';
-import { MenuElementPlacementArea } from './MenuElementPlacementArea';
-import { ButtonShape } from './ButtonShape';
-import { ButtonShapeRepresentation } from './ButtonShapeRepresentation';
-import { ButtonImportance } from './ButtonImportance';
-import { ButtonRepresentation } from './ButtonRepresentation';
+import { ButtonImportance, ButtonRepresentation, ButtonShape, ButtonShapeRepresentation, MenuElementPlacementArea } from './types';
 
 export interface PopupGroupExtInfo extends GroupExtInfo {
   /** Картинка */

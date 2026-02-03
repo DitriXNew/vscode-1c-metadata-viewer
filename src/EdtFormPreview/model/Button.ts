@@ -7,21 +7,12 @@
  * - ExtendedTooltipHolder
  */
 import { DataItem } from './DataItem';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Picture } from './Picture';
 import { ExtendedTooltip } from './ExtendedTooltip';
-import { ButtonShape } from './ButtonShape';
-import { ButtonShapeRepresentation } from './ButtonShapeRepresentation';
-import { ButtonImportance } from './ButtonImportance';
-import { MenuElementPlacementArea } from './MenuElementPlacementArea';
 import { EventHandler } from './EventHandler';
-import { ManagedFormButtonType } from './ManagedFormButtonType';
-import { FormButtonPictureLocation } from './FormButtonPictureLocation';
-import { ButtonRepresentation } from './ButtonRepresentation';
-import { ButtonLocationInCommandBar } from './ButtonLocationInCommandBar';
-import { RepresentationInContextMenu } from './RepresentationInContextMenu';
+import { ButtonImportance, ButtonLocationInCommandBar, ButtonRepresentation, ButtonShape, ButtonShapeRepresentation, FormButtonPictureLocation, ItemHorizontalAlignment, ItemVerticalAlignment, ManagedFormButtonType, MenuElementPlacementArea, RepresentationInContextMenu } from './types';
 
 export interface Button extends DataItem {
   /** Тип кнопки */

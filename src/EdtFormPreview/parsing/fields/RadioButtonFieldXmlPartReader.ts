@@ -8,7 +8,6 @@ import { XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartR
 import { AbstractFormFieldXmlPartReader } from './AbstractFormFieldXmlPartReader';
 import { FormField } from '../../model/FormField';
 import { RadioButtonsFieldExtInfo } from '../../model/RadioButtonsFieldExtInfo';
-import { ManagedFormFieldType } from '../../model/ManagedFormFieldType';
 import { FormChoiceListDesTimeValue } from '../../model/FormChoiceListDesTimeValue';
 
 /**
@@ -24,7 +23,7 @@ export class RadioButtonFieldXmlPartReader extends AbstractFormFieldXmlPartReade
         const field = this.readFormField(node, context, errorCollector);
         
         // Устанавливаем тип поля
-        field.type = ManagedFormFieldType.RadioButtonField;
+        field.type = 'RadioButtonField';
 
         // Создаём и заполняем ExtInfo (RadioButtonsFieldExtInfo)
         const extInfo: RadioButtonsFieldExtInfo = {};

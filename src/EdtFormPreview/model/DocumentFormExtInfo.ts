@@ -4,12 +4,7 @@
  */
 
 import { FormExtInfo } from './FormExtInfo';
-import { AutoTime } from './AutoTime';
-
-export type PostingModeUse = 
-    | 'Auto'
-    | 'Allow'
-    | 'Deny';
+import { AutoTime, PostingModeUse } from './types';
 
 export interface DocumentFormExtInfo extends FormExtInfo {
     /** Авто время */

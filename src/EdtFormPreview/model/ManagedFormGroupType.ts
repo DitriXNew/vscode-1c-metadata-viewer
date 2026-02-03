@@ -2,19 +2,7 @@
  * ManagedFormGroupType - типы групп управляемой формы
  * @see com._1c.g5.v8.dt.form.model.ManagedFormGroupType
  */
-export type ManagedFormGroupType = 
-  | 'ButtonGroup'      // 0 - Группа кнопок
-  | 'ColumnGroup'      // 1 - Группа колонок
-  | 'CommandBar'       // 2 - Командная панель
-  | 'UsualGroup'       // 3 - Обычная группа
-  | 'Popup'            // 4 - Всплывающее меню
-  | 'Page'             // 5 - Страница
-  | 'Pages'            // 6 - Страницы (вкладки)
-  | 'ContextMenu'      // 7 - Контекстное меню
-  | 'AutoCommandBar'   // 8 - Авто командная панель
-  | 'Navigator'        // 9 - Навигатор
-  | 'SelectedItemsActionsPanel'  // 10 - Панель действий выбранных элементов
-  | 'RowActionsPanel'; // 11 - Панель действий строки
+export { ManagedFormGroupType } from './types';
 
 export const ManagedFormGroupTypeValues = {
   ButtonGroup: 0,

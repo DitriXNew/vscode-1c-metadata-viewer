@@ -12,7 +12,7 @@ import { Picture } from '../model/Picture';
 import { Border } from '../model/Border';
 import { DataPath } from '../model/DataPath';
 import { UserVisible } from '../model/UserVisible';
-import { DisplayImportance } from '../model/DisplayImportance';
+import { DisplayImportance } from '../model';
 
 /**
  * Контекст чтения - хранит информацию о версии и родительском объекте

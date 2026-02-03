@@ -16,7 +16,7 @@ import { LocalizedString } from './LocalizedString';
 import { TitleStyle } from './TitleStyle';
 import { Visible } from './Visible';
 import { TooltipContainer } from './TooltipContainer';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
+import { ItemHorizontalAlignment, ItemVerticalAlignment } from './types';
 
 export interface Group extends FormItem, Titled, TitleStyle, Visible, TooltipContainer {
   /** Дочерние элементы */

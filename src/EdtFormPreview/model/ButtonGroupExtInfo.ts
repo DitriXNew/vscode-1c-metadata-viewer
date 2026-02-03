@@ -3,8 +3,7 @@
  * @see com._1c.g5.v8.dt.form.model.ButtonGroupExtInfo
  */
 import { GroupExtInfo } from './GroupExtInfo';
-import { ButtonGroupRepresentation } from './ButtonGroupRepresentation';
-import { MenuElementPlacementArea } from './MenuElementPlacementArea';
+import { ButtonGroupRepresentation, MenuElementPlacementArea } from './types';
 
 export interface ButtonGroupExtInfo extends GroupExtInfo {
   /** Источник команд */

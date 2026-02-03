@@ -1,7 +1,7 @@
 // CommandHandlerExtension - расширение обработчика команды
 
 import { CommandHandler } from './CommandHandler';
-import { ExtendedMethodCallType } from './ExtendedMethodCallType';
+import { ExtendedMethodCallType } from './types';
 
 /**
  * CommandHandlerExtension - расширение обработчика команды

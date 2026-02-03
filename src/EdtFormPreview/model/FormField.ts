@@ -16,8 +16,6 @@
  */
 import { DataItem } from './DataItem';
 import { TooltipContainer } from './TooltipContainer';
-import { ManagedFormFieldType } from './ManagedFormFieldType';
-import { ItemHorizontalAlignment, ItemVerticalAlignment } from './ItemAlignment';
 import { Color } from './Color';
 import { Font } from './Font';
 import { Picture } from './Picture';
@@ -28,18 +26,10 @@ import { LabelFieldExtInfo } from './LabelFieldExtInfo';
 import { CheckBoxFieldExtInfo } from './CheckBoxFieldExtInfo';
 import { ImageFieldExtInfo } from './ImageFieldExtInfo';
 import { ExtendedTooltip } from './ExtendedTooltip';
-import { FormFixedInTable } from './FormFixedInTable';
-import { TableFieldEditMode } from './TableFieldEditMode';
-import { WarningOnEditRepresentation } from './WarningOnEditRepresentation';
 import { LocalizedString } from './LocalizedString';
 import { AbstractDataPath } from './AbstractDataPath';
-import { WidthVariantInCard } from './WidthVariantInCard';
-import { AppearanceVariantInCard } from './AppearanceVariantInCard';
-import { TableCellMarkType } from './TableCellMarkType';
-import { CellHyperlinkRepresentation } from './CellHyperlinkRepresentation';
-import { CellHyperlinkDisplayVariant } from './CellHyperlinkDisplayVariant';
-import { AutoWidthInTable } from './AutoWidthInTable';
-import { OnMainServerUnavalableBehavior } from './OnMainServerUnavalableBehavior';
+import { AppearanceVariantInCard, AutoWidthInTable, CellHyperlinkDisplayVariant, CellHyperlinkRepresentation, FormFixedInTable, ItemHorizontalAlignment, ItemVerticalAlignment, OnMainServerUnavalableBehavior, TableCellMarkType, TableFieldEditMode, WarningOnEditRepresentation, WidthVariantInCard } from './types';
+import { ManagedFormFieldType } from './ManagedFormFieldType';
 
 export interface FormField extends DataItem, TooltipContainer {
   /** Тип поля */

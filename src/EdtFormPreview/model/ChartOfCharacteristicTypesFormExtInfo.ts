@@ -4,7 +4,7 @@
  */
 
 import { FormExtInfo } from './FormExtInfo';
-import { FoldersAndItemsUse } from './FoldersAndItemsUse';
+import { FoldersAndItemsUse } from './types';
 
 export interface ChartOfCharacteristicTypesFormExtInfo extends FormExtInfo {
     /** Использование для папок и элементов */
