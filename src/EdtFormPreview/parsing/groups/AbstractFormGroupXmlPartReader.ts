@@ -9,11 +9,19 @@ import { XmlNode } from '../XmlNode';
 import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartReader';
 import { FormGroup } from '../../model/FormGroup';
 import { FormItem } from '../../model/FormItem';
+import { ExtendedTooltipXmlPartReader } from '../extendedtooltip/ExtendedTooltipXmlPartReader';
 
 /**
  * Базовый ридер для всех типов групп формы
  */
 export abstract class AbstractFormGroupXmlPartReader extends AbstractFormXmlPartReader {
+
+    protected readonly extendedTooltipReader: ExtendedTooltipXmlPartReader;
+
+    constructor() {
+        super();
+        this.extendedTooltipReader = new ExtendedTooltipXmlPartReader();
+    }
 
     /**
      * Читает базовые свойства FormGroup (соответствует fillGroup + readFormGroup в EDT)
@@ -123,16 +131,9 @@ export abstract class AbstractFormGroupXmlPartReader extends AbstractFormXmlPart
     protected readExtendedTooltip(
         node: XmlNode,
         group: FormGroup,
-        _context: XmlReaderContext,
-        _errorCollector: XmlReadErrorCollector
+        context: XmlReaderContext,
+        errorCollector: XmlReadErrorCollector
     ): void {
-        const extendedTooltipNode = node.get('ExtendedTooltip');
-        if (extendedTooltipNode.exists()) {
-            // TODO: полная реализация ExtendedTooltip
-            group.extendedTooltip = {
-                id: this.readId(extendedTooltipNode) || 0,
-                name: this.readString(extendedTooltipNode.get('name')) || ''
-            };
-        }
+        group.extendedTooltip = this.extendedTooltipReader.readFromParent(node, context, errorCollector);
     }
 }

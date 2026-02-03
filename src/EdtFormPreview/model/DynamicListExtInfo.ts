@@ -33,4 +33,38 @@ export interface DynamicListExtInfo extends FormAttributeExtInfo {
     
     /** Поля ключа */
     keyField?: string;
+
+    /** Поля (8.3.18+) */
+    fields?: DynamicListField[];
+
+    /** Вычисляемые поля (8.3.18+) */
+    calculatedFields?: DynamicListCalculatedField[];
+
+    /** Параметры (8.3.18+) */
+    parameters?: DynamicListParameter[];
+}
+
+/**
+ * Поле динамического списка
+ */
+export interface DynamicListField {
+    name?: string;
+    alias?: string;
+    expression?: string;
+}
+
+/**
+ * Вычисляемое поле динамического списка
+ */
+export interface DynamicListCalculatedField {
+    name?: string;
+    expression?: string;
+}
+
+/**
+ * Параметр динамического списка
+ */
+export interface DynamicListParameter {
+    name?: string;
+    value?: string;
 }

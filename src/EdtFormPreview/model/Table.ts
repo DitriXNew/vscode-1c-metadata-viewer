@@ -28,10 +28,8 @@ import { ExtendedTooltip } from './ExtendedTooltip';
 import { AutoCommandBar } from './AutoCommandBar';
 import { AbstractDataPath } from './AbstractDataPath';
 import { TableExtInfo } from './TableExtInfo';
-import { SearchStringAdditionExtInfo } from './SearchStringAdditionExtInfo';
-import { ViewStatusAdditionExtInfo } from './ViewStatusAdditionExtInfo';
-import { SearchControlAdditionExtInfo } from './SearchControlAdditionExtInfo';
-import { CardBehaviorOnVerticalCompression, CellHyperlinksRepresentation, FileDragMode, FormTableType, HierarchyPanelLocation, ItemHorizontalAlignment, ItemVerticalAlignment, LogFormTableHeightControlVariant, RefreshRequestMethod, SaveTableAppearance, SearchControlLocation, SearchOnInput, SearchStringLocation, TableBehaviorOnHorizontalCompression, TableCurrentRowUse, TableInitialListView, TableInitialRowActivation, TableInitialTreeView, TableRepresentation, TableRowActionsShowType, TableRowInputMode, TableRowSelectionMode, TableScrollBarUse, TableSelectionMode, UseOutput, ViewStatusLocation } from './types';
+import { Addition } from './Addition';
+import { CardBehaviorOnVerticalCompression, CellHyperlinksRepresentation, FileDragMode, FormElementCommandBarLocation, FormTableType, HierarchyPanelLocation, ItemHorizontalAlignment, ItemVerticalAlignment, LogFormTableHeightControlVariant, RefreshRequestMethod, SaveTableAppearance, SearchControlLocation, SearchOnInput, SearchStringLocation, TableBehaviorOnHorizontalCompression, TableCurrentRowUse, TableInitialListView, TableInitialRowActivation, TableInitialTreeView, TableRepresentation, TableRowActionsShowType, TableRowInputMode, TableRowSelectionMode, TableScrollBarUse, TableSelectionMode, UseOutput, ViewStatusLocation } from './types';
 
 export interface Table extends DataItem, TooltipContainer {
   /** Дочерние элементы (колонки) */
@@ -279,15 +277,21 @@ export interface Table extends DataItem, TooltipContainer {
   
   /** Авто командная панель */
   autoCommandBar?: AutoCommandBar;
+
+  /** Расположение командной панели */
+  commandBarLocation?: FormElementCommandBarLocation;
   
   /** Строка поиска */
-  searchStringAddition?: SearchStringAdditionExtInfo;
+  searchStringAddition?: Addition;
   
   /** Статус просмотра */
-  viewStatusAddition?: ViewStatusAdditionExtInfo;
+  viewStatusAddition?: Addition;
   
   /** Элемент управления поиском */
-  searchControlAddition?: SearchControlAdditionExtInfo;
+  searchControlAddition?: Addition;
+  
+  /** Исключённые команды */
+  excludedCommands?: string[];
   
   /** Расширенная подсказка */
   extendedTooltip?: ExtendedTooltip;

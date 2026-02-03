@@ -9,6 +9,7 @@ import { XmlNode } from '../XmlNode';
 import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartReader';
 import { ExtendedTooltip } from '../../model/ExtendedTooltip';
 import { LabelDecorationExtInfo } from '../../model/LabelDecorationExtInfo';
+import { EventHandler } from '../../model/EventHandler';
 
 /**
  * Ридер для расширенной подсказки
@@ -155,10 +156,36 @@ export class ExtendedTooltipXmlPartReader extends AbstractFormXmlPartReader {
         // Border
         extInfo.border = this.readBorder(etNode.get('Border'));
 
-        // Note: Event handlers are read into extInfo.handlers
-        // but we need readEventHandlers method in base class first
-        // TODO: Implement event handlers parsing when needed
+        // Обработчики событий записываются и в decoration, и в extInfo (как в EDT)
+        const handlers = this.readEventHandlers(etNode.get('Events'));
+        if (handlers && handlers.length > 0) {
+            extendedTooltip.handlers = handlers;
+            extInfo.handlers = [...handlers];
+        }
 
         return extendedTooltip;
+    }
+
+    /**
+     * Читает обработчики событий
+     */
+    private readEventHandlers(eventsNode: XmlNode): EventHandler[] | undefined {
+        if (!eventsNode.exists()) {
+            return undefined;
+        }
+        
+        const handlers: EventHandler[] = [];
+        const eventNodes = eventsNode.getAll('Event');
+        
+        for (const eventNode of eventNodes) {
+            const name = eventNode.attribute('name');
+            const event = eventNode.text();
+            
+            if (name) {
+                handlers.push({ name, event: event || '' });
+            }
+        }
+        
+        return handlers.length > 0 ? handlers : undefined;
     }
 }

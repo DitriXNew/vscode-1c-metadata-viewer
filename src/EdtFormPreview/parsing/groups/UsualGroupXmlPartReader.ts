@@ -109,7 +109,13 @@ export class UsualGroupXmlPartReader extends AbstractFormGroupXmlPartReader {
             extInfo.currentRowUse = this.readEnum(node.get('CurrentRowUse'));
 
             // AssociatedTableElementId - version-dependent
-            // TODO: handle version differences for 8.3.15+
+            if (this.versionIsAtLeast(context, '8.3.15')) {
+                // 8.3.15+ использует associatedTableElementId8315 (строка)
+                extInfo.associatedTableElementId8315 = this.readString(node.get('AssociatedTableElementId'));
+            } else {
+                // 8.3.12-8.3.14 использует associatedTableElementId (число)
+                extInfo.associatedTableElementId = this.readNumber(node.get('AssociatedTableElementId'));
+            }
         }
 
         // ShowTitle - version-dependent
@@ -126,7 +132,14 @@ export class UsualGroupXmlPartReader extends AbstractFormGroupXmlPartReader {
             // ScrollOnCompress
             extInfo.scrollOnCompress = this.readBoolean(node.get('ScrollOnCompress'));
 
-            // BackPicture, BackPictureEffect, CardRepresentationType - TODO
+            // BackPicture
+            extInfo.backPicture = this.readString(node.get('BackPicture'));
+
+            // BackPictureEffect
+            extInfo.backPictureEffect = this.readEnum(node.get('BackPictureEffect'));
+
+            // CardRepresentationType
+            extInfo.cardRepresentationType = this.readEnum(node.get('CardRepresentationType'));
         } else {
             // Pre-8.5.1 uses boolean showTitle
             extInfo.showTitle = this.readBoolean(node.get('ShowTitle'));

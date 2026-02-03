@@ -5,6 +5,7 @@
 
 import { FieldExtInfo } from './FieldExtInfo';
 import { Color } from './Color';
+import { Addition } from './Addition';
 import { UseOutput, ViewStatusLocation } from './types';
 
 /**
@@ -55,4 +56,7 @@ export interface PDFDocumentFieldExtInfo extends FieldExtInfo {
     
     /** Расположение строки состояния просмотра */
     viewStatusLocation?: ViewStatusLocation;
+
+    /** Дополнение статуса просмотра */
+    viewStatusAddition?: Addition;
 }

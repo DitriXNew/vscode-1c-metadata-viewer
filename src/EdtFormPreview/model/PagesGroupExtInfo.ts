@@ -12,6 +12,9 @@ export interface PagesGroupExtInfo extends GroupExtInfo {
   /** Использование текущей строки */
   currentRowUse?: CurrentRowUse;
   
-  /** Связанный элемент таблицы */
+  /** Связанный элемент таблицы (до 8.3.15) */
   associatedTableElementId?: number;
+
+  /** Связанный элемент таблицы (8.3.15+) */
+  associatedTableElementId8315?: string;
 }

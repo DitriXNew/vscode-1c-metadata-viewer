@@ -83,4 +83,19 @@ export interface UsualGroupExtInfo extends GroupExtInfo {
   
   /** Использование текущей строки */
   currentRowUse?: CurrentRowUse;
+
+  /** Связанный элемент таблицы (до 8.3.15) */
+  associatedTableElementId?: number;
+
+  /** Связанный элемент таблицы (8.3.15+) */
+  associatedTableElementId8315?: string;
+
+  /** Картинка фона (8.5.1+) */
+  backPicture?: string;
+
+  /** Эффект фоновой картинки (8.5.1+) */
+  backPictureEffect?: string;
+
+  /** Тип представления в виде карточки (8.5.1+) */
+  cardRepresentationType?: string;
 }

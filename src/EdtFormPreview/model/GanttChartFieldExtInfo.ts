@@ -4,12 +4,16 @@
  */
 
 import { FieldExtInfo } from './FieldExtInfo';
+import { Table } from './Table';
 import { GanttChartIntervalsSelectionMode, GanttChartTableLocation, GanttChartValuesSelectionMode } from './types';
 
 /**
  * Расширенная информация для поля диаграммы Ганта
  */
 export interface GanttChartFieldExtInfo extends FieldExtInfo {
+    /** Встроенная таблица (8.3.20+) */
+    autoTable?: Table;
+
     /** Ширина */
     width?: number;
     

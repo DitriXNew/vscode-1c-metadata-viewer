@@ -7,16 +7,27 @@ import { XmlNode } from '../XmlNode';
 import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartReader';
 import { Decoration } from '../../model/Decoration';
 import { EventHandler } from '../../model/EventHandler';
+import { ContextMenuXmlPartReader } from '../contextmenu/ContextMenuXmlPartReader';
+import { ExtendedTooltipXmlPartReader } from '../extendedtooltip/ExtendedTooltipXmlPartReader';
 
 /**
  * Базовый ридер для декораций (LabelDecoration, PictureDecoration)
  */
 export abstract class AbstractDecorationXmlPartReader extends AbstractFormXmlPartReader {
 
+    protected readonly contextMenuReader: ContextMenuXmlPartReader;
+    protected readonly extendedTooltipReader: ExtendedTooltipXmlPartReader;
+
+    constructor() {
+        super();
+        this.contextMenuReader = new ContextMenuXmlPartReader();
+        this.extendedTooltipReader = new ExtendedTooltipXmlPartReader();
+    }
+
     /**
      * Читает общие свойства декорации
      */
-    protected readDecoration(node: XmlNode, context: XmlReaderContext, _errorCollector: XmlReadErrorCollector): Decoration {
+    protected readDecoration(node: XmlNode, context: XmlReaderContext, errorCollector: XmlReadErrorCollector): Decoration {
         const decoration: Decoration = {
             id: this.readId(node) ?? 0,
             name: node.attribute('name') ?? ''
@@ -75,8 +86,11 @@ export abstract class AbstractDecorationXmlPartReader extends AbstractFormXmlPar
             (decoration as any).onMainServerUnavalableBehavior = node.get('OnMainServerUnavalableBehavior').text();
         }
 
-        // TODO: readContextMenu
-        // TODO: readExtendedTooltip
+        // Контекстное меню
+        decoration.contextMenu = this.contextMenuReader.readFromParent(node, context, errorCollector);
+        
+        // Расширенная подсказка
+        decoration.extendedTooltip = this.extendedTooltipReader.readFromParent(node, context, errorCollector);
 
         return decoration;
     }

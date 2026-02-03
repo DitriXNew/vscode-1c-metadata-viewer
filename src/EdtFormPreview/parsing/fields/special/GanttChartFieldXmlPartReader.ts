@@ -7,12 +7,28 @@ import { XmlNode } from '../../XmlNode';
 import { XmlReaderContext, XmlReadErrorCollector } from '../../AbstractFormXmlPartReader';
 import { AbstractFormFieldXmlPartReader } from '../AbstractFormFieldXmlPartReader';
 import { FormField } from '../../../model/FormField';
+import { FormItem } from '../../../model/FormItem';
 import { GanttChartFieldExtInfo } from '../../../model/GanttChartFieldExtInfo';
+import { TableXmlPartReader } from '../../table/TableXmlPartReader';
 
 /**
  * Ридер для поля диаграммы Ганта
  */
 export class GanttChartFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
+
+    private tableReader: TableXmlPartReader;
+
+    constructor() {
+        super();
+        this.tableReader = new TableXmlPartReader();
+    }
+
+    /**
+     * Устанавливает callback для чтения дочерних элементов
+     */
+    setChildItemsReader(reader: (node: XmlNode, context: XmlReaderContext, errorCollector: XmlReadErrorCollector) => FormItem[]): void {
+        this.tableReader.setChildItemsReader(reader);
+    }
 
     /**
      * Читает GanttChartField из XML
@@ -33,8 +49,8 @@ export class GanttChartFieldXmlPartReader extends AbstractFormFieldXmlPartReader
         if (this.versionIsGreaterThan(context, '8.3.20')) {
             const tableNode = node.get('Table');
             if (tableNode.exists()) {
-                // TODO: read embedded Table when Table parser supports it
-                errorCollector.addWarning('Embedded Table in GanttChartField not yet fully supported');
+                // Читаем встроенную таблицу
+                extInfo.autoTable = this.tableReader.read(tableNode, context, errorCollector);
             }
             extInfo.tableLocation = this.readEnum(node.get('TableLocation'));
         }

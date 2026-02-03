@@ -47,9 +47,13 @@ export class PagesGroupXmlPartReader extends AbstractFormGroupXmlPartReader {
 
         // AssociatedTableElementId - version-dependent
         if (this.versionIsAtLeast(context, '8.3.12')) {
-            // TODO: handle version differences for 8.3.15+
-            // 8.3.15+ использует associatedTableElementId8315
-            // 8.3.12-8.3.14 использует associatedTableElementId
+            if (this.versionIsAtLeast(context, '8.3.15')) {
+                // 8.3.15+ использует associatedTableElementId8315 (строка)
+                extInfo.associatedTableElementId8315 = this.readString(node.get('AssociatedTableElementId'));
+            } else {
+                // 8.3.12-8.3.14 использует associatedTableElementId (число)
+                extInfo.associatedTableElementId = this.readNumber(node.get('AssociatedTableElementId'));
+            }
         }
 
         // Читаем обработчики событий

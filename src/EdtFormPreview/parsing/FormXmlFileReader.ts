@@ -268,7 +268,7 @@ export class FormXmlFileReader extends AbstractFormXmlPartReader {
         // CreateButtonsGroupTitle, CreateButtonsGroupPicture (8.3.12+)
         if (this.versionIsAtLeast(context, '8.3.12')) {
             form.createButtonsGroupTitle = this.readLocalizedString(node.get('CreateButtonsGroupTitle'));
-            // CreateButtonsGroupPicture - TODO: картинка
+            form.createButtonsGroupPicture = this.readPicture(node.get('CreateButtonsGroupPicture'));
         }
     }
 

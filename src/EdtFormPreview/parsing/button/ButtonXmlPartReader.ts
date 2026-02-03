@@ -6,11 +6,19 @@
 import { XmlNode } from '../XmlNode';
 import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } from '../AbstractFormXmlPartReader';
 import { Button } from '../../model/Button';
+import { ExtendedTooltipXmlPartReader } from '../extendedtooltip/ExtendedTooltipXmlPartReader';
 
 /**
  * Ридер для парсинга Button
  */
 export class ButtonXmlPartReader extends AbstractFormXmlPartReader {
+
+    private readonly extendedTooltipReader: ExtendedTooltipXmlPartReader;
+
+    constructor() {
+        super();
+        this.extendedTooltipReader = new ExtendedTooltipXmlPartReader();
+    }
 
     /**
      * Читает Button
@@ -142,7 +150,8 @@ export class ButtonXmlPartReader extends AbstractFormXmlPartReader {
             button.buttonImportance = this.readEnum(node.get('ButtonImportance'));
         }
 
-        // TODO: readExtendedTooltip
+        // Расширенная подсказка
+        button.extendedTooltip = this.extendedTooltipReader.readFromParent(node, context, _errorCollector);
 
         return button;
     }

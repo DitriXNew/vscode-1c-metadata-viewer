@@ -19,6 +19,7 @@ import { DecorationExtInfo } from './DecorationExtInfo';
 import { LabelDecorationExtInfo } from './LabelDecorationExtInfo';
 import { PictureDecorationExtInfo } from './PictureDecorationExtInfo';
 import { ExtendedTooltip } from './ExtendedTooltip';
+import { EventHandler } from './EventHandler';
 import { ItemHorizontalAlignment, ItemVerticalAlignment } from './types';
 import { ManagedFormDecorationType } from './ManagedFormDecorationType';
 
@@ -85,4 +86,7 @@ export interface Decoration extends FormItem, Titled, Visible, TooltipContainer 
   
   /** Контекстное меню */
   contextMenu?: any;
+
+  /** Обработчики событий */
+  handlers?: EventHandler[];
 }

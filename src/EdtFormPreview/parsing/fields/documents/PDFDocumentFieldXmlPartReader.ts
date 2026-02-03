@@ -8,11 +8,19 @@ import { XmlReaderContext, XmlReadErrorCollector } from '../../AbstractFormXmlPa
 import { AbstractFormFieldXmlPartReader } from '../AbstractFormFieldXmlPartReader';
 import { FormField } from '../../../model/FormField';
 import { PDFDocumentFieldExtInfo } from '../../../model/PDFDocumentFieldExtInfo';
+import { ViewStatusAdditionXmlPartReader } from '../../additions/ViewStatusAdditionXmlPartReader';
 
 /**
  * Ридер для поля PDF документа
  */
 export class PDFDocumentFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
+
+    private viewStatusAdditionReader: ViewStatusAdditionXmlPartReader;
+
+    constructor() {
+        super();
+        this.viewStatusAdditionReader = new ViewStatusAdditionXmlPartReader();
+    }
 
     /**
      * Читает PDFDocumentField из XML
@@ -48,13 +56,16 @@ export class PDFDocumentFieldXmlPartReader extends AbstractFormFieldXmlPartReade
         extInfo.viewStatusLocation = this.readEnum(node.get('ViewStatusLocation'));
         extInfo.width = this.readNumber(node.get('Width'));
 
+        // Читаем ViewStatusAddition
+        const viewStatusAdditionNode = node.get('ViewStatusAddition');
+        if (viewStatusAdditionNode.exists()) {
+            extInfo.viewStatusAddition = this.viewStatusAdditionReader.read(viewStatusAdditionNode, context, errorCollector);
+        }
+
         field.extInfo = extInfo;
 
         // Читаем обработчики событий
         this.readEventHandlers(node, field, context, errorCollector);
-
-        // TODO: readViewStatusAddition - может потребоваться добавить когда будут реализованы Additions
-        // this.readViewStatusAddition(node.get('ViewStatusAddition'), ...)
 
         return field;
     }

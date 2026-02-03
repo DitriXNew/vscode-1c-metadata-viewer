@@ -9,6 +9,12 @@ import { Table } from '../../model/Table';
 import { FormItem } from '../../model/FormItem';
 import { DynamicListTableExtInfo } from '../../model/DynamicListTableExtInfo';
 import { EventHandler } from '../../model/EventHandler';
+import { SearchStringAdditionXmlPartReader } from '../additions/SearchStringAdditionXmlPartReader';
+import { ViewStatusAdditionXmlPartReader } from '../additions/ViewStatusAdditionXmlPartReader';
+import { SearchControlAdditionXmlPartReader } from '../additions/SearchControlAdditionXmlPartReader';
+import { AutoCommandBarXmlPartReader } from '../AutoCommandBarXmlPartReader';
+import { ContextMenuXmlPartReader } from '../contextmenu/ContextMenuXmlPartReader';
+import { ExtendedTooltipXmlPartReader } from '../extendedtooltip/ExtendedTooltipXmlPartReader';
 
 /** Свойства, которые указывают на DynamicListTableExtInfo */
 const DYNAMIC_LIST_FEATURES = [
@@ -26,12 +32,33 @@ type ChildItemsReaderCallback = (node: XmlNode, context: XmlReaderContext, error
 export class TableXmlPartReader extends AbstractFormXmlPartReader {
     
     private childItemsReader?: ChildItemsReaderCallback;
+    
+    // Ридеры для вложенных элементов
+    private readonly searchStringAdditionReader: SearchStringAdditionXmlPartReader;
+    private readonly viewStatusAdditionReader: ViewStatusAdditionXmlPartReader;
+    private readonly searchControlAdditionReader: SearchControlAdditionXmlPartReader;
+    private readonly autoCommandBarReader: AutoCommandBarXmlPartReader;
+    private readonly contextMenuReader: ContextMenuXmlPartReader;
+    private readonly extendedTooltipReader: ExtendedTooltipXmlPartReader;
+
+    constructor() {
+        super();
+        this.searchStringAdditionReader = new SearchStringAdditionXmlPartReader();
+        this.viewStatusAdditionReader = new ViewStatusAdditionXmlPartReader();
+        this.searchControlAdditionReader = new SearchControlAdditionXmlPartReader();
+        this.autoCommandBarReader = new AutoCommandBarXmlPartReader();
+        this.contextMenuReader = new ContextMenuXmlPartReader();
+        this.extendedTooltipReader = new ExtendedTooltipXmlPartReader();
+    }
 
     /**
      * Устанавливает callback для рекурсивного чтения дочерних элементов
      */
     setChildItemsReader(reader: ChildItemsReaderCallback): void {
         this.childItemsReader = reader;
+        // Также устанавливаем reader для вложенных элементов
+        this.autoCommandBarReader.setChildItemsReader(reader);
+        this.contextMenuReader.setChildItemsReader(reader);
     }
 
     /**
@@ -53,7 +80,7 @@ export class TableXmlPartReader extends AbstractFormXmlPartReader {
         table.enabled = this.readBoolean(node.get('Enabled'));
         
         // === Командная панель ===
-        // table.commandBarLocation = this.readEnum(node.get('CommandBarLocation')); // TODO: add to Table interface
+        table.commandBarLocation = this.readEnum(node.get('CommandBarLocation'));
         if (this.versionIsAtLeast(context, '8.5.1')) {
             this.readShowCommandBar(node, table, context, errorCollector);
         }
@@ -197,7 +224,12 @@ export class TableXmlPartReader extends AbstractFormXmlPartReader {
         table.shortcut = node.get('Shortcut').text();
         
         // === Исключённые команды ===
-        // TODO: readExcludedCommands
+        const excludedCommands = node.get('CommandSet').getAll('ExcludedCommand');
+        if (excludedCommands.length > 0) {
+            table.excludedCommands = excludedCommands
+                .map(cmd => cmd.text())
+                .filter((t): t is string => t !== undefined);
+        }
         
         // === Подсказка ===
         table.toolTip = this.readLocalizedString(node.get('ToolTip'));
@@ -233,19 +265,35 @@ export class TableXmlPartReader extends AbstractFormXmlPartReader {
         }
         
         // === Дополнения (Additions) ===
-        // TODO: readSearchStringAddition, readViewStatusAddition, readSearchControlAddition
+        const searchStringNode = node.get('SearchStringAddition');
+        if (searchStringNode.exists()) {
+            table.searchStringAddition = this.searchStringAdditionReader.read(searchStringNode, context, errorCollector);
+        }
+        
+        const viewStatusNode = node.get('ViewStatusAddition');
+        if (viewStatusNode.exists()) {
+            table.viewStatusAddition = this.viewStatusAdditionReader.read(viewStatusNode, context, errorCollector);
+        }
+        
+        const searchControlNode = node.get('SearchControlAddition');
+        if (searchControlNode.exists()) {
+            table.searchControlAddition = this.searchControlAdditionReader.read(searchControlNode, context, errorCollector);
+        }
         
         // === ExtInfo ===
         this.readTableExtInfo(node, table, context, errorCollector);
         
         // === AutoCommandBar ===
-        // TODO: readAutoCommandBar
+        const autoCommandBarNode = node.get('AutoCommandBar');
+        if (autoCommandBarNode.exists()) {
+            table.autoCommandBar = this.autoCommandBarReader.read(autoCommandBarNode, context, errorCollector);
+        }
         
         // === Контекстное меню ===
-        // TODO: readContextMenu
+        table.contextMenu = this.contextMenuReader.readFromParent(node, context, errorCollector);
         
         // === Расширенная подсказка ===
-        // TODO: readExtendedTooltip
+        table.extendedTooltip = this.extendedTooltipReader.readFromParent(node, context, errorCollector);
         
         // === Обработчики событий ===
         table.handlers = this.readEventHandlers(node.get('Events'));

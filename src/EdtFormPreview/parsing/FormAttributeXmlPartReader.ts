@@ -8,7 +8,7 @@ import { AbstractFormXmlPartReader, XmlReaderContext, XmlReadErrorCollector } fr
 import { FormAttribute, TypeDescription } from '../model/FormAttribute';
 import { DynamicListExtInfo } from '../model/DynamicListExtInfo';
 import { ValueListExtInfo } from '../model/ValueListExtInfo';
-import { SpreadsheetDocumentExtInfo } from '../model/SpreadsheetDocumentExtInfo';
+import { SpreadsheetDocumentExtInfo, SpreadsheetData, SpreadsheetSettings, SpreadsheetColumn, SpreadsheetRow } from '../model/SpreadsheetDocumentExtInfo';
 
 /**
  * Парсер атрибутов формы
@@ -183,7 +183,33 @@ export class FormAttributeXmlPartReader extends AbstractFormXmlPartReader {
 
                 // 8.3.18+
                 if (this.versionIsAtLeast(context, '8.3.18')) {
-                    // Fields, CalculatedFields, Parameters - TODO
+                    // Fields
+                    const fieldsNodes = settingsNode.getAll('Field');
+                    if (fieldsNodes.length > 0) {
+                        extInfo.fields = fieldsNodes.map(fieldNode => ({
+                            name: this.readString(fieldNode.get('Name')),
+                            alias: this.readString(fieldNode.get('Alias')),
+                            expression: this.readString(fieldNode.get('Expression'))
+                        }));
+                    }
+
+                    // CalculatedFields
+                    const calcFieldsNodes = settingsNode.getAll('CalculatedField');
+                    if (calcFieldsNodes.length > 0) {
+                        extInfo.calculatedFields = calcFieldsNodes.map(fieldNode => ({
+                            name: this.readString(fieldNode.get('Name')),
+                            expression: this.readString(fieldNode.get('Expression'))
+                        }));
+                    }
+
+                    // Parameters
+                    const paramsNodes = settingsNode.getAll('Parameter');
+                    if (paramsNodes.length > 0) {
+                        extInfo.parameters = paramsNodes.map(paramNode => ({
+                            name: this.readString(paramNode.get('Name')),
+                            value: this.readString(paramNode.get('Value'))
+                        }));
+                    }
                 }
             }
         } else if (attributeTypeName === 'ValueList') {
@@ -198,7 +224,9 @@ export class FormAttributeXmlPartReader extends AbstractFormXmlPartReader {
             attribute.extInfo = extInfo;
 
             if (attributeTypeName === settingsTypeName) {
-                // SpreadsheetData - TODO
+                // Читаем SpreadsheetData - EDT сохраняет XML как внешний контент (.mxlx файл)
+                // Для предпросмотра формы парсим основные настройки
+                extInfo.spreadsheetData = this.readSpreadsheetData(settingsNode);
             }
         }
         // Другие типы ExtInfo: ChartExtInfo, DendrogramExtInfo, etc. - добавить по необходимости
@@ -256,5 +284,71 @@ export class FormAttributeXmlPartReader extends AbstractFormXmlPartReader {
         }
 
         return { types };
+    }
+
+    /**
+     * Читает данные табличного документа (SpreadsheetData)
+     * EDT хранит это как внешний .mxlx файл, мы парсим основную структуру
+     */
+    private readSpreadsheetData(node: XmlNode): SpreadsheetData | undefined {
+        if (!node.exists()) {
+            return undefined;
+        }
+
+        const result: SpreadsheetData = {
+            hasContent: true
+        };
+
+        // Попробуем прочитать основные настройки из Settings
+        const settingsNode = node.get('Settings');
+        if (settingsNode.exists()) {
+            const settings: SpreadsheetSettings = {};
+
+            // ColumnCount
+            const columnCount = this.readNumber(settingsNode.get('ColumnCount'));
+            if (columnCount !== undefined) {
+                settings.columnCount = columnCount;
+            }
+
+            // RowCount
+            const rowCount = this.readNumber(settingsNode.get('RowCount'));
+            if (rowCount !== undefined) {
+                settings.rowCount = rowCount;
+            }
+
+            // Columns
+            const columnsNode = settingsNode.get('Columns');
+            if (columnsNode.exists()) {
+                const columns: SpreadsheetColumn[] = [];
+                for (const colNode of columnsNode.getAll('Column')) {
+                    columns.push({
+                        width: this.readNumber(colNode.get('Width'))
+                    });
+                }
+                if (columns.length > 0) {
+                    settings.columns = columns;
+                }
+            }
+
+            // Rows
+            const rowsNode = settingsNode.get('Rows');
+            if (rowsNode.exists()) {
+                const rows: SpreadsheetRow[] = [];
+                for (const rowNode of rowsNode.getAll('Row')) {
+                    rows.push({
+                        height: this.readNumber(rowNode.get('Height'))
+                    });
+                }
+                if (rows.length > 0) {
+                    settings.rows = rows;
+                }
+            }
+
+            if (Object.keys(settings).length > 0) {
+                result.settings = settings;
+            }
+        }
+
+        return result;
     }
 }

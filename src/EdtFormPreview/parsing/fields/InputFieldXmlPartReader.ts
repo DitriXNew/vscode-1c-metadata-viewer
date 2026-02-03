@@ -178,12 +178,18 @@ export class InputFieldXmlPartReader extends AbstractFormFieldXmlPartReader {
     /**
      * Читает ChoiceParameters
      */
-    private readChoiceParameters(node: XmlNode): any[] | undefined {
+    private readChoiceParameters(node: XmlNode): { name?: string; value?: unknown }[] | undefined {
         if (!node.exists()) {
             return undefined;
         }
-        // TODO: полная реализация
-        return undefined;
+        const items = node.getAll('Item');
+        if (items.length === 0) {
+            return undefined;
+        }
+        return items.map(item => ({
+            name: this.readString(item.get('Name')),
+            value: item.get('Value').text() // Значение может быть разных типов
+        }));
     }
 
     /**

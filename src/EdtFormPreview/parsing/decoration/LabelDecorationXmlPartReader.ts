@@ -49,9 +49,10 @@ export class LabelDecorationXmlPartReader extends AbstractDecorationXmlPartReade
         // Border
         extInfo.border = this.readBorder(node.get('Border'));
 
-        // Обработчики событий записываются и в decoration, и в extInfo
-        // Пока записываем только в decoration
-        // TODO: возможно нужно записывать в оба места
+        // Обработчики событий записываются и в decoration, и в extInfo (как в EDT)
+        if (decoration.handlers && decoration.handlers.length > 0) {
+            extInfo.handlers = [...decoration.handlers];
+        }
 
         return decoration;
     }
