@@ -3,7 +3,7 @@
  */
 export { Color } from './Color';
 export { Font } from './Font';
-export { ITheme, LightTheme, DarkTheme, getTheme, setTheme } from './Theme';
+export { ITheme, LightTheme, DarkTheme, getTheme, setTheme, Theme1CAdapter, createTaxiTheme, createDarkTaxiTheme } from './Theme';
 
 // Полная система тем 1С
 export {

@@ -49,8 +49,8 @@ export class AutoCommandBarXmlPartReader extends AbstractFormXmlPartReader {
             commandBar.id = id;
         }
 
-        // name
-        const name = node.attribute('name');
+        // name - читается из дочернего элемента <name>
+        const name = node.get('name').text();
         if (name && name.trim() !== '') {
             commandBar.name = name;
         }

@@ -125,3 +125,7 @@ export {
     IScrollPosition, 
     createScrolledContentComposite 
 } from './ScrolledContentComposite';
+export { 
+    FormFieldWrapper, 
+    TitleLocation 
+} from './FormFieldWrapper';

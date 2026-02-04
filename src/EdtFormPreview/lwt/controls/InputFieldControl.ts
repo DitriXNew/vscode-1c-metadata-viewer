@@ -4,6 +4,7 @@
  */
 import { LightControl } from '../core/LightControl';
 import { Rectangle } from '../geometry/Rectangle';
+import { Point } from '../geometry/Point';
 import { getTheme, ITheme, Color, Font } from '../theme';
 
 /**
@@ -237,6 +238,20 @@ export class InputFieldControl extends LightControl {
             width: Math.max(100, Math.ceil(metrics.width) + theme.padding * 2 + this.getButtonsWidth()),
             height: height
         };
+    }
+
+    /**
+     * Вычисляет предпочтительный размер (без контекста - использует стандартные значения)
+     */
+    computePreferredSize(wHint: number, hHint: number): Point {
+        const theme = getTheme();
+        const height = this._multiline ? theme.controlHeight * 3 : theme.controlHeight;
+        const width = 150 + this.getButtonsWidth();  // Default width
+
+        return new Point(
+            wHint >= 0 ? wHint : width,
+            hHint >= 0 ? hHint : height
+        );
     }
 
     /**

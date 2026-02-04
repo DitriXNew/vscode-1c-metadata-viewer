@@ -48,7 +48,12 @@ export class RadioButtonFieldXmlPartReader extends AbstractFormFieldXmlPartReade
         extInfo.equalElementsWidth = this.readBoolean(node.get('EqualColumnsWidth'));
 
         // ChoiceList/Item/Value
-        const choiceListItems = node.get('ChoiceList').getAll('Item');
+        // Ищем элементы с разными namespace префиксами (xr:Item или Item)
+        const choiceListNode = node.get('ChoiceList');
+        let choiceListItems = choiceListNode.getAll('xr:Item');
+        if (choiceListItems.length === 0) {
+            choiceListItems = choiceListNode.getAll('Item');
+        }
         if (choiceListItems.length > 0) {
             extInfo.choiceList = choiceListItems.map(item => this.readChoiceListItem(item));
         }
@@ -85,20 +90,37 @@ export class RadioButtonFieldXmlPartReader extends AbstractFormFieldXmlPartReade
 
     /**
      * Читает элемент списка выбора
+     * Структура XML: xr:Item/xr:Value[@xsi:type="FormChoiceListDesTimeValue"]/Presentation/v8:item/v8:content
      */
     private readChoiceListItem(node: XmlNode): FormChoiceListDesTimeValue {
         const item: FormChoiceListDesTimeValue = {
             presentation: {}
         };
         
-        // Presentation
-        const presentationNode = node.get('Presentation');
-        if (presentationNode.exists()) {
-            item.presentation = this.readLocalizedString(presentationNode) ?? {};
+        // Value содержит вложенный объект с Presentation и Value
+        // xr:Value.Presentation.v8:item.v8:content - текст опции
+        // xr:Value.Value - числовое значение
+        const valueNode = node.get('xr:Value');
+        if (valueNode.exists()) {
+            // Presentation находится внутри xr:Value
+            const presentationNode = valueNode.get('Presentation');
+            if (presentationNode.exists()) {
+                item.presentation = this.readLocalizedString(presentationNode) ?? {};
+            }
+            
+            // Числовое значение в Value.Value
+            const innerValueNode = valueNode.get('Value');
+            if (innerValueNode.exists()) {
+                item.value = innerValueNode.text();
+            }
+        } else {
+            // Fallback для старого формата
+            const presentationNode = node.get('Presentation');
+            if (presentationNode.exists()) {
+                item.presentation = this.readLocalizedString(presentationNode) ?? {};
+            }
+            item.value = this.readValue(node.get('Value'));
         }
-        
-        // Value
-        item.value = this.readValue(node.get('Value'));
         
         // Picture
         item.picture = this.readPicture(node.get('Picture'));

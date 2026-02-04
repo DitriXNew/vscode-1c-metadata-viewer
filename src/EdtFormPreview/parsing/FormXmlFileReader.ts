@@ -58,6 +58,12 @@ export class FormXmlFileReader extends AbstractFormXmlPartReader {
         this.parameterReader = new FormParameterXmlPartReader();
         this.childItemsReader = new FormChildItemsXmlPartReader();
         this.autoCommandBarReader = new AutoCommandBarXmlPartReader();
+        
+        // Устанавливаем callback для чтения дочерних элементов в AutoCommandBar
+        this.autoCommandBarReader.setChildItemsReader(
+            (childItemsNode, context, errorCollector) => 
+                this.childItemsReader.read(childItemsNode, context, errorCollector)
+        );
     }
 
     /**
@@ -154,7 +160,7 @@ export class FormXmlFileReader extends AbstractFormXmlPartReader {
         if (autoCommandBarNode.exists()) {
             const commandBar = this.autoCommandBarReader.read(autoCommandBarNode, context, errorCollector);
             if (commandBar) {
-                form.commandBar = commandBar;
+                form.autoCommandBar = commandBar;
             }
         }
 

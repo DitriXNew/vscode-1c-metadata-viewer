@@ -63,10 +63,12 @@ export class SimpleErrorCollector implements XmlReadErrorCollector {
 export abstract class AbstractFormXmlPartReader {
     
     /**
-     * Читает имя из атрибута name
+     * Читает имя из дочернего элемента <name>
      */
     protected readNamedElement(node: XmlNode, element: NamedElement): void {
-        const name = node.attribute('name');
+        // В XML структуре name - это дочерний элемент, не атрибут: <name>Code</name>
+        const nameNode = node.get('name');
+        const name = nameNode.text();
         if (name) {
             element.name = name;
         }
@@ -122,6 +124,14 @@ export abstract class AbstractFormXmlPartReader {
      *     <value>Заголовок</value>
      *   </LocalizedString>
      * </Title>
+     * 
+     * Или формат v8:item:
+     * <Presentation>
+     *   <v8:item>
+     *     <v8:lang>en_CA</v8:lang>
+     *     <v8:content>Text</v8:content>
+     *   </v8:item>
+     * </Presentation>
      */
     protected readLocalizedString(node: XmlNode): LocalizedString | undefined {
         if (!node.exists()) {
@@ -143,6 +153,19 @@ export abstract class AbstractFormXmlPartReader {
             return Object.keys(result).length > 0 ? result : undefined;
         }
 
+        // Формат v8:item (из ChoiceList)
+        const v8Items = node.getAll('v8:item');
+        if (v8Items.length > 0) {
+            for (const item of v8Items) {
+                const lang = item.get('v8:lang').text() || '';
+                const content = item.get('v8:content').text();
+                if (content !== undefined) {
+                    result[lang] = content;
+                }
+            }
+            return Object.keys(result).length > 0 ? result : undefined;
+        }
+
         // Простой формат - прямой текст
         const text = node.text();
         if (text) {
@@ -153,10 +176,12 @@ export abstract class AbstractFormXmlPartReader {
     }
 
     /**
-     * Читает id элемента
+     * Читает id элемента из дочернего элемента <id>
      */
     protected readId(node: XmlNode): number | undefined {
-        const idStr = node.attribute('id');
+        // В XML структуре id - это дочерний элемент: <id>5</id>
+        const idNode = node.get('id');
+        const idStr = idNode.text();
         if (idStr === undefined) {
             return undefined;
         }
@@ -165,10 +190,11 @@ export abstract class AbstractFormXmlPartReader {
     }
 
     /**
-     * Читает DisplayImportance из атрибута
+     * Читает DisplayImportance из дочернего элемента
      */
     protected readDisplayImportance(node: XmlNode): DisplayImportance | undefined {
-        const value = node.attribute('DisplayImportance');
+        const displayNode = node.get('DisplayImportance');
+        const value = displayNode.text();
         if (value === 'Auto' || value === 'VeryLow' || value === 'Low' || 
             value === 'High' || value === 'VeryHigh') {
             return value;

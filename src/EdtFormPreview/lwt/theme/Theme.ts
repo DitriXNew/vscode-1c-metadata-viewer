@@ -251,3 +251,102 @@ export function getTheme(): ITheme {
 export function setTheme(theme: ITheme): void {
     currentTheme = theme;
 }
+
+// Импортируем тему 1С для адаптера
+import { TaxiTheme, DarkTaxiTheme, I1CTheme } from './Theme1C';
+
+/**
+ * Адаптер для преобразования I1CTheme в ITheme
+ * Позволяет использовать TaxiTheme с существующими контролами
+ */
+export class Theme1CAdapter implements ITheme {
+    constructor(private _source: I1CTheme) {}
+
+    // Основные цвета
+    get background(): Color { return this._source.formBackground; }
+    get foreground(): Color { return this._source.formTextColor; }
+    get border(): Color { return this._source.borderColor; }
+
+    // Цвета для контролов
+    get inputBackground(): Color { return this._source.inputBackground; }
+    get inputForeground(): Color { return this._source.inputForeground; }
+    get inputBorder(): Color { return this._source.inputBorder; }
+    get inputBorderFocused(): Color { return this._source.inputBorderFocused; }
+
+    // Кнопки
+    get buttonBackground(): Color { return this._source.buttonBackground; }
+    get buttonForeground(): Color { return this._source.buttonForeground; }
+    get buttonBorder(): Color { return this._source.buttonBorder; }
+    get buttonBackgroundHover(): Color { return this._source.buttonBackgroundHover; }
+    get buttonBackgroundPressed(): Color { return this._source.buttonBackgroundPressed; }
+
+    // Группы
+    get groupBackground(): Color { return this._source.groupBackground; }
+    get groupBorder(): Color { return this._source.groupBorder; }
+    get groupTitleForeground(): Color { return this._source.groupTitleColor; }
+
+    // Таблицы
+    get tableHeaderBackground(): Color { return this._source.tableHeaderBackground; }
+    get tableHeaderForeground(): Color { return this._source.tableHeaderForeground; }
+    get tableRowBackground(): Color { return this._source.tableBackground; }
+    get tableRowAlternateBackground(): Color { return this._source.tableAlternateRow; }
+    get tableGridColor(): Color { return this._source.tableGridHorizontal; }
+    get tableSelectionBackground(): Color { return this._source.tableSelectionBackground; }
+    get tableSelectionForeground(): Color { return this._source.tableSelectionForeground; }
+
+    // Состояния
+    get disabledForeground(): Color { return this._source.disabledTextColor; }
+    get disabledBackground(): Color { return this._source.groupBackground; }
+    get errorColor(): Color { return this._source.errorColor; }
+    get warningColor(): Color { return this._source.warningColor; }
+
+    // Дополнительные цвета
+    get inputBorderActive(): Color { return this._source.inputBorderFocused; }
+    get placeholderForeground(): Color { return this._source.placeholderColor; }
+    get selectionBackground(): Color { return this._source.tableSelectionBackground; }
+
+    // Контролы общие
+    get controlBackground(): Color { return this._source.buttonBackground; }
+    get controlHoverBackground(): Color { return this._source.buttonBackgroundHover; }
+    get controlPressedBackground(): Color { return this._source.buttonBackgroundPressed; }
+    get focusBorder(): Color { return this._source.tableFocusBorder; }
+
+    // Scrollbar
+    get scrollbarTrack(): Color { return this._source.scrollbarBackground; }
+    get scrollbarThumb(): Color { return this._source.scrollbarThumb; }
+    get scrollbarThumbHover(): Color { return this._source.scrollbarThumbHover; }
+    get scrollbarThumbActive(): Color { return this._source.scrollbarThumbPressed; }
+
+    // Разделители
+    get separator(): Color { return this._source.buttonSeparator; }
+    get separatorShadow(): Color { return this._source.formBackground; }
+    get separatorDark(): Color { return this._source.borderColor; }
+    get separatorLight(): Color { return this._source.formBackground; }
+
+    // Шрифты
+    get defaultFont(): Font { return this._source.defaultFont; }
+    get titleFont(): Font { return this._source.titleFont; }
+    get smallFont(): Font { return this._source.smallFont; }
+
+    // Размеры
+    get borderRadius(): number { return this._source.borderRadius; }
+    get controlHeight(): number { return this._source.controlHeight; }
+    get padding(): number { return this._source.padding; }
+
+    // Доступ к исходной 1С теме
+    get source1C(): I1CTheme { return this._source; }
+}
+
+/**
+ * Создаёт адаптированную тему 1С
+ */
+export function createTaxiTheme(): ITheme {
+    return new Theme1CAdapter(new TaxiTheme());
+}
+
+/**
+ * Создаёт тёмную адаптированную тему 1С
+ */
+export function createDarkTaxiTheme(): ITheme {
+    return new Theme1CAdapter(new DarkTaxiTheme());
+}

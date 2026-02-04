@@ -1,13 +1,19 @@
 /**
  * EdtFormPreview - модуль для предпросмотра форм EDT
+ * Использует Canvas рендеринг с LWT контролами
  */
 
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 import { FormXmlFileReader, FormXmlReaderResult } from './parsing/FormXmlFileReader';
+import { Form } from './model/Form';
 
 export { Form } from './model/Form';
 export { FormXmlFileReader, FormXmlReaderResult } from './parsing/FormXmlFileReader';
+
+// Экспорт LWT для внешнего использования
+export * from './lwt';
 
 /**
  * Парсит форму EDT из XML строки
@@ -21,13 +27,71 @@ export function parseEdtForm(xmlContent: string, version: string = '8.3.24'): Fo
 }
 
 /**
- * Предпросмотр формы EDT
+ * Менеджер WebView панелей для превью форм
+ */
+class EdtFormPreviewManager {
+    private static instance: EdtFormPreviewManager;
+    private panels: Map<string, vscode.WebviewPanel> = new Map();
+
+    private constructor() {}
+
+    static getInstance(): EdtFormPreviewManager {
+        if (!EdtFormPreviewManager.instance) {
+            EdtFormPreviewManager.instance = new EdtFormPreviewManager();
+        }
+        return EdtFormPreviewManager.instance;
+    }
+
+    getOrCreatePanel(
+        formPath: string,
+        title: string,
+        extensionUri: vscode.Uri
+    ): vscode.WebviewPanel {
+        // Проверяем есть ли уже открытая панель для этой формы
+        const existingPanel = this.panels.get(formPath);
+        if (existingPanel) {
+            existingPanel.reveal();
+            return existingPanel;
+        }
+
+        // Создаём новую панель
+        const panel = vscode.window.createWebviewPanel(
+            'edtFormPreview',
+            title,
+            vscode.ViewColumn.One,
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true,
+                localResourceRoots: [
+                    vscode.Uri.joinPath(extensionUri, 'out', 'webview'),
+                    vscode.Uri.joinPath(extensionUri, 'resources')
+                ]
+            }
+        );
+
+        // Удаляем панель из кэша при закрытии
+        panel.onDidDispose(() => {
+            this.panels.delete(formPath);
+        });
+
+        this.panels.set(formPath, panel);
+        return panel;
+    }
+}
+
+/**
+ * Предпросмотр формы EDT с Canvas рендерингом
  * @param confPath Путь к конфигурации
  * @param formPath Путь к файлу формы
  * @param extensionUri URI расширения
  * @param label Метка для заголовка
  */
-export function previewEdtForm(confPath: string, formPath: string, extensionUri: vscode.Uri, label: string | undefined): void {
+export function previewEdtForm(
+    confPath: string,
+    formPath: string,
+    extensionUri: vscode.Uri,
+    label: string | undefined
+): void {
     // Читаем XML файл формы
     let xmlContent: string;
     try {
@@ -40,144 +104,210 @@ export function previewEdtForm(confPath: string, formPath: string, extensionUri:
     // Парсим форму
     const result = parseEdtForm(xmlContent);
 
-    // Создаем WebView панель
-    const panel = vscode.window.createWebviewPanel(
-        'edtFormPreview',
-        label || 'Предпросмотр формы EDT',
-        vscode.ViewColumn.One,
-        {
-            enableScripts: true,
-            localResourceRoots: [extensionUri]
-        }
+    if (result.errors.length > 0) {
+        // Показываем ошибки парсинга
+        vscode.window.showWarningMessage(
+            `Форма распознана с ошибками: ${result.errors.length} ошибок`
+        );
+    }
+
+    // Получаем или создаём WebView панель
+    const manager = EdtFormPreviewManager.getInstance();
+    const title = label ? `Предпросмотр: ${label}` : 'Предпросмотр формы EDT';
+    const panel = manager.getOrCreatePanel(formPath, title, extensionUri);
+
+    // Генерируем HTML с Canvas
+    const webviewScriptUri = panel.webview.asWebviewUri(
+        vscode.Uri.joinPath(extensionUri, 'out', 'webview', 'edtFormPreview.js')
     );
 
-    // Генерируем HTML
-    panel.webview.html = generateFormHtml(result, label);
+    panel.webview.html = generateCanvasHtml(webviewScriptUri, result, label);
+
+    // Обработка сообщений от WebView
+    panel.webview.onDidReceiveMessage(
+        (message) => {
+            switch (message.type) {
+                case 'ready':
+                    // WebView готов, отправляем данные формы
+                    console.log('[EXT] Sending form to WebView');
+                    console.log('[EXT] form.items:', result.form.items?.length);
+                    if (result.form.items) {
+                        for (let i = 0; i < Math.min(result.form.items.length, 3); i++) {
+                            const item = result.form.items[i] as any;
+                            console.log(`[EXT] Item ${i}:`, item?.name, 'type:', item?.type, 'title:', JSON.stringify(item?.title));
+                        }
+                    }
+                    console.log('[EXT] autoCommandBar:', result.form.autoCommandBar?.name, 'items:', (result.form.autoCommandBar as any)?.items?.length);
+                    panel.webview.postMessage({
+                        type: 'renderForm',
+                        data: {
+                            form: result.form,
+                            options: { locale: 'ru' }
+                        }
+                    });
+                    break;
+                case 'renderComplete':
+                    console.log('Form rendered:', message.data);
+                    break;
+                case 'error':
+                    vscode.window.showErrorMessage(`Ошибка рендеринга: ${message.data}`);
+                    break;
+            }
+        },
+        undefined,
+        []
+    );
+
+    // Обновляем тему при смене
+    vscode.window.onDidChangeActiveColorTheme((theme) => {
+        panel.webview.postMessage({
+            type: 'setTheme',
+            data: { dark: theme.kind === vscode.ColorThemeKind.Dark }
+        });
+    });
 }
 
 /**
- * Генерирует HTML для предпросмотра формы
+ * Генерирует HTML с Canvas для рендеринга формы
  */
-function generateFormHtml(result: FormXmlReaderResult, label: string | undefined): string {
-    const form = result.form;
-    
-    let content = '';
-    
-    if (result.errors.length > 0) {
-        content = `<div class="error">
-            <h3>Ошибки при парсинге формы:</h3>
-            <ul>${result.errors.map(e => `<li>${escapeHtml(e)}</li>`).join('')}</ul>
-        </div>`;
-    } else {
-        // Заголовок формы
-        let titleHtml = '';
-        if (form.title) {
-            const titleText = typeof form.title === 'string' ? form.title : getLocalizedValue(form.title);
-            titleHtml = `<h2 class="form-title">${escapeHtml(titleText)}</h2>`;
-        }
-        
-        // Реквизиты формы
-        let attributesHtml = '';
-        if (form.attributes && form.attributes.length > 0) {
-            attributesHtml = `<div class="form-attributes">
-                <h4>Реквизиты (${form.attributes.length})</h4>
-                <ul>${form.attributes.map(attr => `<li>${escapeHtml(attr.name || '')}</li>`).join('')}</ul>
-            </div>`;
-        }
-        
-        // Элементы формы
-        let itemsHtml = '';
-        if (form.items && form.items.length > 0) {
-            itemsHtml = `<div class="form-items">
-                <h4>Элементы формы (${form.items.length})</h4>
-                ${renderFormItems(form.items)}
-            </div>`;
-        }
-        
-        // Команды формы
-        let commandsHtml = '';
-        if (form.formCommands && form.formCommands.length > 0) {
-            commandsHtml = `<div class="form-commands">
-                <h4>Команды (${form.formCommands.length})</h4>
-                <ul>${form.formCommands.map(cmd => `<li>${escapeHtml(cmd.name || '')}</li>`).join('')}</ul>
-            </div>`;
-        }
-        
-        content = `<div class="edt-form-preview">
-            ${titleHtml}
-            ${attributesHtml}
-            ${itemsHtml}
-            ${commandsHtml}
-        </div>`;
-    }
-    
+function generateCanvasHtml(
+    scriptUri: vscode.Uri,
+    result: FormXmlReaderResult,
+    label: string | undefined
+): string {
+    const nonce = getNonce();
+    const title = escapeHtml(label || 'Предпросмотр формы EDT');
+
+    // Информация о форме для отладки
+    const formInfo = result.form;
+    const itemsCount = countItems(formInfo.items || []);
+    const attributesCount = formInfo.attributes?.length || 0;
+    const commandsCount = formInfo.formCommands?.length || 0;
+
     return `<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>${escapeHtml(label || 'Предпросмотр формы EDT')}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}'; style-src 'unsafe-inline';">
+    <title>${title}</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--vscode-editor-background, #1e1e1e);
+            color: var(--vscode-editor-foreground, #cccccc);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--vscode-titleBar-activeBackground, #3c3c3c);
+            border-bottom: 1px solid var(--vscode-panel-border, #454545);
+            font-size: 12px;
+        }
+        .toolbar-title {
+            flex: 1;
+            font-weight: 500;
+        }
+        .toolbar-info {
+            color: var(--vscode-descriptionForeground, #8b8b8b);
+        }
+        .canvas-container {
+            flex: 1;
+            overflow: auto;
+            position: relative;
+        }
+        #formCanvas {
+            display: block;
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--vscode-progressBar-background, #0e70c0);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .error-message {
             padding: 20px;
-            background: var(--vscode-editor-background);
-            color: var(--vscode-editor-foreground);
-        }
-        .error { 
-            color: #cc0000; 
-            background: #ffeeee; 
-            padding: 15px; 
-            border-radius: 4px; 
-        }
-        .error h3 { margin-top: 0; }
-        .edt-form-preview { }
-        .form-title { margin-bottom: 20px; }
-        .form-attributes, .form-items, .form-commands {
-            margin-bottom: 20px;
-            padding: 10px;
-            background: var(--vscode-sideBar-background);
+            background: var(--vscode-inputValidation-errorBackground, #5a1d1d);
+            border: 1px solid var(--vscode-inputValidation-errorBorder, #be1100);
             border-radius: 4px;
+            margin: 20px;
         }
-        h4 { margin-top: 0; color: var(--vscode-textLink-foreground); }
-        ul { margin: 0; padding-left: 20px; }
-        li { padding: 2px 0; }
     </style>
 </head>
 <body>
-    ${content}
+    <div class="container">
+        <div class="toolbar">
+            <span class="toolbar-title">${title}</span>
+            <span class="toolbar-info">
+                Элементов: ${itemsCount} | 
+                Реквизитов: ${attributesCount} | 
+                Команд: ${commandsCount}
+            </span>
+        </div>
+        <div class="canvas-container">
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 10px;">Загрузка формы...</p>
+            </div>
+            <canvas id="formCanvas"></canvas>
+        </div>
+    </div>
+    <script nonce="${nonce}" src="${scriptUri}"></script>
 </body>
 </html>`;
 }
 
 /**
- * Рендерит элементы формы рекурсивно
+ * Подсчитывает количество элементов рекурсивно
  */
-function renderFormItems(items: any[], level: number = 0): string {
-    let html = `<ul style="margin-left: ${level * 20}px;">`;
-
+function countItems(items: any[]): number {
+    let count = items.length;
     for (const item of items) {
-        const name = item.name || 'Unknown';
-        html += `<li>${escapeHtml(name)}`;
-
-        // Рекурсивно для дочерних элементов
-        if (item.items && Array.isArray(item.items) && item.items.length > 0) {
-            html += renderFormItems(item.items, level + 1);
+        if (item.items && Array.isArray(item.items)) {
+            count += countItems(item.items);
         }
-
-        html += `</li>`;
     }
-
-    html += `</ul>`;
-    return html;
+    return count;
 }
 
 /**
- * Получает значение из локализованной строки
+ * Генерирует уникальный nonce для CSP
  */
-function getLocalizedValue(localized: Record<string, string>): string {
-    if (!localized) return '';
-    // Предпочтение русскому языку, затем английскому, затем первому доступному
-    return localized['ru'] || localized['en'] || Object.values(localized)[0] || '';
+function getNonce(): string {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 32; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
 }
 
 /**

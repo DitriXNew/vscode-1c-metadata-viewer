@@ -176,7 +176,7 @@ export class LightComposite extends LightControl implements ILightComposite {
      * Отрисовывает фон
      */
     protected paintBackground(_ctx: CanvasRenderingContext2D, _clip: Rectangle): void {
-        // По умолчанию ничего не рисуем
+        // По умолчанию ничего не рисуем - контейнер прозрачный
     }
 
     /**
@@ -190,30 +190,27 @@ export class LightComposite extends LightControl implements ILightComposite {
      * Отрисовывает дочерние контролы
      */
     protected paintChildren(ctx: CanvasRenderingContext2D, clip: Rectangle): void {
+        console.log('[PAINT] paintChildren called, children:', this._children.length, 'clip:', clip.toString());
+        
         for (const child of this._children) {
             if (!child.isVisible()) {
+                console.log('[PAINT] child not visible:', (child as any).constructor?.name);
                 continue;
             }
 
             const bounds = child.getBounds();
+            console.log('[PAINT] child bounds:', bounds.toString(), 'constructor:', (child as any).constructor?.name);
             
             // Пересчитываем clip для дочернего контрола
             const childClip = clip.intersection(bounds);
             if (childClip.isEmpty()) {
+                console.log('[PAINT] childClip is empty, skipping');
                 continue;
             }
 
-            // Сохраняем состояние и смещаем координаты
-            ctx.save();
-            ctx.translate(bounds.x, bounds.y);
-
-            // Корректируем clip для локальных координат
-            const localClip = childClip.translated(-bounds.x, -bounds.y);
-
-            // Отрисовываем
-            child.paint(ctx, localClip);
-
-            ctx.restore();
+            // НЕ делаем translate - контролы рисуют в своих абсолютных координатах
+            console.log('[PAINT] painting child with clip:', childClip.toString());
+            child.paint(ctx, childClip);
         }
     }
 

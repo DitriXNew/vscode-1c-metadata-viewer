@@ -14,7 +14,8 @@
             },
             "problemMatcher": ["$tsc"],
             "presentation": {
-                "reveal": "silent"
+                "reveal": "silent",
+                "close": true
             }
         },
         {

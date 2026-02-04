@@ -67,7 +67,7 @@ export class TableXmlPartReader extends AbstractFormXmlPartReader {
     read(node: XmlNode, context: XmlReaderContext, errorCollector: XmlReadErrorCollector): Table {
         const table: Table = {
             id: this.readId(node) ?? 0,
-            name: node.attribute('name') ?? ''
+            name: node.get('name').text() ?? ''
         };
         
         // Устанавливаем тип для идентификации

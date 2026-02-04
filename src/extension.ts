@@ -8,6 +8,18 @@ import { previewEdtForm } from './EdtFormPreview';
 import { TreeItem } from './ConfigurationFormats/utils';
 
 export function activate(context: vscode.ExtensionContext) {
+	// Регистрация команды предпросмотра формы по пути (в начале, чтобы была доступна сразу)
+	registerPreviewFormByPathCommand(context);
+
+	// Проверяем переменную окружения для автоматического открытия формы
+	const previewFormPath = process.env.PREVIEW_FORM_PATH;
+	if (previewFormPath) {
+		// Немного задержки чтобы расширение полностью активировалось
+		setTimeout(() => {
+			vscode.commands.executeCommand('metadataViewer.previewFormByPath', previewFormPath);
+		}, 1000);
+	}
+
 	vscode.commands.registerCommand('metadataViewer.openAppModule', (node: TreeItem) => {
 		let filePath = '';
 		if (node.configType === 'xml') {
@@ -181,4 +193,89 @@ function PreviewForm(confPath: string,
 ) {
 	const previewer = new FormPreviewer(confPath, rootFilePath, filePath);
 	previewer.openPreview(extensionUri, nodeDescription);
+}
+
+/**
+ * Предпросмотр формы EDT по пути к файлу
+ * Можно вызвать из командной строки: 
+ *   code --extensionDevelopmentPath=. --file-uri "command:metadataViewer.previewFormByPath?%5B%22путь%22%5D"
+ * Или программно: vscode.commands.executeCommand('metadataViewer.previewFormByPath', 'C:/path/to/Form.form')
+ */
+function registerPreviewFormByPathCommand(context: vscode.ExtensionContext) {
+	vscode.commands.registerCommand('metadataViewer.previewFormByPath', (formPath?: string) => {
+		// Если путь не передан, запрашиваем через диалог
+		if (!formPath) {
+			vscode.window.showOpenDialog({
+				canSelectFiles: true,
+				canSelectFolders: false,
+				canSelectMany: false,
+				filters: {
+					'1C Form': ['form', 'xml'],
+					'All files': ['*']
+				},
+				title: 'Выберите файл формы 1С'
+			}).then(uris => {
+				if (uris && uris.length > 0) {
+					openFormPreview(uris[0].fsPath, context.extensionUri);
+				}
+			});
+			return;
+		}
+
+		openFormPreview(formPath, context.extensionUri);
+	});
+}
+
+/**
+ * Открывает предпросмотр формы
+ */
+function openFormPreview(formPath: string, extensionUri: vscode.Uri) {
+	// Проверяем существование файла
+	if (!fs.existsSync(formPath)) {
+		vscode.window.showErrorMessage(`Файл не найден: ${formPath}`);
+		return;
+	}
+
+	// Определяем тип формы по расширению и содержимому
+	const ext = formPath.toLowerCase();
+	
+	if (ext.endsWith('.form') || ext.endsWith('form.form')) {
+		// EDT формат
+		const pathParts = formPath.split(/[\/\\]/);
+		const srcIndex = pathParts.findIndex(p => p === 'src');
+		const confPath = srcIndex > 0 ? pathParts.slice(0, srcIndex + 1).join('/') : '';
+		
+		// Получаем имя формы из пути
+		const formName = pathParts[pathParts.length - 2] || 'Form';
+		
+		previewEdtForm(confPath, formPath, extensionUri, formName);
+	} else if (ext.endsWith('.xml')) {
+		// Может быть XML формат конфигуратора или EDT в XML
+		const content = fs.readFileSync(formPath, 'utf-8');
+		
+		if (content.includes('<Form ') || content.includes('<Form>')) {
+			// Это форма - проверяем namespace
+			const pathParts = formPath.split(/[\/\\]/);
+			const formName = pathParts[pathParts.length - 1].replace('.xml', '');
+			
+			if (content.includes('xmlns="http://v8.1c.ru/8.3/xcf/readable/form"')) {
+				// EDT формат в XML (readable)
+				const confPath = pathParts.slice(0, -2).join('/');
+				previewEdtForm(confPath, formPath, extensionUri, formName);
+			} else if (content.includes('http://v8.1c.ru/8.3/xcf/logform') || 
+					   content.includes('http://v8.1c.ru/8.2/managed-application/logform')) {
+				// XML формат конфигуратора - тоже поддерживаем через наш парсер!
+				const confPath = pathParts.slice(0, -1).join('/');
+				previewEdtForm(confPath, formPath, extensionUri, formName);
+			} else {
+				// Неизвестный формат - пробуем открыть
+				const confPath = pathParts.slice(0, -1).join('/');
+				previewEdtForm(confPath, formPath, extensionUri, formName);
+			}
+		} else {
+			vscode.window.showErrorMessage('Файл не является формой 1С');
+		}
+	} else {
+		vscode.window.showErrorMessage('Неподдерживаемый формат файла. Ожидается .form или .xml');
+	}
 }

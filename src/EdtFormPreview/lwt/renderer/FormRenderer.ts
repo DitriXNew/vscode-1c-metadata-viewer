@@ -4,7 +4,7 @@
  */
 import { ILightControl, ILightComposite } from '../core/interfaces';
 import { Rectangle } from '../geometry/Rectangle';
-import { getTheme, ITheme, setTheme, LightTheme, DarkTheme } from '../theme';
+import { getTheme, ITheme, setTheme, LightTheme, DarkTheme, createTaxiTheme, createDarkTaxiTheme } from '../theme';
 
 /**
  * Опции рендерера
@@ -51,8 +51,8 @@ export class FormRenderer {
             ...options
         };
 
-        // Применяем тему
-        setTheme(this._options.darkTheme ? new DarkTheme() : new LightTheme());
+        // Применяем тему 1С
+        setTheme(this._options.darkTheme ? createDarkTaxiTheme() : createTaxiTheme());
 
         // Настраиваем canvas под DPI
         this.setupCanvas();
@@ -345,8 +345,8 @@ export class FormRenderer {
      */
     setDarkTheme(dark: boolean): void {
         this._options.darkTheme = dark;
-        setTheme(dark ? new DarkTheme() : new LightTheme());
-        this._options.backgroundColor = dark ? '#1E1E1E' : '#F0F0F0';
+        setTheme(dark ? createDarkTaxiTheme() : createTaxiTheme());
+        this._options.backgroundColor = dark ? '#1E1E1E' : '#FFFFFF';
         this.invalidate();
     }
 

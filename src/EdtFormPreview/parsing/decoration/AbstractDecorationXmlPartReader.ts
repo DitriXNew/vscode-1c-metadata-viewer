@@ -30,7 +30,7 @@ export abstract class AbstractDecorationXmlPartReader extends AbstractFormXmlPar
     protected readDecoration(node: XmlNode, context: XmlReaderContext, errorCollector: XmlReadErrorCollector): Decoration {
         const decoration: Decoration = {
             id: this.readId(node) ?? 0,
-            name: node.attribute('name') ?? ''
+            name: node.get('name').text() ?? ''
         };
 
         // DisplayImportance

@@ -26,7 +26,7 @@ export class ButtonXmlPartReader extends AbstractFormXmlPartReader {
     read(node: XmlNode, context: XmlReaderContext, _errorCollector: XmlReadErrorCollector): Button {
         const button: Button = {
             id: this.readId(node) ?? 0,
-            name: node.attribute('name') ?? ''
+            name: node.get('name').text() ?? ''
         };
 
         // DisplayImportance

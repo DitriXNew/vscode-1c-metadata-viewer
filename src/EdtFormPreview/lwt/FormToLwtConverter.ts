@@ -49,6 +49,8 @@ import {
     ImageComboControl,
     ColorBoxControl,
     ScrolledContentComposite,
+    FormFieldWrapper,
+    TitleLocation,
     createColumn,
     createCommandBarItem,
     createTabPage
@@ -56,6 +58,7 @@ import {
 
 // Layouts
 import { FillLayout } from '../lwt/layouts/FillLayout';
+import { RowLayout, LayoutType } from '../lwt/layouts/RowLayout';
 import { GridLayout } from '../lwt/layouts/GridLayout';
 
 /**
@@ -162,12 +165,21 @@ export class FormToLwtConverter {
     /**
      * Создаёт layout для формы
      */
-    private createFormLayout(form: Form): FillLayout | GridLayout {
-        // По умолчанию используем вертикальный FillLayout (512 = VERTICAL)
-        const layout = new FillLayout(512);
+    private createFormLayout(form: Form): RowLayout {
+        // Используем вертикальный RowLayout для стека элементов
+        // pack=true - каждый элемент получает свой preferred size
+        // fill=true - растягивает элементы по горизонтали
+        const layout = new RowLayout(LayoutType.VERTICAL);
         layout.marginWidth = 8;
         layout.marginHeight = 8;
+        layout.marginLeft = 0;
+        layout.marginTop = 0;
+        layout.marginRight = 0;
+        layout.marginBottom = 0;
         layout.spacing = 4;
+        layout.pack = true;  // Каждый элемент получает preferred size по высоте
+        layout.fill = true;  // Растягиваем по ширине
+        layout.wrap = false;
         return layout;
     }
     
@@ -177,20 +189,29 @@ export class FormToLwtConverter {
     private convertFormItem(item: any): ILightControl | null {
         if (!item) return null;
         
+        console.log('[CONVERTER] convertFormItem:', item.name, 'type:', item.type);
+        
         // Определяем тип элемента по его структуре
         // ВАЖНО: порядок проверок имеет значение!
-        // Table должна проверяться до FormField, т.к. у неё есть type='Table' который содержит 'Field'-подобные свойства
+        // Table должна проверяться до FormField, т.к. у неё есть type='Table' (но не 'Field')
+        // FormField должен проверяться ДО Button, т.к. RadioButtonField содержит 'Button'
         if (this.isTable(item)) {
+            console.log('[CONVERTER] -> isTable');
             return this.convertTable(item as Table);
+        } else if (this.isFormField(item)) {
+            console.log('[CONVERTER] -> isFormField');
+            return this.convertFormField(item as FormField);
         } else if (this.isButton(item)) {
+            console.log('[CONVERTER] -> isButton');
             return this.convertButton(item as Button);
         } else if (this.isFormGroup(item)) {
+            console.log('[CONVERTER] -> isFormGroup');
             return this.convertFormGroup(item as FormGroup);
         } else if (this.isDecoration(item)) {
+            console.log('[CONVERTER] -> isDecoration');
             return this.convertDecoration(item as Decoration);
-        } else if (this.isFormField(item)) {
-            return this.convertFormField(item as FormField);
         } else {
+            console.log('[CONVERTER] -> UNKNOWN');
             this.warnings.push(`Неизвестный тип элемента: ${item.name || 'без имени'}`);
             return null;
         }
@@ -206,7 +227,7 @@ export class FormToLwtConverter {
     private isFormGroup(item: any): boolean {
         return item.type !== undefined && typeof item.type === 'string' &&
                (item.type.includes('Group') || item.type === 'Pages' || item.type === 'Page' ||
-                item.type === 'CommandBar' || item.type === 'Popup');
+                item.type === 'CommandBar' || item.type === 'AutoCommandBar' || item.type === 'Popup');
     }
     
     private isButton(item: any): boolean {
@@ -288,20 +309,70 @@ export class FormToLwtConverter {
         }
         
         if (control) {
+            // Оборачиваем в FormFieldWrapper если нужен заголовок
+            control = this.wrapWithTitle(field, control);
             this.registerControl(field, control);
             this.applyCommonFieldProperties(control, field);
         }
         
         return control;
     }
+
+    /**
+     * Оборачивает поле в FormFieldWrapper с заголовком
+     */
+    private wrapWithTitle(field: FormField, innerControl: ILightControl): ILightControl {
+        // Получаем titleLocation из поля
+        const titleLocationStr = (field as any).titleLocation || 'Left';
+        
+        // Если None, не оборачиваем
+        if (titleLocationStr === 'None' || !field.title) {
+            return innerControl;
+        }
+
+        // Для CheckBox и RadioButton заголовок обычно внутри контрола
+        const fieldType = field.type as string;
+        if (fieldType === 'CheckBoxField' || fieldType === 'RadioButtonField') {
+            return innerControl;
+        }
+
+        // Создаём wrapper
+        const wrapper = new FormFieldWrapper();
+        wrapper.title = this.getLocalizedString(field.title);
+        wrapper.fieldControl = innerControl as LightControl;
+
+        // Устанавливаем titleLocation
+        switch (titleLocationStr) {
+            case 'Left':
+                wrapper.titleLocation = TitleLocation.Left;
+                break;
+            case 'Top':
+                wrapper.titleLocation = TitleLocation.Top;
+                break;
+            case 'Right':
+                wrapper.titleLocation = TitleLocation.Right;
+                break;
+            case 'Bottom':
+                wrapper.titleLocation = TitleLocation.Bottom;
+                break;
+            case 'None':
+                wrapper.titleLocation = TitleLocation.None;
+                break;
+            case 'Auto':
+            default:
+                wrapper.titleLocation = TitleLocation.Left;
+                break;
+        }
+
+        return wrapper;
+    }
     
     // ===== Создание контролов полей =====
     
     private createInputField(field: FormField): InputFieldControl {
         const control = new InputFieldControl();
-        const title = this.getLocalizedString(field.title);
-        // InputFieldControl не имеет label, используем placeholder или text
-        control.placeholder = title || field.name || '';
+        // Заголовок теперь в FormFieldWrapper, не нужен placeholder
+        control.placeholder = '';
         control.readOnly = field.readOnly || false;
         
         // Получаем extInfo для дополнительных настроек
@@ -312,6 +383,10 @@ export class FormToLwtConverter {
             }
             if (extInfo.passwordMode) {
                 control.passwordMode = true;
+            }
+            // inputHint как placeholder
+            if (extInfo.inputHint) {
+                control.placeholder = this.getLocalizedString(extInfo.inputHint) || '';
             }
         }
         
@@ -350,13 +425,22 @@ export class FormToLwtConverter {
     private createRadioButtonField(field: FormField): RadioButtonGroup {
         const control = new RadioButtonGroup();
         
-        // Получаем опции из extInfo
+        // choiceList находится в extInfo после парсинга
         const extInfo = field.extInfo as any;
-        if (extInfo?.choiceList) {
-            const options = extInfo.choiceList.map((item: any) => ({
-                value: item.value || item,
-                label: this.getLocalizedString(item.presentation) || String(item.value || item)
-            }));
+        const choiceList = extInfo?.choiceList;
+        
+        if (choiceList && Array.isArray(choiceList)) {
+            const options = choiceList.map((item: any) => {
+                // FormChoiceListDesTimeValue: { presentation: LocalizedString, value: string }
+                // presentation - это объект LocalizedString: { ru: '...', en: '...' }
+                // или объект с v8:item если не был преобразован
+                const text = this.getLocalizedString(item.presentation) || 
+                             String(item.value ?? 'Option');
+                return {
+                    value: item.value ?? '',
+                    text
+                };
+            });
             control.options = options;
         }
         
@@ -447,6 +531,7 @@ export class FormToLwtConverter {
                 control = this.createPageGroup(group);
                 break;
             case 'CommandBar':
+            case 'AutoCommandBar':
                 control = this.createCommandBar(group);
                 break;
             case 'ButtonGroup':
@@ -480,6 +565,9 @@ export class FormToLwtConverter {
         const title = this.getLocalizedString(group.title);
         control.title = this.options.showGroupTitles ? (title || group.name || '') : '';
         control.collapsible = false;
+        
+        // Устанавливаем layout для детей
+        control.setLayout(new FillLayout(512)); // VERTICAL
         
         // Добавляем дочерние элементы
         this.addGroupChildren(control, group);
@@ -613,6 +701,7 @@ export class FormToLwtConverter {
     private createContextMenu(group: FormGroup): LightComposite {
         // ContextMenu как контейнер
         const control = new LightComposite();
+        control.setLayout(new FillLayout(512)); // VERTICAL
         return control;
     }
     
@@ -620,6 +709,9 @@ export class FormToLwtConverter {
         const control = new GroupControl();
         const title = this.getLocalizedString(group.title);
         control.title = title || group.name || 'Группа';
+        
+        // Устанавливаем layout для детей
+        control.setLayout(new FillLayout(512)); // VERTICAL
         
         this.addGroupChildren(control, group);
         
@@ -786,6 +878,17 @@ export class FormToLwtConverter {
         
         // Объект с локализациями
         const loc = value as any;
+        
+        // Формат { values: { ru: "...", en: "..." } }
+        if (loc.values) {
+            const values = loc.values;
+            if (values[this.options.locale!]) return values[this.options.locale!];
+            if (values.ru) return values.ru;
+            if (values.en) return values.en;
+            const keys = Object.keys(values);
+            if (keys.length > 0) return values[keys[0]];
+        }
+        
         if (loc[this.options.locale!]) {
             return loc[this.options.locale!];
         }

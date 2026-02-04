@@ -5,6 +5,7 @@
 import { LightComposite } from '../core/LightComposite';
 import { LightControl } from '../core/LightControl';
 import { Rectangle } from '../geometry/Rectangle';
+import { Point } from '../geometry/Point';
 import { Dimension } from '../geometry';
 import { getTheme, ITheme, Color, Font } from '../theme';
 import { Button83Styles, HippoThemeLargeFont } from '../theme/ControlStyles';
@@ -274,6 +275,17 @@ export class CommandBarControl extends LightComposite {
         }
 
         return new Dimension(width, this._rowHeight + 6);
+    }
+
+    /**
+     * Переопределение для layout
+     */
+    computePreferredSize(wHint: number, hHint: number): Point {
+        const dim = this.calculatePreferredSize();
+        return new Point(
+            wHint >= 0 ? wHint : dim.width,
+            hHint >= 0 ? hHint : dim.height
+        );
     }
 
     // ========================================================================
