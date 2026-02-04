@@ -65,42 +65,41 @@ export {
     SplitterOrientation, 
     SplitterStyle 
 } from './SplitterControl';
-// TODO: Эти контролы требуют переработки для совместимости с LWT API
-// export { 
-//     SpinnerControl, 
-//     SpinnerValueType, 
-//     IntegerSpinnerControl, 
-//     FloatSpinnerControl, 
-//     createSpinner 
-// } from './SpinnerControl';
-// export { 
-//     ListControl, 
-//     IListItem, 
-//     ListSelectionMode, 
-//     createListItem, 
-//     createListFromStrings 
-// } from './ListControl';
-// export { 
-//     ImageControl, 
-//     ImageScaleMode, 
-//     ImageAlignment, 
-//     createImage 
-// } from './ImageControl';
-// export { 
-//     SeparatorControl, 
-//     SeparatorOrientation, 
-//     SeparatorStyle, 
-//     HorizontalSeparator, 
-//     VerticalSeparator, 
-//     createSeparator as createSeparatorControl 
-// } from './SeparatorControl';
-// export { 
-//     FormattedTextControl, 
-//     ITextSegment, 
-//     ITextStyle, 
-//     TextSegmentType, 
-//     createFormattedText 
-// } from './FormattedTextControl';
+export { 
+    SpinnerControl, 
+    SpinnerValueType, 
+    IntegerSpinnerControl, 
+    FloatSpinnerControl, 
+    createSpinner 
+} from './SpinnerControl';
+export { 
+    ListControl, 
+    IListItem, 
+    ListSelectionMode, 
+    createListItem, 
+    createListFromStrings 
+} from './ListControl';
+export { 
+    ImageControl, 
+    ImageScaleMode, 
+    ImageAlignment, 
+    createImage 
+} from './ImageControl';
+export { 
+    SeparatorControl, 
+    SeparatorOrientation, 
+    SeparatorStyle, 
+    HorizontalSeparator, 
+    VerticalSeparator, 
+    createSeparator as createSeparatorControl 
+} from './SeparatorControl';
+export { 
+    FormattedTextControl, 
+    ITextSegment, 
+    ITextStyle, 
+    TextSegmentType, 
+    createFormattedText 
+} from './FormattedTextControl';
 export { 
     ControlDecoration, 
     DecorationType, 
@@ -119,12 +118,10 @@ export {
     DEFAULT_COLOR_PALETTE, 
     createColorBox 
 } from './ColorBoxControl';
-
-// TODO: ScrolledContentComposite требует доработки LightComposite API
-// export { 
-//     ScrolledContentComposite, 
-//     NavigationPlacement, 
-//     NavigationVisibility, 
-//     IScrollPosition, 
-//     createScrolledContentComposite 
-// } from './ScrolledContentComposite';
+export { 
+    ScrolledContentComposite, 
+    NavigationPlacement, 
+    NavigationVisibility, 
+    IScrollPosition, 
+    createScrolledContentComposite 
+} from './ScrolledContentComposite';

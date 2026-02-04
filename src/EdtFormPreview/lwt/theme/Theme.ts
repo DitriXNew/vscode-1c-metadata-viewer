@@ -64,6 +64,12 @@ export interface ITheme {
     scrollbarThumbHover: Color;
     scrollbarThumbActive: Color;
 
+    // Разделители
+    separator: Color;
+    separatorShadow: Color;
+    separatorDark: Color;
+    separatorLight: Color;
+
     // Шрифты
     defaultFont: Font;
     titleFont: Font;
@@ -134,6 +140,12 @@ export class LightTheme implements ITheme {
     scrollbarThumbHover = Color.fromHex('#A8A8A8');
     scrollbarThumbActive = Color.fromHex('#787878');
 
+    // Разделители
+    separator = Color.fromHex('#C0C0C0');
+    separatorShadow = Color.fromHex('#FFFFFF');
+    separatorDark = Color.fromHex('#A0A0A0');
+    separatorLight = Color.fromHex('#FFFFFF');
+
     // Шрифты
     defaultFont = new Font('Segoe UI, Tahoma, Arial, sans-serif', 12);
     titleFont = new Font('Segoe UI, Tahoma, Arial, sans-serif', 14, true);
@@ -203,6 +215,12 @@ export class DarkTheme implements ITheme {
     scrollbarThumb = Color.fromHex('#5A5A5A');
     scrollbarThumbHover = Color.fromHex('#6E6E6E');
     scrollbarThumbActive = Color.fromHex('#8A8A8A');
+
+    // Разделители
+    separator = Color.fromHex('#474747');
+    separatorShadow = Color.fromHex('#3C3C3C');
+    separatorDark = Color.fromHex('#2D2D2D');
+    separatorLight = Color.fromHex('#5A5A5A');
 
     // Шрифты
     defaultFont = new Font('Segoe UI, Tahoma, Arial, sans-serif', 12);
