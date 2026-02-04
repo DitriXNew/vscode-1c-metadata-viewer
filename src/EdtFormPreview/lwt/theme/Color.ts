@@ -86,4 +86,60 @@ export class Color {
     clone(): Color {
         return new Color(this.r, this.g, this.b, this.a);
     }
+
+    /**
+     * Создаёт копию с изменённой прозрачностью
+     */
+    withAlpha(alpha: number): Color {
+        return new Color(this.r, this.g, this.b, alpha);
+    }
+
+    /**
+     * Сравнивает два цвета
+     */
+    equals(other: Color): boolean {
+        return this.r === other.r && 
+               this.g === other.g && 
+               this.b === other.b && 
+               this.a === other.a;
+    }
+
+    /**
+     * Статическое сравнение двух цветов
+     */
+    static equals(a: Color | null, b: Color | null): boolean {
+        if (a === null && b === null) return true;
+        if (a === null || b === null) return false;
+        return a.equals(b);
+    }
+
+    /**
+     * Создаёт Color из CSS строки (rgb, rgba, hex)
+     */
+    static fromString(str: string): Color {
+        // Попытка парсинга HEX
+        if (str.startsWith('#')) {
+            return Color.fromHex(str);
+        }
+        
+        // Попытка парсинга rgb/rgba
+        const rgbaMatch = /rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\s*\)/.exec(str);
+        if (rgbaMatch) {
+            return new Color(
+                parseInt(rgbaMatch[1], 10),
+                parseInt(rgbaMatch[2], 10),
+                parseInt(rgbaMatch[3], 10),
+                rgbaMatch[4] ? parseFloat(rgbaMatch[4]) : 1
+            );
+        }
+        
+        return new Color(0, 0, 0);
+    }
+
+    /**
+     * Получить значение alpha
+     */
+    get alpha(): number {
+        return this.a;
+    }
 }

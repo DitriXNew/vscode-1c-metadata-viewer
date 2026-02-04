@@ -47,6 +47,23 @@ export interface ITheme {
     errorColor: Color;
     warningColor: Color;
 
+    // Дополнительные цвета
+    inputBorderActive: Color;
+    placeholderForeground: Color;
+    selectionBackground: Color;
+
+    // Контролы общие
+    controlBackground: Color;
+    controlHoverBackground: Color;
+    controlPressedBackground: Color;
+    focusBorder: Color;
+
+    // Scrollbar
+    scrollbarTrack: Color;
+    scrollbarThumb: Color;
+    scrollbarThumbHover: Color;
+    scrollbarThumbActive: Color;
+
     // Шрифты
     defaultFont: Font;
     titleFont: Font;
@@ -100,6 +117,23 @@ export class LightTheme implements ITheme {
     errorColor = Color.fromHex('#FF0000');
     warningColor = Color.fromHex('#FFA500');
 
+    // Дополнительные цвета
+    inputBorderActive = Color.fromHex('#569DE5');
+    placeholderForeground = Color.fromHex('#A0A0A0');
+    selectionBackground = new Color(255, 225, 0); // 1С жёлтый
+
+    // Контролы общие
+    controlBackground = Color.fromHex('#E1E1E1');
+    controlHoverBackground = Color.fromHex('#C9DEF5');
+    controlPressedBackground = Color.fromHex('#A4C8E8');
+    focusBorder = Color.fromHex('#569DE5');
+
+    // Scrollbar
+    scrollbarTrack = Color.fromHex('#F0F0F0');
+    scrollbarThumb = Color.fromHex('#C1C1C1');
+    scrollbarThumbHover = Color.fromHex('#A8A8A8');
+    scrollbarThumbActive = Color.fromHex('#787878');
+
     // Шрифты
     defaultFont = new Font('Segoe UI, Tahoma, Arial, sans-serif', 12);
     titleFont = new Font('Segoe UI, Tahoma, Arial, sans-serif', 14, true);
@@ -152,6 +186,23 @@ export class DarkTheme implements ITheme {
     disabledBackground = Color.fromHex('#2D2D2D');
     errorColor = Color.fromHex('#F14C4C');
     warningColor = Color.fromHex('#CCA700');
+
+    // Дополнительные цвета
+    inputBorderActive = Color.fromHex('#007ACC');
+    placeholderForeground = Color.fromHex('#6B6B6B');
+    selectionBackground = new Color(255, 225, 0); // 1С жёлтый
+
+    // Контролы общие
+    controlBackground = Color.fromHex('#3C3C3C');
+    controlHoverBackground = Color.fromHex('#505050');
+    controlPressedBackground = Color.fromHex('#007ACC');
+    focusBorder = Color.fromHex('#007ACC');
+
+    // Scrollbar
+    scrollbarTrack = Color.fromHex('#2D2D2D');
+    scrollbarThumb = Color.fromHex('#5A5A5A');
+    scrollbarThumbHover = Color.fromHex('#6E6E6E');
+    scrollbarThumbActive = Color.fromHex('#8A8A8A');
 
     // Шрифты
     defaultFont = new Font('Segoe UI, Tahoma, Arial, sans-serif', 12);

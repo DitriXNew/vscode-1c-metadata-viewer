@@ -218,4 +218,9 @@ export class Rectangle {
     toString(): string {
         return `Rectangle(${this.x}, ${this.y}, ${this.width}, ${this.height})`;
     }
+
+    /**
+     * Пустой прямоугольник
+     */
+    static EMPTY = new Rectangle(0, 0, 0, 0);
 }

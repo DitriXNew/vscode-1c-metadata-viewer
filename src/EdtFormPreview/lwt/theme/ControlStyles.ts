@@ -211,7 +211,9 @@ export const TableSizes = {
     layerLineWidth: 19,
     requiredFieldYOffset: 1,
     defaultGridCellWidth: 20,                             // kDefaultGridCellWidth
-    hierListIcon83Size: { width: 13, height: 13 }
+    hierListIcon83Size: { width: 13, height: 13 },
+    minTableWidth: 100,                                   // Минимальная ширина таблицы
+    minTableHeight: 50                                    // Минимальная высота таблицы
 };
 
 // ============================================================================
@@ -246,6 +248,22 @@ export const CalendarStyles = {
     currentPanelBorderColor: new Color(255, 215, 92),     // kNewUICurrentPanelBorderColor #FFD75C золотистая
     currentCellPenColor: new Color(0, 163, 61),           // kNewUICurrentCellPenColor #00A33D зелёная
     yearPopupBorderPenColor: new Color(138, 138, 138),    // kNewUIYearPopupBorderPenColor #8A8A8A
+
+    // Дополнительные цвета для рендеринга
+    panelBackground: new Color(255, 255, 255),            // Фон панели календаря (белый)
+    headerBackground: new Color(249, 249, 249),           // Фон заголовка
+    headerTitleTextColor: new Color(51, 51, 51),          // Цвет текста заголовка
+    navButtonTextColor: new Color(100, 100, 100),         // Цвет стрелок навигации
+    weekDayBackground: new Color(249, 249, 249),          // Фон строки дней недели
+    weekDayTextColor: new Color(51, 51, 51),              // Цвет текста дней недели
+    weekendTextColor: new Color(255, 74, 0),              // Цвет выходных (красноватый)
+    weekNumberBackground: new Color(245, 245, 245),       // Фон номера недели
+    weekNumberTextColor: new Color(160, 160, 160),        // Цвет текста номера недели
+    otherMonthTextColor: new Color(180, 180, 180),        // Цвет дней других месяцев
+    selectedDayBackground: new Color(255, 225, 0),        // Фон выбранного дня (жёлтый 1С)
+    selectedDayTextColor: new Color(51, 51, 51),          // Текст выбранного дня
+    hoveredDayBackground: new Color(250, 219, 31),        // Фон дня при наведении
+    todayBorderColor: new Color(70, 151, 206),            // Рамка сегодняшнего дня
 
     // Размеры
     borderGap: 12                                          // kNewUIBorderGap
