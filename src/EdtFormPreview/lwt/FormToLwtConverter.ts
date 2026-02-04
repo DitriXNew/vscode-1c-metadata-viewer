@@ -178,16 +178,18 @@ export class FormToLwtConverter {
         if (!item) return null;
         
         // Определяем тип элемента по его структуре
-        if (this.isFormField(item)) {
-            return this.convertFormField(item as FormField);
-        } else if (this.isFormGroup(item)) {
-            return this.convertFormGroup(item as FormGroup);
+        // ВАЖНО: порядок проверок имеет значение!
+        // Table должна проверяться до FormField, т.к. у неё есть type='Table' который содержит 'Field'-подобные свойства
+        if (this.isTable(item)) {
+            return this.convertTable(item as Table);
         } else if (this.isButton(item)) {
             return this.convertButton(item as Button);
-        } else if (this.isTable(item)) {
-            return this.convertTable(item as Table);
+        } else if (this.isFormGroup(item)) {
+            return this.convertFormGroup(item as FormGroup);
         } else if (this.isDecoration(item)) {
             return this.convertDecoration(item as Decoration);
+        } else if (this.isFormField(item)) {
+            return this.convertFormField(item as FormField);
         } else {
             this.warnings.push(`Неизвестный тип элемента: ${item.name || 'без имени'}`);
             return null;
@@ -198,7 +200,7 @@ export class FormToLwtConverter {
     
     private isFormField(item: any): boolean {
         return item.type !== undefined && typeof item.type === 'string' && 
-               (item.type.includes('Field') || item.dataPath !== undefined);
+               item.type.includes('Field');
     }
     
     private isFormGroup(item: any): boolean {
@@ -209,12 +211,14 @@ export class FormToLwtConverter {
     
     private isButton(item: any): boolean {
         return item.commandName !== undefined || 
-               (item.type !== undefined && item.type.includes('Button'));
+               (item.type !== undefined && typeof item.type === 'string' && 
+                (item.type.includes('Button') || item.type === 'UsualButton'));
     }
     
     private isTable(item: any): boolean {
-        return item.representation !== undefined && item.items !== undefined &&
-               (item.type === undefined || !item.type.includes('Group'));
+        // Table имеет type='Table' или representation свойство
+        return (item.type !== undefined && typeof item.type === 'string' && item.type === 'Table') ||
+               (item.representation !== undefined && item.items !== undefined);
     }
     
     private isDecoration(item: any): boolean {
