@@ -21,3 +21,6 @@ export * from './controls';
 
 // Renderer
 export * from './renderer';
+
+// Form converter
+export * from './FormToLwtConverter';
